@@ -1,0 +1,119 @@
+@import 'variables';
+
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+html {
+    font-size: 20px;
+}
+.landing {
+    height: 100%;
+}
+.slide {
+    background: #CDDEE6;
+    //background: url('/web/images/slide_2.png');
+    //background-size: cover;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    &__container {
+        height: 100%;
+        margin: auto;
+        display: flex;
+        overflow: hidden;
+        //padding-right: 50%;
+        //background: url('/web/images/slide_2.png') 90% 50% no-repeat;
+        //background-clip: content-box;
+    }
+    &__content {
+        //margin: auto;
+        padding: 50px;
+        //background: $one-slide-content-background;
+        //display: table-cell;
+        //vertical-align: middle;
+    }
+    &__desc {
+        color: white;
+        font-size: 1.7rem;
+        //font-family: 'TakaoPGothic';
+        font-family: 'Calibri';
+    }
+    &__bar {
+        text-align: center;
+        margin-top: 20px;
+    }
+    &__button {
+        text-decoration: none;
+        background: $one-slide-color;
+        color: white;
+        font-size: 1rem;
+        font-weight: bold;
+        padding: 8px 18px;
+        border-radius: 7px;
+        font-family: 'Calibri';
+        margin: auto;
+        display: inline-block;
+        &:hover {
+            background: darken($color: $one-slide-color, $amount: 10);
+        }
+    }
+    &__image {
+        margin: auto;
+        //flex-grow: 5;
+        //padding: 50px;
+        //float: right;
+    }
+}
+.header {
+    background: $header-background;
+    padding: 20px 15px;
+    &__sitename {
+        font-size: 1rem;
+        color: $header-color;
+        text-transform: uppercase;
+        font-family: 'TakaoPGothic';
+    }
+    &__links {
+        float: right;
+    }
+}
+.header-links {
+    font-family: 'Calibri';
+    &__link {
+        color: $header-link-color;
+        font-size: 1rem;
+        text-decoration: none;
+        padding: 8px;
+        margin-right: 10px;
+        border-bottom: solid 1px transparent;
+        transition: 0.15s;
+        &:hover {
+            border-bottom-color: $header-link-color;
+            //color: darken($color: $header-link-color, $amount: 10)
+        }
+    }
+    &__button {
+        text-decoration: none;
+        background: $header-color;
+        color: white;
+        font-size: 1rem;
+        font-weight: bold;
+        padding: 8px 18px;
+        border-radius: 7px;
+        &:hover {
+            background: darken($color: $header-color, $amount: 10);
+        }
+    }
+}
+.footer {
+    background: $header-background;
+    color: $header-link-color;
+    font-family: 'Calibri';
+    font-size: 0.9rem;
+    padding: 20px 20px;
+    & > * {
+        display: block;
+    }
+}

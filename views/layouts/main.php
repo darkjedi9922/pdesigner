@@ -4,9 +4,6 @@
 /* @var $content string */
 
 use yii\helpers\Html;
-use app\assets\AppAsset;
-
-AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -17,7 +14,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
+    <link rel="stylesheet" href="/web/css/landing.css">
 </head>
 <body>
 <?php $this->beginBody() ?>

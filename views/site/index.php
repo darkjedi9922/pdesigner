@@ -1,8 +1,6 @@
 <?php
 
 /** @var $this yii\web\View */
-
-$this->title = 'PDesigner';
 ?>
 
 <div class="landing">
@@ -10,7 +8,7 @@ $this->title = 'PDesigner';
         <div class="header">
             <span class="header__sitename">Project Designer</span>
             <div class="header__links header-links">
-                <a href="#" class="header-links__link">Вход</a>
+                <a href="/web/index.php?r=site/login" class="header-links__link">Вход</a>
                 <a href="#" class="header-links__button">Регистрация</a>
             </div>
         </div>

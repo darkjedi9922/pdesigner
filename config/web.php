@@ -52,6 +52,7 @@ $config = [
         ],
         */
     ],
+    'name' => 'PDesigner',
     'params' => $params,
 ];
 

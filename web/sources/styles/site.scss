@@ -140,3 +140,18 @@ body {
         color: darken($ok-color, 10);
     }
 }
+
+.breadcrumbs {
+    &__link {
+        color: $link-color;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    &__divisor:before {
+        content: ' / ';
+        color: grey;
+        font-style: normal;
+    }
+}

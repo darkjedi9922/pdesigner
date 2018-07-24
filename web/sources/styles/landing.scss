@@ -13,8 +13,6 @@ html {
 }
 .slide {
     background: #CDDEE6;
-    //background: url('/web/images/slide_2.png');
-    //background-size: cover;
     min-height: 100%;
     display: flex;
     flex-direction: column;
@@ -23,21 +21,13 @@ html {
         margin: auto;
         display: flex;
         overflow: hidden;
-        //padding-right: 50%;
-        //background: url('/web/images/slide_2.png') 90% 50% no-repeat;
-        //background-clip: content-box;
     }
     &__content {
-        //margin: auto;
         padding: 50px;
-        //background: $one-slide-content-background;
-        //display: table-cell;
-        //vertical-align: middle;
     }
     &__desc {
         color: white;
         font-size: 1.7rem;
-        //font-family: 'TakaoPGothic';
         font-family: 'Calibri';
     }
     &__bar {
@@ -61,9 +51,6 @@ html {
     }
     &__image {
         margin: auto;
-        //flex-grow: 5;
-        //padding: 50px;
-        //float: right;
     }
 }
 .header {
@@ -89,9 +76,9 @@ html {
         margin-right: 10px;
         border-bottom: solid 1px transparent;
         transition: 0.15s;
+        outline: none;
         &:hover {
             border-bottom-color: $header-link-color;
-            //color: darken($color: $header-link-color, $amount: 10)
         }
     }
     &__button {
@@ -102,6 +89,8 @@ html {
         font-weight: bold;
         padding: 8px 18px;
         border-radius: 7px;
+        border: none;
+        outline: none;
         &:hover {
             background: darken($color: $header-color, $amount: 10);
         }

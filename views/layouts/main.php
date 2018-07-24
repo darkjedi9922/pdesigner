@@ -4,8 +4,12 @@
 /** @var $content string */
 
 use yii\helpers\Html;
+use app\assets\LandingAsset;
+
+LandingAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
+
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
@@ -14,7 +18,7 @@ use yii\helpers\Html;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= $this->title ? Html::encode($this->title) : Yii::$app->name ?></title>
-    <link rel="stylesheet" href="/web/css/landing.css">
+    <?= $this->head() ?>
 </head>
 <body>
 <?php $this->beginBody() ?>

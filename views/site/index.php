@@ -1,6 +1,8 @@
 <?php
 
 /** @var $this yii\web\View */
+
+$isLogged = !Yii::$app->user->isGuest;
 ?>
 
 <div class="landing">
@@ -8,8 +10,18 @@
         <div class="header">
             <span class="header__sitename">Project Designer</span>
             <div class="header__links header-links">
-                <a href="/web/index.php?r=site/login" class="header-links__link">Вход</a>
-                <a href="#" class="header-links__button">Регистрация</a>
+                <?php if ($isLogged): ?>
+                    <form action="/web/index.php?r=site/logout" method="post">
+                        <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
+                        <label>
+                            <input type="submit" style="display:none">
+                            <a class="header-links__button">Выход</a>
+                        </label>
+                    </form>
+                <?php else: ?>
+                    <a href="/web/index.php?r=site/login" class="header-links__link">Вход</a>
+                    <a href="#" class="header-links__button">Регистрация</a>
+                <?php endif ?>
             </div>
         </div>
         <div class="slide__container">

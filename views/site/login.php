@@ -1,47 +1,39 @@
 <?php
 
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model app\models\LoginForm */
+/** @var \yii\web\View $this */
 
-use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
-
-$this->title = 'Login';
-$this->params['breadcrumbs'][] = $this->title;
+$this->context->layout = 'simple'; // эта страница имеет свой собственный шаблон
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
-
-    <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
-        'layout' => 'horizontal',
-        'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-1 control-label'],
-        ],
-    ]); ?>
-
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-
-        <?= $form->field($model, 'password')->passwordInput() ?>
-
-        <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-        ]) ?>
-
-        <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+<div class="desk">
+    <div class="box box--page-centered">
+        <form class="login-form" action="#" method="post">
+            <div class="login-form__field">
+                <span class="login-form__label">Логин:</span>
+                <div class="login-form__input-container">
+                    <div class="login-form__icon">
+                        <i class="icon user"></i>
+                    </div><input class="login-form__input" type="text" name="login">
+                </div>
             </div>
-        </div>
-
-    <?php ActiveForm::end(); ?>
-
-    <div class="col-lg-offset-1" style="color:#999;">
-        You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-        To modify the username/password, please check out the code <code>app\models\User::$users</code>.
+            <div class="login-form__field">
+                <span class="login-form__label">Пароль:</span>
+                <div class="login-form__input-container">
+                    <div class="login-form__icon">
+                        <i class="icon lock"></i>
+                    </div><input class="login-form__input" type="password" name="password">
+                </div>
+            </div>
+            <div class="login-form__field">
+                <label class="form-checkbox">
+                    <input class="form-checkbox__input" type="checkbox" name="remember">
+                    <div class="form-checkbox__box">
+                        <i class="icon check"></i>
+                    </div>
+                    <span class="form-checkbox__label">Запомнить меня</span>
+                </label>
+            </div>
+            <button class="login-form__button">Войти</button>
+        </form>
     </div>
 </div>

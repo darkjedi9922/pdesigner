@@ -1,0 +1,142 @@
+@import 'site-variables';
+@import 'fonts';
+@import '../../libs/normalize.css';
+@import '../../libs/semantic/icon.css';
+
+html, body {
+    height: 100%;
+}
+html {
+    font-size: 18px;
+    font-family: 'Greta Sans Light';
+    //height: 100%;
+}
+body {
+    background: $background;
+    //min-height: 100%;
+}
+
+.desk {
+    padding: 10px 20px;
+    flex-grow: 1;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.box {
+    background: $box-background;
+    padding: 15px;
+    &:not(:first-of-type) {
+        margin-top: 15px;
+    }
+    &--page-centered {
+        display: table; // для margin auto и вместо display inline-block (ибо вместе они не работают)
+        margin: auto;
+        margin-top: 10%;
+        padding: 25px;
+    }
+}
+
+.login-form {
+    font-size: 1.1rem;
+    &__field {
+        clear: both;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+    &__field--ok &__icon {
+        background: $ok-color;
+    }
+    &__field--ok &__input {
+        border-color: $ok-color;
+        color: $ok-color;
+    }
+    &__field--error &__icon {
+        background: $error-color;
+    }
+    &__field--error &__input {
+        border-color: $error-color;
+        color: $error-color;
+    }
+    &__label {
+        margin-right: 10px;
+        padding-top: 10px;
+        line-height: 27px; /* 1 */
+    }
+    &__input-container {
+        float: right;
+    }
+    &__icon {
+        line-height: 27px + 4px; /* 1 + 2 * 2 */
+        background: darken($input-color, 10);
+        color: white;
+        border-radius: 5px 0 0 5px;
+        display: inline-block;
+        height: 27px + 4px; /* 1 + 2 * 2 */
+        width: 27px + 4px; /* 1 + 2 * 2 */
+        text-align: center;
+        i.icon {
+            font-size: 0.9rem;
+            margin-right: 0; /* костыль для переопределения самого semantic свойства */
+        }
+    }
+    &__input {
+        border: solid 2px $input-color; /* 2 */
+        border-left: 0;
+        border-radius: 0 5px 5px 0;
+        color: darken($input-color, 10);
+        padding: 0 7px;
+        height: 27px; /* 1 */
+        outline: none;
+    }
+    &__button {
+        border: none;
+        border-radius: 5px;
+        background: $form-button-color;
+        color: white;
+        padding: 7px 15px;
+        &:hover {
+            background: darken($form-button-color, 10);
+        }
+    }
+}
+
+.form-checkbox {
+    &__input {
+        display: none;
+    }
+    &__box {
+        display: inline-block;
+        border: solid 2px $input-color;
+        border-radius: 5px;
+        text-align: center;
+        line-height: 20px;
+        height: 20px;
+        width: 20px;
+        color: $input-color;
+        i.icon {
+            visibility: hidden;
+            font-size: 0.9rem;
+            margin-right: 0;
+        }
+    }
+    &__input:checked + &__box {
+        border-color: $ok-color;
+        color: $ok-color;
+    }
+    &__input:checked + &__box i.icon {
+        visibility: visible;
+    }
+    &__input:checked + &__box + &__label {
+        color: $ok-color;
+    }
+    &:hover &__input:not(:checked) + &__box {
+        border-color: darken($input-color, 10);
+    }
+    &:hover &__input:checked + &__box {
+        border-color: darken($ok-color, 10);
+    }
+    &:hover &__input:checked + &__box + &__label {
+        color: darken($ok-color, 10);
+    }
+}

@@ -5,23 +5,22 @@
 
 use yii\helpers\Html;
 ?>
-<?php $this->beginPage() ?>
+
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?= Html::csrfMetaTags() ?>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?= $this->title ? Html::encode($this->title) : Yii::$app->name ?></title>
-    <link rel="stylesheet" href="/web/css/landing.css">
+    <link rel="stylesheet" href="/web/css/site.css">
 </head>
 <body>
-<?php $this->beginBody() ?>
+<?= $this->beginBody() ?>
 
 <?= $content ?>
 
-<?php $this->endBody() ?>
+<?= $this->endBody() ?>
 </body>
 </html>
-<?php $this->endPage() ?>

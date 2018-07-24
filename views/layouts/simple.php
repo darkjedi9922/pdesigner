@@ -4,7 +4,11 @@
 /** @var $content string */
 
 use yii\helpers\Html;
+use app\assets\AppAsset;
+
+AppAsset::register($this);
 ?>
+<?php $this->beginPage() ?>
 
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -14,7 +18,7 @@ use yii\helpers\Html;
     <?= Html::csrfMetaTags() ?>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?= $this->title ? Html::encode($this->title) : Yii::$app->name ?></title>
-    <link rel="stylesheet" href="/web/css/site.css">
+    <?= $this->head() ?>
 </head>
 <body>
 <?= $this->beginBody() ?>
@@ -24,3 +28,4 @@ use yii\helpers\Html;
 <?= $this->endBody() ?>
 </body>
 </html>
+<?php $this->endPage() ?>

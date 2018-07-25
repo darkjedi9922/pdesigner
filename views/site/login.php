@@ -9,10 +9,10 @@ $this->context->layout = 'simple'; // эта страница имеет сво�
 
 <div class="desk">
     <div class="box box--page-centered">
-        <div class="breadcrumbs">
-            <a href="/web" class="breadcrumbs__link">Главная</a>
-            <i class="breadcrumbs__divisor"></i>
-            <span class="breadcrumbs__item">Вход</span>
+        <div class="breadcrumb">
+            <a href="/web" class="breadcrumb__section breadcrumb__section--link">Главная</a>
+            <i class="breadcrumb__divisor"></i>
+            <span class="breadcrumb__section">Вход</span>
         </div>
         <br>
         <form class="login-form" method="post">

@@ -6,14 +6,19 @@
 html, body {
     height: 100%;
 }
+
 html {
-    font-size: 18px;
-    font-family: 'Greta Sans Light';
-    //height: 100%;
+    font-size: 16px;
+    font-family: $font;
 }
 body {
     background: $background;
-    //min-height: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    min-height: 100%;
 }
 
 .desk {
@@ -22,7 +27,6 @@ body {
     height: 100%;
     box-sizing: border-box;
 }
-
 .box {
     background: $box-background;
     padding: 15px;
@@ -37,8 +41,154 @@ body {
     }
 }
 
+.menu {
+    background: #494D55;
+    width: 200px;
+    transition: 1s;
+}
+.menu .header {
+    cursor: pointer;
+}
+.menu a.item:hover, .menu .header:hover {
+    background: #26282C;
+    color: #d0d2d6;
+}
+.menu a, .menu span {
+    color: #9B9DA2;
+    text-decoration: none;
+    font-family: $font;
+    display: block;
+}
+.menu div.item.opened .header {
+    color: #d0d2d6;
+}
+.menu a.item, .menu .header {
+    padding: 10px 10px;
+}
+.menu .item .item {
+    padding-left: 30px;
+}
+.menu .caret.icon {
+    float: right;
+}
+.menu div.item {
+    overflow: hidden;
+}
+.menu div.item.opened {
+    background: #31343A;
+}
+.menu div.item:not(.opened) .caret.up.icon,
+.menu div.item.opened .caret.down.icon {
+    display: none;
+}
+
+.todo-list {
+    &__message {
+        font-family: $font;
+        font-size: 1.2rem;
+        color: rgb(78, 78, 78);
+    }
+}
+
+.todo-item {
+    $checkbox-size: 21px;
+    $checkbox-border-width: 2px;
+    $checkbox-color: #75C181;
+    $transition-delay: 0.25s;
+    $font-size: 18px;
+    overflow: hidden;
+    // Элементы
+    &__container {
+        padding: 4px 0;
+    }
+    &__checkbox {
+        ._box_ {
+            width: $checkbox-size;
+            height: $checkbox-size;
+            border: $checkbox-border-width solid $checkbox-color;
+            border-radius: $checkbox-size;
+            transition: $transition-delay;
+            display: inline-block;
+            cursor: pointer;
+            text-align: center;
+            i.icon {
+                color: white;
+                display: inline-block;
+                width: $checkbox-size - $checkbox-border-width * 2;
+                line-height: $checkbox-size;
+                margin: 0;
+                opacity: 0;
+                transition: $transition-delay;
+            }
+        }
+        &._checked_ ._box_ {
+            background: $checkbox-color;
+            i.check.icon {
+                opacity: 1;
+            }
+        }
+    }
+    &__label {
+        text-decoration: none;
+        color: black;
+        font-family: $font;
+        font-size: $font-size;
+        &:hover {
+            text-decoration: underline;
+        }
+        &--checked {
+            text-decoration: line-through;
+        }
+    }
+    &__sublist {
+        padding-left: $checkbox-size + 4px;
+    }
+}
+
+.todo-list-tabs {
+    text-align: center;
+    margin-bottom: 10px;
+    &__item {
+        font-family: $font;
+        font-size: 1.25rem;
+        border: none;
+        background: #E3F4FC;
+        color: #58BBEE;
+        outline: none;
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 5px 10px;
+        transition: 0.25s;
+        &--active {
+            color: #E3F4FC;
+            background: #58BBEE;
+        }
+    }
+}
+
+.breadcrumb {
+    font-family: $font;
+    font-size: 1.25rem;
+    font-style: normal;
+    &__section {
+        font-weight: bold;
+        text-decoration: none;
+        color: black;
+        &--link {
+            color: $link-color;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    &__divisor::before {
+        content: '/';
+        color: darkgray;
+    }
+}
+
 .login-form {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     &__field {
         clear: both;
         overflow: hidden;
@@ -61,32 +211,32 @@ body {
     &__label {
         margin-right: 10px;
         padding-top: 10px;
-        line-height: 27px; /* 1 */
+        line-height: 27px; // 1
     }
     &__input-container {
         float: right;
     }
     &__icon {
-        line-height: 27px + 4px; /* 1 + 2 * 2 */
+        line-height: 27px + 4px; // 1 + 2 * 2
         background: darken($input-color, 10);
         color: white;
         border-radius: 5px 0 0 5px;
         display: inline-block;
-        height: 27px + 4px; /* 1 + 2 * 2 */
-        width: 27px + 4px; /* 1 + 2 * 2 */
+        height: 27px + 4px; // 1 + 2 * 2
+        width: 27px + 4px; // 1 + 2 * 2
         text-align: center;
         i.icon {
             font-size: 0.9rem;
-            margin-right: 0; /* костыль для переопределения самого semantic свойства */
+            margin-right: 0; // костыль для переопределения самого semantic свойства
         }
     }
     &__input {
-        border: solid 2px $input-color; /* 2 */
+        border: solid 2px $input-color; // 2
         border-left: 0;
         border-radius: 0 5px 5px 0;
         color: darken($input-color, 10);
         padding: 0 7px;
-        height: 27px; /* 1 */
+        height: 27px; // 1
         outline: none;
     }
     &__button {
@@ -138,20 +288,5 @@ body {
     }
     &:hover &__input:checked + &__box + &__label {
         color: darken($ok-color, 10);
-    }
-}
-
-.breadcrumbs {
-    &__link {
-        color: $link-color;
-        text-decoration: none;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-    &__divisor:before {
-        content: ' / ';
-        color: grey;
-        font-style: normal;
     }
 }

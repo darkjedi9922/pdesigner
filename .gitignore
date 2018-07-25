@@ -34,4 +34,8 @@ tests/_support/_generated
 
 project/appkit-landing-v1.2
 web/node_modules
+web/package-lock.json
+web/libs/src/semantic/
+web/semantic.json
 web/css
+web/js

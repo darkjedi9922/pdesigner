@@ -15,25 +15,25 @@ $this->context->layout = 'simple'; // эта страница имеет сво�
             <span class="breadcrumb__section">Вход</span>
         </div>
         <br>
-        <form class="login-form" method="post">
+        <form class="form" method="post">
             <input type="hidden" name="_csrf" value="<?= Yii::$app->request->getCsrfToken() ?>">
-            <div class="login-form__field">
-                <span class="login-form__label">Логин:</span>
-                <div class="login-form__input-container">
-                    <div class="login-form__icon">
+            <div class="form__field">
+                <span class="form__label">Логин:</span>
+                <div class="form__input-container">
+                    <div class="form__icon">
                         <i class="icon user"></i>
-                    </div><input class="login-form__input" type="text" name="LoginForm[username]" value="<?= Html::encode($model->username) ?>">
+                    </div><input class="form__input form__input--icon" type="text" name="LoginForm[username]" value="<?= Html::encode($model->username) ?>">
                 </div>
             </div>
-            <div class="login-form__field">
-                <span class="login-form__label">Пароль:</span>
-                <div class="login-form__input-container">
-                    <div class="login-form__icon">
+            <div class="form__field">
+                <span class="form__label">Пароль:</span>
+                <div class="form__input-container">
+                    <div class="form__icon">
                         <i class="icon lock"></i>
-                    </div><input class="login-form__input" type="password" name="LoginForm[password]">
+                    </div><input class="form__input form__input--icon" type="password" name="LoginForm[password]">
                 </div>
             </div>
-            <div class="login-form__field">
+            <div class="form__field">
                 <label class="form-checkbox">
                     <input type="hidden" name="LoginForm[rememberMe]" value="0">
                     <input class="form-checkbox__input" type="checkbox" name="LoginForm[rememberMe]" value="1" <?php if ($model->rememberMe) echo 'checked' ?>>
@@ -43,7 +43,7 @@ $this->context->layout = 'simple'; // эта страница имеет сво�
                     <span class="form-checkbox__label">Запомнить меня</span>
                 </label>
             </div>
-            <button class="login-form__button">Войти</button>
+            <button class="form__button">Войти</button>
         </form>
     </div>
 </div>

@@ -88,6 +88,9 @@ body {
         font-size: 1.2rem;
         color: rgb(78, 78, 78);
     }
+    &__button {
+        @extend .login-form__button;
+    }
 }
 
 .todo-item {
@@ -245,6 +248,8 @@ body {
         background: $form-button-color;
         color: white;
         padding: 7px 15px;
+        outline: none;
+        text-decoration: none;
         &:hover {
             background: darken($form-button-color, 10);
         }

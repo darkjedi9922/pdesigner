@@ -22,6 +22,9 @@
             default: false
         }
     },
+    mounted: function() {
+        this.$emit('load');
+    },
     computed: {
         filteredList: function() {
             if (this.mode == 'done') return this.getFilteredSublist(this.treeList, true);
@@ -61,6 +64,9 @@
                     if (this.treeList[i].id === $event.id) this.treeList[i].checked = $event.checked;
                 }
             }
+
+            // отправлям событие
+            this.$emit('item-toggled', $event);
 
             // Если скрывать не нужно, выходим
             if (this.mode === 'all' || this.mode === 'done' && $event.checked || this.mode === 'undone' && !$event.checked) {
@@ -122,6 +128,7 @@
                         :list="item.children"\
                         :parentItemId="item.id"\
                         :mode="mode"\
+                        v-on:item-toggled="$emit(\'item-toggled\', $event)"\
                         tree>\
                     </todo-list>\
 \

@@ -1,6 +1,7 @@
 ;Vue.component('todo-list-item', {
     props: {
         id: Number,
+        number: Number,
         title: String,
         parentId: Number,
         checked: Boolean
@@ -34,7 +35,7 @@
         <div class="todo-item" :class="{ \'todo-item--checked\': isChecked }">\
             <div class="todo-item__container">\
                 <vue-checkbox class="todo-item__checkbox" :checked="isChecked" v-on:toggle="toggle">\
-                    <a href="#" class="todo-item__label" :class="{ \'todo-item__label--checked\': isChecked }">#{{ id }} {{ title }}</a>\
+                    <a href="#" class="todo-item__label" :class="{ \'todo-item__label--checked\': isChecked }">#{{ number }} {{ title }}</a>\
                 </vue-checkbox>\
             </div>\
             <slot name="sublist"></slot>\

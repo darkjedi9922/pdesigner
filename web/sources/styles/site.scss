@@ -46,40 +46,56 @@ body {
     width: 200px;
     transition: 1s;
 }
-.menu .header {
+.menu-item__header {
+    display: block;
     cursor: pointer;
 }
-.menu a.item:hover, .menu .header:hover {
+.menu__item:not(.menu-item):hover, .menu-item__header:hover {
     background: #26282C;
     color: #d0d2d6;
 }
-.menu a, .menu span {
+.menu__item, {
     color: #9B9DA2;
     text-decoration: none;
     font-family: $font;
     display: block;
 }
-.menu div.item.opened .header {
+.menu__item--opened .menu-item__header {
     color: #d0d2d6;
 }
-.menu a.item, .menu .header {
+.menu__item:not(.menu-item), .menu-item__header {
     padding: 10px 10px;
 }
-.menu .item .item {
+.menu__item .menu__item {
     padding-left: 30px;
 }
 .menu .caret.icon {
     float: right;
 }
-.menu div.item {
+.menu-item {
     overflow: hidden;
 }
-.menu div.item.opened {
+.menu__item--opened {
     background: #31343A;
 }
-.menu div.item:not(.opened) .caret.up.icon,
-.menu div.item.opened .caret.down.icon {
+.menu__item:not(.menu__item--opened) .caret.up.icon,
+.menu__item--opened .caret.down.icon {
     display: none;
+}
+
+.menu-header {
+    background: $menu-header-background;
+    text-align: center;
+    padding: 15px;
+    display: block;
+    text-decoration: none;
+    &__title {
+        color: $menu-header-color;
+        text-transform: uppercase;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
 }
 
 .todo-list {
@@ -89,7 +105,7 @@ body {
         color: rgb(78, 78, 78);
     }
     &__button {
-        @extend .login-form__button;
+        @extend .form__button;
     }
 }
 
@@ -190,7 +206,7 @@ body {
     }
 }
 
-.login-form {
+.form {
     font-size: 1.2rem;
     &__field {
         clear: both;
@@ -235,12 +251,15 @@ body {
     }
     &__input {
         border: solid 2px $input-color; // 2
-        border-left: 0;
-        border-radius: 0 5px 5px 0;
+        border-radius: $form-input-border-radius;
         color: darken($input-color, 10);
         padding: 0 7px;
         height: 27px; // 1
         outline: none;
+        &--icon {
+            border-left: 0;
+            border-radius: 0 $form-input-border-radius $form-input-border-radius 0;
+        }
     }
     &__button {
         border: none;

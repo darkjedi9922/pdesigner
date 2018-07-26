@@ -7,7 +7,7 @@ use yii\web\Controller;
 
 class ProjectController extends Controller
 {
-    public $layout = 'simple';
+    public $layout = 'project';
 
     public function actionIndex()
     {

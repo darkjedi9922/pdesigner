@@ -28,12 +28,15 @@ class TodoController extends Controller
     }
 
     /**
+     * @param int $parent id родительской задачи
      * @return Response|string
      */
-    public function actionAddItem()
+    public function actionAddItem($parent = null)
     {
         $model = new AddTaskForm();
         if ($model->load(Yii::$app->request->post()) && $model->add()) return $this->redirect(['project/index']);
-        return $this->render('add-item');
+        return $this->render('add-item', [
+            'parent' => $parent
+        ]);
     }
 }

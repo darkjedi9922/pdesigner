@@ -2,7 +2,7 @@
 
 use app\models\Issue;
 
-$issues = Issue::find()->all();
+$issues = Issue::find()->orderBy('id ASC')->all();
 ?>
 
 <div class="breadcrumb">
@@ -17,6 +17,7 @@ $issues = Issue::find()->all();
         <button class="todo-list-tabs__item" @click="todo = 'done'" :class="{ 'todo-list-tabs__item--active': todo == 'done' }">Выполненные</button>
     </div>
     <todo-list 
+        class="todo-list--parent"
         :mode="todo"
         :list="list"
         @load="list = [<?php foreach ($issues as $issue): ?>{

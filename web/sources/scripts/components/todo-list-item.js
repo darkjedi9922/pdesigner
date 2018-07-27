@@ -34,6 +34,11 @@
     template: '\
         <div class="todo-item" :class="{ \'todo-item--checked\': isChecked }">\
             <div class="todo-item__container">\
+                <contextmenu class="todo-contextmenu">\
+                    <a href="#" class="todo-contextmenu__item"><i class="icon add"></i>Добавить позадачу</a>\
+                    <a href="#" class="todo-contextmenu__item"><i class="icon edit"></i>Редактировать</a>\
+                    <a @click="$root.deleteItem(id)" class="todo-contextmenu__item"><i class="icon delete"></i>Удалить</a>\
+                </contextmenu>\
                 <vue-checkbox class="todo-item__checkbox" :checked="isChecked" v-on:toggle="toggle">\
                     <a href="#" class="todo-item__label" :class="{ \'todo-item__label--checked\': isChecked }">#{{ number }} {{ title }}</a>\
                 </vue-checkbox>\

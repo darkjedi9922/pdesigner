@@ -13,11 +13,17 @@ class TodoController extends Controller
     {
         $post = Yii::$app->request->post();
         if (isset($post['id']) && isset($post['checked'])) {
-            $issue = Issue::findOne(['id' => $post['id']]);
-            if ($issue) {
-                $issue->checked = $post['checked'];
-                $issue->save();
-            }
+            $data = ['checked' => $post['checked']];
+            $condition = 'id = ' . $post['id'];
+            Issue::updateAll($data, $condition);
+        }
+    }
+
+    public function actionDelete()
+    {
+        $id = Yii::$app->request->post('id');
+        if ($id) {
+            Issue::deleteAll('id = '.$id);
         }
     }
 

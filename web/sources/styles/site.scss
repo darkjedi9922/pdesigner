@@ -119,8 +119,12 @@ body {
     // Элементы
     &__container {
         padding: 4px 0;
+        &:hover {
+            background: $todo-item-hover-background;
+        }
     }
     &__checkbox {
+        display: inline-block;
         ._box_ {
             width: $checkbox-size;
             height: $checkbox-size;
@@ -164,6 +168,23 @@ body {
     }
 }
 
+.todo-contextmenu {
+    display: inline-block;
+    background: $box-background;
+    box-shadow: 0 0 2px 1px lightgray;
+    &__item {
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        cursor: pointer;
+        &:hover {
+            background: $link-color;
+            color: white;
+        }
+    }
+}
+
 .todo-list-tabs {
     text-align: center;
     margin-bottom: 10px;
@@ -171,16 +192,16 @@ body {
         font-family: $font;
         font-size: 1.25rem;
         border: none;
-        background: #E3F4FC;
-        color: #58BBEE;
+        background: $todo-tab-background;
+        color: $todo-tab-color;
         outline: none;
         font-weight: bold;
         border-radius: 5px;
         padding: 5px 10px;
         transition: 0.25s;
         &--active {
-            color: #E3F4FC;
-            background: #58BBEE;
+            color: $todo-tab-background;
+            background: $todo-tab-color;
         }
     }
 }

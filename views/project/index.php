@@ -23,7 +23,7 @@ $issues = Issue::find()->orderBy('id ASC')->all();
         @load="list = [<?php foreach ($issues as $issue): ?>{
             id: <?=$issue->id?>,
             number: <?=$issue->number?>,
-            title: '<?=$issue->title?>', 
+            title: '<?=str_replace('&#039;', '\&#039;', $issue->title)?>', 
             parentId: <?=$issue->parent_issue_id ? $issue->parent_issue_id : 0 ?>, 
             checked: <?= $issue->checked ? 'true' : 'false' ?>
         },<?php endforeach ?>]; token = '<?= Yii::$app->request->csrfToken ?>'"

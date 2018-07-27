@@ -6,6 +6,7 @@ use app\models\Issue;
 class AddTaskForm extends Model
 {
     public $title;
+    public $parent = null;
 
     /**
      * @return array
@@ -13,7 +14,8 @@ class AddTaskForm extends Model
     public function rules()
     {
         return [
-            [['title'], 'required']
+            [['title'], 'required'],
+            ['parent', 'integer']
         ];
     }
 
@@ -26,6 +28,7 @@ class AddTaskForm extends Model
             $issue = new Issue();
             $issue->project_id = 0;
             $issue->number = Issue::calcNewNumber();
+            if ($this->parent) $issue->parent_issue_id = $this->parent;
             $issue->title = $this->title;
             return $issue->insert();
         }

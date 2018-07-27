@@ -19,14 +19,14 @@ $issues = Issue::find()->orderBy('id ASC')->all();
     <todo-list 
         class="todo-list--parent"
         :mode="todo"
-        :list="list"
+        :list="treeList"
         @load="list = [<?php foreach ($issues as $issue): ?>{
-        id: <?=$issue->id?>,
-        number: <?=$issue->number?>,
-        title: '<?=$issue->title?>', 
-        parentId: <?=$issue->parent_issue_id ? $issue->parent_issue_id : 0 ?>, 
-        checked: <?= $issue->checked ? 'true' : 'false' ?>
-    },<?php endforeach ?>]; token = '<?= Yii::$app->request->csrfToken ?>'"
+            id: <?=$issue->id?>,
+            number: <?=$issue->number?>,
+            title: '<?=$issue->title?>', 
+            parentId: <?=$issue->parent_issue_id ? $issue->parent_issue_id : 0 ?>, 
+            checked: <?= $issue->checked ? 'true' : 'false' ?>
+        },<?php endforeach ?>]; token = '<?= Yii::$app->request->csrfToken ?>'"
         @item-toggled="itemToggled">
     </todo-list>
     <br><a href="/web/index.php?r=todo/add-item" class="todo-list__button">Добавить задачу</a>

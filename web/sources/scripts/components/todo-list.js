@@ -27,26 +27,12 @@
     },
     computed: {
         filteredList: function() {
-            if (this.mode == 'done') return this.getFilteredSublist(this.treeList, true);
-            else if (this.mode == 'undone') return this.getFilteredSublist(this.treeList, false);
-            else return this.treeList;
-        },
-        treeList: function() {
-            this.mode; // Зависимость treeList от mode: treeList будет пересчитываться каждый раз при изменении mode
-            return this.tree ? this.list : this.getTreeList(this.parentItemId);
+            if (this.mode == 'done') return this.getFilteredSublist(this.list, true);
+            else if (this.mode == 'undone') return this.getFilteredSublist(this.list, false);
+            else return this.list;
         }
     },
     methods: {
-        getTreeList: function(parentItemId) {
-            var list = [];
-            for (var i = 0; i < this.list.length; ++i) {
-                if (this.list[i].parentId === parentItemId) {
-                    this.list[i].children = this.getTreeList(this.list[i].id);
-                    list.push(this.list[i]);
-                }
-            }
-            return list;
-        },
         getFilteredSublist: function(sublist, isChecked) {
             var list = [];
             for (var i = 0; i < sublist.length; ++i) {
@@ -60,8 +46,8 @@
         },
         itemToggled: function($event) {
             var checkInList = function() {
-                for (var i = 0; i < this.treeList.length; ++i) {
-                    if (this.treeList[i].id === $event.id) this.treeList[i].checked = $event.checked;
+                for (var i = 0; i < this.list.length; ++i) {
+                    if (this.list[i].id === $event.id) this.list[i].checked = $event.checked;
                 }
             }
 
@@ -128,8 +114,7 @@
                         :list="item.children"\
                         :parentItemId="item.id"\
                         :mode="mode"\
-                        v-on:item-toggled="$emit(\'item-toggled\', $event)"\
-                        tree>\
+                        v-on:item-toggled="$emit(\'item-toggled\', $event)">\
                     </todo-list>\
 \
                 </todo-list-item>\

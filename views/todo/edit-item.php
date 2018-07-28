@@ -8,7 +8,7 @@
     <span class="breadcrumb__divisor"></span>
     <a href="/web/index.php?r=project" class="breadcrumb__section breadcrumb__section--link">Lightness</a>
     <span class="breadcrumb__divisor"></span>
-    <span class="breadcrumb__section">Добавить задачу</span>
+    <span class="breadcrumb__section">Редактировать задачу</span>
 </div>
 <div class="box">
     <form method="post" class="form">

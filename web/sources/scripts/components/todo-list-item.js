@@ -32,7 +32,7 @@
                     <a @click="$root.deleteItem(id)" class="todo-contextmenu__item"><i class="icon delete"></i>Удалить</a>\
                 </contextmenu>\
                 <vue-checkbox class="todo-item__checkbox" :checked="isChecked" v-on:toggle="toggle">\
-                    <a href="#" class="todo-item__label" :class="{ \'todo-item__label--checked\': isChecked }">#{{ number }} {{ title }}</a>\
+                    <a :href="\'/web/index.php?r=todo&id=\' + id" class="todo-item__label" :class="{ \'todo-item__label--checked\': isChecked }">#{{ number }} {{ title }}</a>\
                 </vue-checkbox>\
             </div>\
             <slot name="sublist"></slot>\

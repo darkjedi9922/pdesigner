@@ -337,3 +337,16 @@ body {
         color: darken($ok-color, 10);
     }
 }
+
+.issue {
+    &__title {
+        font-weight: bold;
+        font-size: 1.25rem;
+        display: block;
+    }
+    &__status {
+        padding-top: 10px;
+        font-size: 1.1rem;
+        display: inline-block;
+    }
+}

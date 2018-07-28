@@ -41,6 +41,10 @@ class TodoController extends Controller
         ]);
     }
 
+    /**
+     * @param int $id
+     * @return Response|string
+     */
     public function actionEditItem($id)
     {
         if (Yii::$app->request->isPost) {
@@ -52,5 +56,24 @@ class TodoController extends Controller
             if ($item) return $this->render('edit-item', ['item' => $item]);
             else Yii::$app->response->statusCode = 404;
         }
+    }
+
+    /**
+     * @param int $id
+     * @return string
+     */
+    public function actionIndex($id)
+    {
+        $issue = Issue::find()->where(['id' => $id])->one();
+        if (!$issue) {
+            Yii::$app->response->statusCode = 404;
+            return;
+        }
+        if ($issue->parent_issue_id) $parent = Issue::find()->where(['id' => $issue->parent_issue_id])->one();
+        else $parent = null;
+        return $this->render('index', [
+            'issue' => $issue,
+            'parent' => $parent
+        ]);
     }
 }

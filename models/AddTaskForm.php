@@ -8,6 +8,7 @@ class AddTaskForm extends Model
 {
     public $title;
     public $parent = null;
+    public $text = null;
 
     /**
      * @return array
@@ -16,7 +17,8 @@ class AddTaskForm extends Model
     {
         return [
             [['title'], 'required'],
-            ['parent', 'integer']
+            ['parent', 'integer'],
+            ['text', 'string']
         ];
     }
 
@@ -31,7 +33,14 @@ class AddTaskForm extends Model
             $issue->number = Issue::calcNewNumber();
             if ($this->parent) $issue->parent_issue_id = $this->parent;
             $issue->title = Html::encode($this->title);
-            return $issue->insert();
+            $issue->insert();
+            if ($this->text) {
+                $text = new IssueText();
+                $text->issue_id = $issue->id;
+                $text->text = Html::encode($this->text);
+                $text->insert();
+            }
+            return true;
         }
         return false;
     }

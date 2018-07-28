@@ -3,11 +3,13 @@
 use yii\base\Model;
 use yii\helpers\Html;
 use app\models\Issue;
+use app\models\IssueText;
 
 class EditTaskForm extends Model
 {
     public $id;
     public $title;
+    public $text = null;
 
     /**
      * @return array
@@ -15,7 +17,8 @@ class EditTaskForm extends Model
     public function rules()
     {
         return [
-            [['title'], 'required']
+            [['title'], 'required'],
+            ['text', 'string']
         ];
     }
 
@@ -25,9 +28,28 @@ class EditTaskForm extends Model
     public function edit()
     {
         if ($this->validate()) {
+            // Обновляем основную часть
             Issue::updateAll([
-              'title' => $this->title  
+              'title' => $this->title
             ], 'id = '.$this->id);
+            // Обновляем текст или добавляем, если его не было
+            if ($this->text !== null) {
+                if (!$this->text) IssueText::deleteAll(['issue_id' => $this->id]);
+                else {
+                    $text = IssueText::find()->where(['issue_id' => $this->id])->one();
+                    if ($text) {
+                        if ($text !== $this->text) {
+                            $text->text = Html::encode($this->text);
+                            $text->save();
+                        }
+                    } else {
+                        $text = new IssueText();
+                        $text->issue_id = $this->id;
+                        $text->text = $this->text;
+                        $text->insert();
+                    }
+                }
+            }
             return true;
         }
         return false;

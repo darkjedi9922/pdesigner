@@ -14,21 +14,13 @@
     methods: {
         toggle: function() {
             this.isChecked = !this.isChecked;
-
-            // Vue не успевает обновить класс элемента к моменту выброса события
-            // Поэтому фикс с timeout:
-            var emit = function() {
-                if ($(this.$el).hasClass('todo-item--checked') === this.isChecked) {
-                    // Основная часть началась
-                    this.$emit('toggle', {
-                        el: this.$el,
-                        id: this.id,
-                        checked: this.isChecked
-                    });
-                    // Основная часть закончилась
-                } else setTimeout(emit.bind(this), 50);
-            }
-            emit.call(this);
+            this.$nextTick(function() {
+                this.$emit('toggle', {
+                    el: this.$el,
+                    id: this.id,
+                    checked: this.isChecked
+                });
+            });
         }
     },
     template: '\

@@ -233,6 +233,8 @@ body {
         clear: both;
         overflow: hidden;
         margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
     }
     &__field--ok &__icon {
         background: $ok-color;
@@ -250,8 +252,7 @@ body {
     }
     &__label {
         margin-right: 10px;
-        padding-top: 10px;
-        line-height: 27px; // 1
+        line-height: 27px + 2px * 2; // 1 + 2
     }
     &__input-container {
         float: right;
@@ -277,6 +278,7 @@ body {
         padding: 0 7px;
         height: 27px; // 1
         outline: none;
+        flex-grow: 1;
         &--icon {
             border-left: 0;
             border-radius: 0 $form-input-border-radius $form-input-border-radius 0;

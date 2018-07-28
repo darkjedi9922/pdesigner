@@ -4,6 +4,7 @@ use Yii;
 use yii\web\Controller;
 use app\models\Issue;
 use app\models\AddTaskForm;
+use app\models\EditTaskForm;
 
 class TodoController extends Controller
 {
@@ -38,5 +39,18 @@ class TodoController extends Controller
         return $this->render('add-item', [
             'parent' => $parent
         ]);
+    }
+
+    public function actionEditItem($id)
+    {
+        if (Yii::$app->request->isPost) {
+            $model = new EditTaskForm();
+            $model->id = $id;
+            if ($model->load(Yii::$app->request->post()) && $model->edit()) return $this->redirect(['project/index']);
+        } else {
+            $item = Issue::find()->where(['id' => $id])->one();
+            if ($item) return $this->render('edit-item', ['item' => $item]);
+            else Yii::$app->response->statusCode = 404;
+        }
     }
 }

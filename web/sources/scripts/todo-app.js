@@ -1,7 +1,7 @@
 ;new Vue({ 
     el: "#todo-app",
     data: {
-        todo: 'undone',
+        todo: 'all',
         list: [],
         token: '',
         treeList: []

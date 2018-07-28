@@ -5,6 +5,7 @@ use yii\web\Controller;
 use app\models\Issue;
 use app\models\AddTaskForm;
 use app\models\EditTaskForm;
+use app\models\IssueText;
 
 class TodoController extends Controller
 {
@@ -25,6 +26,7 @@ class TodoController extends Controller
         $id = Yii::$app->request->post('id');
         if ($id) {
             Issue::deleteAll('id = '.$id);
+            IssueText::deleteAll('issue_id = '.$id);
         }
     }
 
@@ -53,7 +55,14 @@ class TodoController extends Controller
             if ($model->load(Yii::$app->request->post()) && $model->edit()) return $this->redirect(['project/index']);
         } else {
             $item = Issue::find()->where(['id' => $id])->one();
-            if ($item) return $this->render('edit-item', ['item' => $item]);
+            if ($item) {
+                $text = IssueText::find()->where(['issue_id' => $id])->one();
+                $text = ($text && $text->text) ? $text->text : '';
+                return $this->render('edit-item', [
+                    'item' => $item,
+                    'text' => $text
+                ]);
+            }
             else Yii::$app->response->statusCode = 404;
         }
     }
@@ -64,16 +73,23 @@ class TodoController extends Controller
      */
     public function actionIndex($id)
     {
+        // Загружаем саму задачу
         $issue = Issue::find()->where(['id' => $id])->one();
         if (!$issue) {
             Yii::$app->response->statusCode = 404;
             return;
         }
+        // Находим ее родителя
         if ($issue->parent_issue_id) $parent = Issue::find()->where(['id' => $issue->parent_issue_id])->one();
         else $parent = null;
+        // Находим ее текст
+        $text = IssueText::find()->where(['issue_id' => $id])->one();
+        $text = ($text && $text->text) ? $text->text : '';
+        // Рендерим
         return $this->render('index', [
             'issue' => $issue,
-            'parent' => $parent
+            'parent' => $parent,
+            'text' => $text
         ]);
     }
 }

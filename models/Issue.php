@@ -13,8 +13,13 @@ class Issue extends ActiveRecord
         return 'issues';
     }
 
-    public static function calcNewNumber()
+    /**
+     * @param int $projectId
+     */
+    public static function calcNewNumber($projectId)
     {
-        return Yii::$app->db->createCommand('SELECT MAX(number) FROM '.self::tableName())->queryScalar() + 1;
+        return Yii::$app->db->createCommand(
+            'SELECT MAX(number) FROM '.self::tableName().' WHERE project_id = '.$projectId
+        )->queryScalar() + 1;
     }
 }

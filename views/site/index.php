@@ -32,7 +32,7 @@ $isLogged = !Yii::$app->user->isGuest;
                     <br><br>
                 </div>
                 <div class="slide__bar">
-                    <a href="/web/index.php?r=project" class="slide__button">Начать</a>
+                    <a href="/web/index.php?r=dashboard" class="slide__button">Начать</a>
                 </div>
             </div>
             <div class="slide__image">

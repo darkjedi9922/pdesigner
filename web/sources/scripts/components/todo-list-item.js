@@ -29,7 +29,7 @@
                 <contextmenu class="todo-contextmenu">\
                     <a :href="\'/web/index.php?r=todo/add-item&parent=\' + id" class="todo-contextmenu__item"><i class="icon add"></i>Добавить позадачу</a>\
                     <a :href="\'/web/index.php?r=todo/edit-item&id=\' + id" class="todo-contextmenu__item"><i class="icon edit"></i>Редактировать</a>\
-                    <a @click="$root.deleteItem(id)" class="todo-contextmenu__item"><i class="icon delete"></i>Удалить</a>\
+                    <a @click="$root.deleteItem(id)" class="todo-contextmenu__item"><i class="icon trash"></i>Удалить</a>\
                 </contextmenu>\
                 <vue-checkbox class="todo-item__checkbox" :checked="isChecked" v-on:toggle="toggle">\
                     <a :href="\'/web/index.php?r=todo&id=\' + id" class="todo-item__label" :class="{ \'todo-item__label--checked\': isChecked }">#{{ number }} {{ title }}</a>\

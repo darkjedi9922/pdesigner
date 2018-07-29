@@ -1,29 +1,28 @@
 <?php
 
-use app\models\Issue;
-
 /** @var \yii\web\View $this */
-/** @var int|null $parent */
+/** @var \app\models\Issue|null $parent */
+/** @var \app\models\Project $project */
 
-$parentIssue = $parent ? Issue::find()->where(['id' => $parent])->one() : null;
 ?>
 
 <div class="breadcrumb">
     <span class="breadcrumb__section">Проекты</span>
     <span class="breadcrumb__divisor"></span>
-    <a href="/web/index.php?r=project" class="breadcrumb__section breadcrumb__section--link">Lightness</a>
+    <a href="/web/index.php?r=project&id=<?= $project->id ?>" class="breadcrumb__section breadcrumb__section--link"><?= $project->name ?></a>
     <span class="breadcrumb__divisor"></span>
     <span class="breadcrumb__section">Добавить задачу</span>
 </div>
 <div class="box">
-    <?php if ($parentIssue) : ?>
+    <?php if ($parent) : ?>
         <div class="form__field">
-            <span class="form__label">Задача: <?= $parentIssue['title'] ?></span>
+            <span class="form__label">Задача: <?= $parent->title ?></span>
         </div>
     <?php endif ?>
     <form method="post" class="form form--table">
         <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
-        <input type="hidden" name="AddTaskForm[parent]" value="<?= $parent ?>">
+        <?php if ($parent): ?><input type="hidden" name="AddTaskForm[parent]" value="<?= $parent->id ?>"><?php endif ?>
+        <input type="hidden" name="AddTaskForm[project]" value="<?= $project->id ?>">
         <div class="form__field">
             <span class="form__label">Название:</span>
             <div class="form__input-container">

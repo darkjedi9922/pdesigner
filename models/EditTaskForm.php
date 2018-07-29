@@ -30,7 +30,7 @@ class EditTaskForm extends Model
         if ($this->validate()) {
             // Обновляем основную часть
             Issue::updateAll([
-              'title' => $this->title
+              'title' => Html::encode($this->title)
             ], 'id = '.$this->id);
             // Обновляем текст или добавляем, если его не было
             if ($this->text !== null) {

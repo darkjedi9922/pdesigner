@@ -1,14 +1,13 @@
 <?php
 
-use app\models\Issue;
-
-$issues = Issue::find()->orderBy('id ASC')->all();
+/** @var \app\models\Project $project */
+/** @var array $issues */
 ?>
 
 <div class="breadcrumb">
     <span class="breadcrumb__section">Проекты</span>
     <span class="breadcrumb__divisor"></span>
-    <span class="breadcrumb__section">Lightness</span>
+    <span class="breadcrumb__section"><?= $project->name ?></span>
 </div>
 <div class="box" id="todo-app">
     <div class="todo-list-tabs">
@@ -29,5 +28,5 @@ $issues = Issue::find()->orderBy('id ASC')->all();
         },<?php endforeach ?>]; token = '<?= Yii::$app->request->csrfToken ?>'"
         @item-toggled="itemToggled">
     </todo-list>
-    <br><a href="/web/index.php?r=todo/add-item" class="todo-list__button">Добавить задачу</a>
+    <br><a href="/web/index.php?r=todo/add-item&project=<?= $project->id ?>" class="todo-list__button">Добавить задачу</a>
 </div>

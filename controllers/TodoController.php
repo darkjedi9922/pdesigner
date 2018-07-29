@@ -6,10 +6,11 @@ use app\models\Issue;
 use app\models\AddTaskForm;
 use app\models\EditTaskForm;
 use app\models\IssueText;
+use app\models\Project;
 
 class TodoController extends Controller
 {
-    public $layout = 'project';
+    public $layout = 'dashboard';
 
     public function actionToggle()
     {
@@ -31,15 +32,29 @@ class TodoController extends Controller
     }
 
     /**
+     * Нужно передать либо parent, либо project
+     * 
      * @param int $parent id родительской задачи
+     * @param int $project id проекта
      * @return Response|string
      */
-    public function actionAddItem($parent = null)
+    public function actionAddItem($parent = null, $project = null)
     {
+        if ($parent) {
+            $parent = Issue::findOne($parent);
+            $project = Project::findOne($parent->project_id);
+        } else if ($project) {
+            $project = Project::findOne($project);
+        }
+
         $model = new AddTaskForm();
-        if ($model->load(Yii::$app->request->post()) && $model->add()) return $this->redirect(['project/index']);
+        if ($model->load(Yii::$app->request->post()) && $model->add()) {
+            return $this->redirect(['project/index', 'id' => $project->id]);
+        }
+
         return $this->render('add-item', [
-            'parent' => $parent
+            'parent' => $parent,
+            'project' => $project
         ]);
     }
 
@@ -49,21 +64,28 @@ class TodoController extends Controller
      */
     public function actionEditItem($id)
     {
+        $item = Issue::find()->where(['id' => $id])->one();
+        if ($item) {
+            $text = IssueText::find()->where(['issue_id' => $id])->one();
+            $text = ($text && $text->text) ? $text->text : '';
+            $project = Project::findOne($item->project_id);
+        } else {
+            Yii::$app->response->statusCode = 400;
+            return;
+        }
+
         if (Yii::$app->request->isPost) {
             $model = new EditTaskForm();
             $model->id = $id;
-            if ($model->load(Yii::$app->request->post()) && $model->edit()) return $this->redirect(['project/index']);
-        } else {
-            $item = Issue::find()->where(['id' => $id])->one();
-            if ($item) {
-                $text = IssueText::find()->where(['issue_id' => $id])->one();
-                $text = ($text && $text->text) ? $text->text : '';
-                return $this->render('edit-item', [
-                    'item' => $item,
-                    'text' => $text
-                ]);
+            if ($model->load(Yii::$app->request->post()) && $model->edit()) {
+                return $this->redirect(['project/index', 'id' => $project->id]);
             }
-            else Yii::$app->response->statusCode = 404;
+        } else {
+            return $this->render('edit-item', [
+                'item' => $item,
+                'text' => $text,
+                'project' => $project
+            ]);
         }
     }
 
@@ -85,11 +107,14 @@ class TodoController extends Controller
         // Находим ее текст
         $text = IssueText::find()->where(['issue_id' => $id])->one();
         $text = ($text && $text->text) ? $text->text : '';
+        // Проект
+        $project = Project::findOne($issue->project_id);
         // Рендерим
         return $this->render('index', [
             'issue' => $issue,
             'parent' => $parent,
-            'text' => $text
+            'text' => $text,
+            'project' => $project
         ]);
     }
 }

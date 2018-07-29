@@ -8,6 +8,7 @@ class AddTaskForm extends Model
 {
     public $title;
     public $parent = null;
+    public $project = null;
     public $text = null;
 
     /**
@@ -18,6 +19,7 @@ class AddTaskForm extends Model
         return [
             [['title'], 'required'],
             ['parent', 'integer'],
+            ['project', 'integer'],
             ['text', 'string']
         ];
     }
@@ -29,9 +31,16 @@ class AddTaskForm extends Model
     {
         if ($this->validate()) {
             $issue = new Issue();
-            $issue->project_id = 0;
-            $issue->number = Issue::calcNewNumber();
-            if ($this->parent) $issue->parent_issue_id = $this->parent;
+
+            if ($this->parent) {
+                $issue->parent_issue_id = $this->parent;
+                $issue->project_id = Issue::findOne($this->parent)->project_id;
+            } else if ($this->project) {
+                $issue->parent_issue_id = null;
+                $issue->project_id = $this->project;
+            } else return false;
+
+            $issue->number = Issue::calcNewNumber($issue->project_id);
             $issue->title = Html::encode($this->title);
             $issue->insert();
             if ($this->text) {
@@ -40,6 +49,7 @@ class AddTaskForm extends Model
                 $text->text = Html::encode($this->text);
                 $text->insert();
             }
+
             return true;
         }
         return false;

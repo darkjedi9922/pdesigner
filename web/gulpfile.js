@@ -24,6 +24,7 @@ gulp.task('js', function () {
         'libs/jquery-3.3.1.min.js',
         'libs/src/semantic/build/semantic.min.js',
         'libs/vue.js',
+        'libs/marked.min.js',
         'sources/scripts/components/*.js',
         'sources/scripts/*.js'
     ])

@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "",
-  "dependencies": {},
+  "dependencies": {
+    "marked": "^0.4.0"
+  },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^5.0.0",

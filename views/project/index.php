@@ -25,7 +25,7 @@
             title: '<?=str_replace('&#039;', '\&#039;', $issue->title)?>', 
             parentId: <?=$issue->parent_issue_id ? $issue->parent_issue_id : 0 ?>, 
             checked: <?= $issue->checked ? 'true' : 'false' ?>
-        },<?php endforeach ?>]; token = '<?= Yii::$app->request->csrfToken ?>'"
+        },<?php endforeach ?>]; token = '<?= Yii::$app->request->csrfToken ?>'; todo = 'undone'"
         @item-toggled="itemToggled">
     </todo-list>
     <br><a href="/web/index.php?r=todo/add-item&project=<?= $project->id ?>" class="todo-list__button">Добавить задачу</a>

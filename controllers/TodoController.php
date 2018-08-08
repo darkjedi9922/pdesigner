@@ -78,7 +78,7 @@ class TodoController extends Controller
             $model = new EditTaskForm();
             $model->id = $id;
             if ($model->load(Yii::$app->request->post()) && $model->edit()) {
-                return $this->redirect(['project/index', 'id' => $project->id]);
+                return $this->redirect(['todo/index', 'id' => $model->id]);
             }
         } else {
             return $this->render('edit-item', [

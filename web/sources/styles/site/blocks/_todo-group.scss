@@ -1,0 +1,21 @@
+.todo-group {
+    font-size: 1.4rem;
+    color: $link-color;
+    border-bottom: solid 1px;
+    margin-bottom: 8px;
+    &__settings {
+        visibility: hidden;
+        font-size: 1rem;
+        cursor: pointer;
+        i.icon {
+            opacity: 0;
+            transition: 0.2s;
+        }
+    }
+    &:hover &__settings {
+        visibility: visible;
+        i.icon {
+            opacity: 1;
+        }
+    }
+}

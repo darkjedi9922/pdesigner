@@ -15,6 +15,15 @@
         <button class="todo-list-tabs__item" @click="todo = 'undone'" :class="{ 'todo-list-tabs__item--active': todo == 'undone' }">Активные</button>
         <button class="todo-list-tabs__item" @click="todo = 'done'" :class="{ 'todo-list-tabs__item--active': todo == 'done' }">Выполненные</button>
     </div>
+    <div class="todo-group">
+        <span class="todo-group__title">Общее</span>
+        <span class="todo-group__settings">
+            <i class="icon paint brush"></i>
+            <i class="icon pencil alternate"></i>
+            <i class="icon add"></i>
+            <i class="icon trash"></i>
+        </span>
+    </div>
     <todo-list 
         class="todo-list--parent"
         :mode="todo"

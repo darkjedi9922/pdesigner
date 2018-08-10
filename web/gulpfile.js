@@ -25,6 +25,7 @@ gulp.task('js', function () {
         'libs/src/semantic/build/semantic.min.js',
         'libs/vue.js',
         'libs/marked.min.js',
+        'sources/scripts/mixins/*.js',
         'sources/scripts/components/*.js',
         'sources/scripts/*.js'
     ])

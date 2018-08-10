@@ -1,5 +1,6 @@
 ;new Vue({ 
     el: "#todo-app",
+    mixins: [taskMixin],
     data: {
         todo: 'all',
         list: [],
@@ -29,14 +30,7 @@
             return list;
         },
         itemToggled: function($event) {
-            $.ajax({
-                url: '/web/index.php?r=todo/toggle',
-                method: 'POST',
-                data: 'id=' + $event.id 
-                    + '&checked=' + +$event.checked
-                    + '&_csrf=' + this.token
-                // TODO: красиво выводить красивую ошибку при ошибке
-            });
+            this.setTaskChecked($event.id, $event.checked, this.token);
         },
         deleteItem: function(id) {
             /**

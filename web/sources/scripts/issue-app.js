@@ -1,5 +1,6 @@
 ;new Vue({
     el: '#issue-app',
+    mixins: [taskMixin],
     data: function() {
         return {
             id: 0,
@@ -13,15 +14,8 @@
     },
     methods: {
         switchChecked: function() {
-            console.log('switch');
             this.checked = !this.checked;
-            $.ajax({
-                url: '/web/index.php?r=todo/toggle',
-                method: 'POST',
-                data: 'id=' + this.id
-                    + '&checked=' + +this.checked
-                    + '&_csrf=' + this.token
-            });
+            this.setTaskChecked(this.id, this.checked, this.token);
         }
     }
 });

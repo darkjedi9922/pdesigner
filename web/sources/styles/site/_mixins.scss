@@ -1,0 +1,7 @@
+@mixin light-button-colors($normal-color) {
+    color: $normal-color;
+    &:hover {
+        border-color: darken($normal-color, 20);
+        color: darken($normal-color, 20);
+    }
+}

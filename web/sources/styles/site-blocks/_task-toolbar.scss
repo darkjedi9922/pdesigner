@@ -1,0 +1,25 @@
+.task-toolbar {
+    &__button {
+        padding: 7px 15px;
+        outline: none;
+        text-decoration: none;
+        text-align: center;
+        border: solid 1px;
+        
+        @include light-button-colors($form-button-color);
+
+        &--good {
+            @include light-button-colors($ok-color);
+        }
+        &--bad {
+            @include light-button-colors($error-color);
+        }
+    }
+
+    &--vertical &__button {
+        display: block;
+        &:not(:first-of-type) {
+            margin-top: 5px;
+        }
+    }
+}

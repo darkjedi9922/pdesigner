@@ -1,0 +1,3 @@
+@function button-hover-color($normal-background) {
+    @return darken($normal-background, 10);
+}

@@ -11,12 +11,25 @@
     <span class="breadcrumb__divisor"></span>
     <a href="/web/index.php?r=project&id=<?= $project->id ?>" class="breadcrumb__section breadcrumb__section--link"><?= $project->name ?></a>
 </div>
-<div class="box">
-    <div class="issue" id="issue-app">
-        <span class="issue__title">#<?= $issue->number ?> <?= $issue->title ?></span>
-        <?php if ($text): ?>
-            <span class="issue__text"><?= str_replace("\n", '<br>', $text) ?></span>
-        <?php endif ?>
-        <span class="issue__status">Статус: <?php echo $issue->checked ? 'Выполнено' : 'Не выполнено' ?></span>
+<div class="boxes">
+    <div class="boxes__item boxes__item--main">
+        <div class="box">
+                <div class="issue" id="issue-app">
+                <span class="issue__title">#<?= $issue->number ?> <?= $issue->title ?></span>
+                <?php if ($text) : ?>
+                    <span class="issue__text"><?= str_replace("\n", '<br>', $text) ?></span>
+                <?php endif ?>
+                <span class="issue__status">Статус: <?php echo $issue->checked ? 'Выполнено' : 'Не выполнено' ?></span>
+            </div>
+        </div>
+    </div>
+    <div class="boxes__item">
+        <div class="box">
+            <div class="task-toolbar task-toolbar--vertical">
+                <a href="#" class="task-toolbar__button task-toolbar__button--good">Добавить подзадачу</a>
+                <a href="/web/index.php?r=todo/edit?id=<?= $issue->id ?>" class="task-toolbar__button">Редактировать</a>
+                <a href="#" class="task-toolbar__button task-toolbar__button--bad">Удалить</a>
+            </div>
+        </div>
     </div>
 </div>

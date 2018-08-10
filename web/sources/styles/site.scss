@@ -1,7 +1,14 @@
-@import 'site-variables';
+// Common
 @import 'fonts';
+@import 'site-variables';
+@import 'functions';
+@import 'site/mixins';
 @import '../../libs/normalize.css';
 @import '../../libs/semantic/icon.css';
+
+// Blocks
+@import 'site-blocks/form';
+@import 'site-blocks/task-toolbar';
 
 html, body {
     height: 100%;
@@ -26,6 +33,22 @@ body {
     flex-grow: 1;
     height: 100%;
     box-sizing: border-box;
+}
+.boxes {
+    display: flex;
+    align-items: flex-start;
+
+    &:not(:first-of-type) {
+        margin-top: 15px;
+    }
+    &__item {
+        &:not(:first-of-type) {
+            margin-left: 15px;
+        }
+        &--main {
+            flex-grow: 1;
+        }
+    }
 }
 .box {
     background: $box-background;
@@ -227,116 +250,6 @@ body {
     }
 }
 
-.form {
-    font-size: 1.2rem;
-    &__field {
-        clear: both;
-        overflow: hidden;
-        margin-bottom: 10px;
-        display: flex;
-        justify-content: space-between;
-    }
-    &__field--ok &__icon {
-        background: $ok-color;
-    }
-    &__field--ok &__input {
-        border-color: $ok-color;
-        color: $ok-color;
-    }
-    &__field--error &__icon {
-        background: $error-color;
-    }
-    &__field--error &__input {
-        border-color: $error-color;
-        color: $error-color;
-    }
-    &__label {
-        font-size: 1.2rem;
-        margin-right: 10px;
-        line-height: 27px + 2px * 2; // 1 + 2
-    }
-    &__input-container {
-        float: right;
-    }
-    &__icon {
-        line-height: 27px + 4px; // 1 + 2 * 2
-        background: darken($input-color, 10);
-        color: white;
-        border-radius: 5px 0 0 5px;
-        display: inline-block;
-        height: 27px + 4px; // 1 + 2 * 2
-        width: 27px + 4px; // 1 + 2 * 2
-        text-align: center;
-        i.icon {
-            font-size: 0.9rem;
-            margin-right: 0; // костыль для переопределения самого semantic свойства
-        }
-    }
-    &__input {
-        border: solid 2px $input-color; // 2
-        border-radius: $form-input-border-radius;
-        color: darken($input-color, 10);
-        padding: 0 7px;
-        height: 27px; // 1
-        outline: none;
-        flex-grow: 1;
-        &--icon {
-            border-left: 0;
-            border-radius: 0 $form-input-border-radius $form-input-border-radius 0;
-        }
-    }
-    &__textarea {
-        border: solid 2px $input-color; // 2
-        border-radius: $form-input-border-radius;
-        color: black;
-        padding: 7px;
-        resize: vertical;
-        outline: none;
-        flex-grow: 1;
-    }
-    &__button {
-        border: none;
-        border-radius: 5px;
-        background: $form-button-color;
-        color: white;
-        padding: 7px 15px;
-        outline: none;
-        text-decoration: none;
-        font-size: 1rem;
-        &:hover {
-            background: darken($form-button-color, 10);
-        }
-    }
-
-    &--table {
-        display: table;
-        width: 100%;
-        border-spacing: 10px;
-        margin: -10px;
-    }
-    &--table &__field {
-        display: table-row;
-    }
-    &--table &__label {
-        display: table-cell;
-        vertical-align: top;
-        width: 100px;
-    }
-    &--table &__input-container {
-        display: table-cell;
-        width: 100%;
-    }
-    &--table &__input {
-        width: 100%;
-        box-sizing: border-box;
-        height: 27px + 2px * 2; // 1 + 2
-    }
-    &--table &__textarea {
-        width: 100%;
-        box-sizing: border-box;
-    }
-}
-
 .form-checkbox {
     &__input {
         display: none;
@@ -381,7 +294,7 @@ body {
     &__title {
         font-weight: bold;
         font-size: 1.25rem;
-        display: block;
+        display: inline-block;
     }
     &__text {
         display: block;

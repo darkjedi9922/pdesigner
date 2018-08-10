@@ -4,9 +4,11 @@
 /** @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use app\assets\LandingAsset;
 
 LandingAsset::register($this);
+$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/web/favicon.png']);
 ?>
 <?php $this->beginPage() ?>
 

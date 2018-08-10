@@ -7,8 +7,9 @@
 @import '../../libs/semantic/icon.css';
 
 // Blocks
-@import 'site-blocks/form';
-@import 'site-blocks/task-toolbar';
+@import 'site/blocks/form';
+@import 'site/blocks/issue';
+@import 'site/blocks/task-toolbar';
 
 html, body {
     height: 100%;
@@ -287,26 +288,5 @@ body {
     }
     &:hover &__input:checked + &__box + &__label {
         color: darken($ok-color, 10);
-    }
-}
-
-.issue {
-    &__title {
-        font-weight: bold;
-        font-size: 1.25rem;
-        display: inline-block;
-    }
-    &__text {
-        display: block;
-        font-size: 1.2rem;
-        margin-top: 10px;
-        p {
-            margin-bottom: 0;
-        }
-    }
-    &__status {
-        padding-top: 20px;
-        font-size: 1.2rem;
-        display: inline-block;
     }
 }

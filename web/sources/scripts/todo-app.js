@@ -57,10 +57,7 @@
             for (var i = 0; i < itemsToDelete.length; ++i) {
                 // Делаем запрос в БД на удаление
                 $.ajax({
-                    url: '/web/index.php?r=todo/delete',
-                    method: 'POST',
-                    data: 'id=' + itemsToDelete[i]
-                        + '&_csrf=' + this.token
+                    url: '/web/index.php?r=todo/delete&id=' + itemsToDelete[i]
                 });
             }
             

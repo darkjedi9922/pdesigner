@@ -11,6 +11,8 @@ class AddTaskForm extends Model
     public $project = null;
     public $text = null;
 
+    private $issue = null;
+
     /**
      * @return array
      */
@@ -50,8 +52,18 @@ class AddTaskForm extends Model
                 $text->insert();
             }
 
+            $this->issue = $issue;
+
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return Issue|null
+     */
+    public function getAddedIssue()
+    {
+        return $this->issue;
     }
 }

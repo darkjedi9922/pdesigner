@@ -22,13 +22,24 @@ class TodoController extends Controller
         }
     }
 
-    public function actionDelete()
+    /**
+     * @param int $id Id задачи
+     */
+    public function actionDelete($id)
     {
-        $id = Yii::$app->request->post('id');
-        if ($id) {
-            Issue::deleteAll('id = '.$id);
-            IssueText::deleteAll('issue_id = '.$id);
+        // Нужно найти id проекта этой задачи для редиректа, если это не ajax
+        if (!Yii::$app->request->isAjax) {
+            $issue = Issue::find()->where(['id' => $id])->one();
+            if ($issue) $projectId = $issue->project_id;
+            else $projectId = null;
         }
+
+        // Удаляем
+        Issue::deleteAll('id = '.$id);
+        IssueText::deleteAll('issue_id = '.$id);
+
+        // Редирект если не ajax
+        if (!Yii::$app->request->isAjax && $projectId !== null) $this->redirect(['project/index', 'id' => $projectId]);
     }
 
     /**
@@ -49,7 +60,7 @@ class TodoController extends Controller
 
         $model = new AddTaskForm();
         if ($model->load(Yii::$app->request->post()) && $model->add()) {
-            return $this->redirect(['project/index', 'id' => $project->id]);
+            return $this->redirect(['todo/index', 'id' => $model->getAddedIssue()->id]);
         }
 
         return $this->render('add-item', [

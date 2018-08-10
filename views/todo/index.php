@@ -26,9 +26,9 @@
     <div class="boxes__item">
         <div class="box">
             <div class="task-toolbar task-toolbar--vertical">
-                <a href="#" class="task-toolbar__button task-toolbar__button--good">Добавить подзадачу</a>
-                <a href="/web/index.php?r=todo/edit?id=<?= $issue->id ?>" class="task-toolbar__button">Редактировать</a>
-                <a href="#" class="task-toolbar__button task-toolbar__button--bad">Удалить</a>
+                <a href="/web/index.php?r=todo/add-item&parent=<?= $issue->id ?>" class="task-toolbar__button task-toolbar__button--good">Добавить подзадачу</a>
+                <a href="/web/index.php?r=todo/edit-item&id=<?= $issue->id ?>" class="task-toolbar__button">Редактировать</a>
+                <a href="/web/index.php?r=todo/delete&id=<?= $issue->id ?>" class="task-toolbar__button task-toolbar__button--bad">Удалить</a>
             </div>
         </div>
     </div>

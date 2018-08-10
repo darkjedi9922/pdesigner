@@ -43,8 +43,8 @@ gulp.task('build', function() {
     gulp.start('js');
 });
 gulp.task('watch', function() {
-    gulp.watch(['sources/styles/*', 'sources/styles/*/*'], ['styles']);
-    gulp.watch(['sources/scripts/*', 'sources/scripts/*/*'], ['js']);
+    gulp.watch(['sources/styles/*', 'sources/styles/*/*', 'sources/styles/*/*/*'], ['styles']);
+    gulp.watch(['sources/scripts/*', 'sources/scripts/*/*', 'sources/scripts/*/*/*'], ['js']);
 });
 
 gulp.task('default', ['build', 'watch']);

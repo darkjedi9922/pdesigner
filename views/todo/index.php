@@ -14,12 +14,22 @@
 <div class="boxes">
     <div class="boxes__item boxes__item--main">
         <div class="box">
-                <div class="issue" id="issue-app">
-                <span class="issue__title">#<?= $issue->number ?> <?= $issue->title ?></span>
+            <div class="issue" id="issue-app">
+                <div class="issue__title">
+                    <vue-checkbox 
+                        class="todo-item__checkbox"
+                        @load="
+                            id = <?= $issue->id ?>;
+                            checked = <?php echo $issue->checked ? 'true' : 'false' ?>; 
+                            token = '<?= Yii::$app->request->csrfToken ?>'"
+                        :checked="checked"
+                        @toggle="switchChecked">
+                    </vue-checkbox>
+                    <span>#<?= $issue->number ?> <?= $issue->title ?></span>
+                </div>
                 <?php if ($text) : ?>
                     <span class="issue__text"><?= str_replace("\n", '<br>', $text) ?></span>
                 <?php endif ?>
-                <span class="issue__status">Статус: <?php echo $issue->checked ? 'Выполнено' : 'Не выполнено' ?></span>
             </div>
         </div>
     </div>

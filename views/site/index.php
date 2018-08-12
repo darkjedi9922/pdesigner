@@ -2,6 +2,8 @@
 
 /** @var $this yii\web\View */
 
+use yii\helpers\Url;
+
 $isLogged = !Yii::$app->user->isGuest;
 ?>
 
@@ -11,7 +13,7 @@ $isLogged = !Yii::$app->user->isGuest;
             <span class="header__sitename">Project Designer</span>
             <div class="header__links header-links">
                 <?php if ($isLogged): ?>
-                    <form action="/web/index.php?r=site/logout" method="post">
+                    <form action="<?= Url::to(['/site/logout']) ?>" method="post">
                         <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
                         <label>
                             <input type="submit" style="display:none">
@@ -19,7 +21,7 @@ $isLogged = !Yii::$app->user->isGuest;
                         </label>
                     </form>
                 <?php else: ?>
-                    <a href="/web/index.php?r=site/login" class="header-links__link">Вход</a>
+                    <a href="<?= Url::to(['/site/login']) ?>" class="header-links__link">Вход</a>
                     <a href="#" class="header-links__button">Регистрация</a>
                 <?php endif ?>
             </div>
@@ -32,11 +34,11 @@ $isLogged = !Yii::$app->user->isGuest;
                     <br><br>
                 </div>
                 <div class="slide__bar">
-                    <a href="/web/index.php?r=dashboard" class="slide__button">Начать</a>
+                    <a href="<?= Url::to(['/dashboard']) ?>" class="slide__button">Начать</a>
                 </div>
             </div>
             <div class="slide__image">
-                <img src="/web/images/slide_1.png">
+                <img src="<?= Url::to(['/images/slide_1.png']) ?>">
             </div>
         </div>
         <div class="footer">

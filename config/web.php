@@ -45,15 +45,14 @@ $config = [
         'db' => $db,
         'assetManager' => [
             'appendTimestamp' => true
-        ]
-        /*
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
-            ],
+            'enableStrictParsing' => false,
+            //'rules' => [],
         ],
-        */
+        
     ],
     'name' => 'PDesigner',
     'params' => $params,

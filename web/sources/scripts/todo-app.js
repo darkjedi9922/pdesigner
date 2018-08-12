@@ -2,6 +2,7 @@
     el: "#todo-app",
     mixins: [taskMixin],
     data: {
+        store: mainStore,
         todo: 'all',
         list: [],
         token: '',
@@ -51,7 +52,7 @@
             for (var i = 0; i < itemsToDelete.length; ++i) {
                 // Делаем запрос в БД на удаление
                 $.ajax({
-                    url: '/web/index.php?r=todo/delete&id=' + itemsToDelete[i]
+                    url: this.store.tasks.links.getDelete(itemsToDelete[i])
                 });
             }
             

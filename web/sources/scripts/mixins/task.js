@@ -1,8 +1,13 @@
 var taskMixin = {
+    data: function() {
+        return {
+            store: mainStore
+        }
+    },
     methods: {
         setTaskChecked(id, checked, token) {
             $.ajax({
-                url: '/web/index.php?r=todo/toggle',
+                url: this.store.tasks.links.getToggle(),
                 method: 'POST',
                 data: 'id=' + id
                     + '&checked=' + +checked

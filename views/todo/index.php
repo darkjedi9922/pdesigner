@@ -1,4 +1,7 @@
 <?php
+
+use yii\helpers\Url;
+
 /** @var \yii\web\View $this */
 /** @var \app\models\Issue $issue */
 /** @var \app\models\Issue|null $parent */
@@ -9,7 +12,7 @@
 <div class="breadcrumb">
     <span class="breadcrumb__section">Проекты</span>
     <span class="breadcrumb__divisor"></span>
-    <a href="/web/index.php?r=project&id=<?= $project->id ?>" class="breadcrumb__section breadcrumb__section--link"><?= $project->name ?></a>
+    <a href="<?= Url::to(['/project', 'id' => $project->id]) ?>" class="breadcrumb__section breadcrumb__section--link"><?= $project->name ?></a>
 </div>
 <div class="boxes">
     <div class="boxes__item boxes__item--main">
@@ -36,9 +39,9 @@
     <div class="boxes__item">
         <div class="box">
             <div class="task-toolbar task-toolbar--vertical">
-                <a href="/web/index.php?r=todo/add-item&parent=<?= $issue->id ?>" class="task-toolbar__button task-toolbar__button--good">Добавить подзадачу</a>
-                <a href="/web/index.php?r=todo/edit-item&id=<?= $issue->id ?>" class="task-toolbar__button">Редактировать</a>
-                <a href="/web/index.php?r=todo/delete&id=<?= $issue->id ?>" class="task-toolbar__button task-toolbar__button--bad">Удалить</a>
+                <a href="<?= Url::to(['/todo/add-item', 'parent' => $issue->id]) ?>" class="task-toolbar__button task-toolbar__button--good">Добавить подзадачу</a>
+                <a href="<?= Url::to(['/todo/edit-item', 'parent' => $issue->id]) ?>" class="task-toolbar__button">Редактировать</a>
+                <a href="<?= Url::to(['/todo/delete', 'parent' => $issue->id]) ?>" class="task-toolbar__button task-toolbar__button--bad">Удалить</a>
             </div>
         </div>
     </div>

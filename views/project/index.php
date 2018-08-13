@@ -19,12 +19,18 @@ use yii\helpers\Url;
     </div>
     <div class="todo-group">
         <span class="todo-group__title">Общее</span>
-        <span class="todo-group__settings">
-            <i class="icon paint brush"></i>
-            <i class="icon pencil alternate"></i>
-            <i class="icon add"></i>
-            <i class="icon trash"></i>
-        </span>
+        <contextmenu class="todo-contextmenu">
+            <span class="todo-contextmenu__item" id="change-color"><i class="icon paint brush"></i>Изменить цвет</span>
+            <span class="todo-contextmenu__item"><i class="icon pencil alternate"></i>Изменить название</span>
+            <a href="<?= Url::to(['/todo/add-item', 'project' => $project->id]) ?>" class="todo-contextmenu__item"><i class="icon add"></i>Добавить задачу</a>
+            <span class="todo-contextmenu__item"><i class="icon trash"></i>Удалить группу</span>
+        </contextmenu>
+        <contextmenu class="todo-contextmenu todo-contextmenu--grid" for="change-color" on="click">
+            <div class="todo-contextmenu__item" style="background: #F14C4C"></div>
+            <div class="todo-contextmenu__item" style="background: #F8A13F"></div>
+            <div class="todo-contextmenu__item" style="background: #75C181"></div>
+            <div class="todo-contextmenu__item" style="background: #4192C1"></div>
+        </contextmenu>
     </div>
     <todo-list 
         class="todo-list--parent"
@@ -39,5 +45,4 @@ use yii\helpers\Url;
         },<?php endforeach ?>]; token = '<?= Yii::$app->request->csrfToken ?>'; todo = 'undone'"
         @item-toggled="itemToggled">
     </todo-list>
-    <br><a href="<?= Url::to(['/todo/add-item', 'project' => $project->id]) ?>" class="todo-list__button">Добавить задачу</a>
 </div>

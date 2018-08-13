@@ -1,4 +1,26 @@
+/**
+ * Появляется при событии "contextmenu" родительского элемента.
+ * Замечание: если вкладывать контекстные меню друг в друга, дочерние работать не будут.
+ * Для этого нужно делать их полностью независимыми и связывать их через параметр for.
+ */
 ;Vue.component('contextmenu', {
+    props: {
+        /**
+         * Id элемента к которому привязан компонент.
+         * Если он не указан, используетяс родительский элемент.
+         */
+        for: {
+            type: String,
+            default: null
+        },
+        /**
+         * Событие, которое будет вызывать контекстное меню.
+         */
+        on: {
+            type: String,
+            default: 'contextmenu'
+        }  
+    },
     data: function() {
         return {
             parent: null,
@@ -9,21 +31,22 @@
         }
     },
     mounted: function() {
-        this.parent = $(this.$el).parent()[0];
+        //$(document.body).on('contextmenu', this.hide.bind(this));
+        //$(document.body).on('click', this.hide.bind(this));
 
-        $(document.body).on('contextmenu', (function (event) {
-            if (event.target === this.parent) {
+        this.parent = $(this.$el).parent()[0];
+        $(document.body).on(this.on, (function (event) {
+            if ((this.for === null && event.target === this.parent) || (this.for !== null && $(event.target).closest('#' + this.for).length !== 0)) {
                 this.exists = true;
                 this.x = event.clientX + pageXOffset + 1;
                 this.y = event.clientY + pageYOffset;
                 this.$nextTick(this.checkPosition);
                 event.preventDefault();
-            } else this.exists = false;
-        }).bind(this));
-
-        $(document.body).on('click', (function() {
-            this.exists = false;
-            this.checked = false;
+                setTimeout((function() {
+                    $(document.body).on('contextmenu', this.hide);
+                    $(document.body).on('click', this.hide);
+                }).bind(this), 200);
+            }
         }).bind(this));
     },
     methods: {
@@ -35,6 +58,12 @@
             this.$nextTick(function () {
                 this.checked = true;
             });
+        },
+        hide: function() {
+            this.exists = false;
+            this.checked = false;
+            $(document.body).off('contextmenu', this.hide);
+            $(document.body).off('click', this.hide);
         }
     },
     template: '\

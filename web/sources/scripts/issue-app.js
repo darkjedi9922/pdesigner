@@ -1,6 +1,6 @@
 ;new Vue({
     el: '#issue-app',
-    mixins: [taskMixin],
+    mixins: [taskMixin, markMixin],
     data: function() {
         return {
             id: 0,
@@ -9,8 +9,7 @@
         }
     },
     mounted: function() {
-        var textElement = this.$el.querySelector('.issue__text');
-        if (textElement) textElement.innerHTML = marked(textElement.innerText, { sanitize: false });
+        this.markdown('.issue__text');
     },
     methods: {
         switchChecked: function() {

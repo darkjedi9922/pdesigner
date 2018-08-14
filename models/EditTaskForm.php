@@ -38,7 +38,7 @@ class EditTaskForm extends Model
                 else {
                     $text = IssueText::find()->where(['issue_id' => $this->id])->one();
                     if ($text) {
-                        if ($text !== $this->text) {
+                        if ($text->text !== $this->text) {
                             $text->text = Html::encode($this->text);
                             $text->save();
                         }

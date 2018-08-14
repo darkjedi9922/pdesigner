@@ -3,10 +3,12 @@
 use yii\base\Model;
 use yii\helpers\Html;
 use app\models\Project;
+use app\models\ProjectDescription;
 
 class AddProjectForm extends Model
 {
     public $name;
+    public $description = null;
 
     /**
      * @return array
@@ -14,7 +16,8 @@ class AddProjectForm extends Model
     public function rules()
     {
         return [
-            [['name'], 'required']
+            [['name'], 'required'],
+            ['description', 'string']
         ];
     }
 
@@ -24,9 +27,18 @@ class AddProjectForm extends Model
     public function add()
     {
         if ($this->validate()) {
+            // Сам проект
             $project = new Project();
             $project->name = Html::encode($this->name);
-            if ($project->insert()) return $project;
+            $project->insert();
+            // Его описание
+            if ($this->description) {
+                $desc = new ProjectDescription();
+                $desc->project_id = $project->id;
+                $desc->description = $this->description;
+                $desc->insert();
+            }
+            return $project;
         }
         return null;
     }

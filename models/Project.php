@@ -12,4 +12,12 @@ class Project extends ActiveRecord
     {
         return 'projects';
     }
+
+    /**
+     * @return ProjectDescription|null
+     */
+    public function loadDescription()
+    {
+        return ProjectDescription::find()->where(['project_id' => $this->id])->one();
+    }
 }

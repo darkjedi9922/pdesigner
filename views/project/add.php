@@ -11,6 +11,12 @@
                     <input type="text" name="AddProjectForm[name]" class="form__input">
                 </div>
             </div>
+            <div class="form__field">
+                <span class="form__label">Описание:</span>
+                <div class="form__input-container">
+                    <textarea class="form__textarea" name="AddProjectForm[description]" rows="10" spellcheck="false"></textarea>
+                </div>
+            </div>
         </div>
         <br><button class="form__button">Создать проект</button>
     </form>

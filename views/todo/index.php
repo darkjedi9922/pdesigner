@@ -40,8 +40,8 @@ use yii\helpers\Url;
         <div class="box">
             <div class="task-toolbar task-toolbar--vertical">
                 <a href="<?= Url::to(['/todo/add-item', 'parent' => $issue->id]) ?>" class="task-toolbar__button task-toolbar__button--good">Добавить подзадачу</a>
-                <a href="<?= Url::to(['/todo/edit-item', 'parent' => $issue->id]) ?>" class="task-toolbar__button">Редактировать</a>
-                <a href="<?= Url::to(['/todo/delete', 'parent' => $issue->id]) ?>" class="task-toolbar__button task-toolbar__button--bad">Удалить</a>
+                <a href="<?= Url::to(['/todo/edit-item', 'id' => $issue->id]) ?>" class="task-toolbar__button">Редактировать</a>
+                <a href="<?= Url::to(['/todo/delete', 'id' => $issue->id]) ?>" class="task-toolbar__button task-toolbar__button--bad">Удалить</a>
             </div>
         </div>
     </div>

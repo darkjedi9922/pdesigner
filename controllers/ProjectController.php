@@ -7,6 +7,8 @@ use yii\web\Controller;
 use app\models\Project;
 use app\models\Issue;
 use app\models\AddProjectForm;
+use app\models\ProjectDescription;
+use app\models\EditProjectForm;
 
 class ProjectController extends Controller
 {
@@ -23,9 +25,12 @@ class ProjectController extends Controller
             Yii::$app->response->statusCode = 404;
             return;
         }
+
         $issues = Issue::find()->where(['project_id' => $id])->orderBy('id ASC')->all();
+        
         return $this->render('index', [
             'project' => $project,
+            'desc' => $project->loadDescription(),
             'issues' => $issues
         ]);
     }
@@ -41,5 +46,31 @@ class ProjectController extends Controller
         }
 
         return $this->render('add');
+    }
+
+    /**
+     * @param int $id Id проекта
+     * @return Response|string
+     */
+    public function actionEdit($id)
+    {
+        $project = Project::findOne($id);
+        if (!$project) {
+            Yii::$app->response->statusCode = 404;
+            return;
+        }
+
+        if (Yii::$app->request->isPost) {
+            $form = new EditProjectForm();
+            $form->id = $id;
+            if ($form->load(Yii::$app->request->post()) && $form->edit()) {
+                return $this->redirect(['/project', 'id' => $id]);
+            }
+        }
+
+        return $this->render('edit', [
+            'project' => $project,
+            'desc' => $project->loadDescription()
+        ]);
     }
 }

@@ -20,4 +20,13 @@ class Project extends ActiveRecord
     {
         return ProjectDescription::find()->where(['project_id' => $this->id])->one();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function delete() 
+    {
+        ProjectDescription::deleteAll(['project_id' => $this->id]);
+        return parent::delete();
+    }
 }

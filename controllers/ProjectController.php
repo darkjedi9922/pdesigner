@@ -73,4 +73,15 @@ class ProjectController extends Controller
             'desc' => $project->loadDescription()
         ]);
     }
+
+    /**
+     * @param int $id Id проекта
+     * @return Response
+     */
+    public function actionDelete($id)
+    {
+        $project = Project::findOne($id);
+        if ($project) $project->delete();
+        $this->redirect(['/dashboard']);
+    }
 }

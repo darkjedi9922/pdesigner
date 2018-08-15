@@ -29,7 +29,7 @@
         filteredList: function() {
             if (this.mode == 'done') return this.getFilteredSublist(this.list, true);
             else if (this.mode == 'undone') return this.getFilteredSublist(this.list, false);
-            else return this.list;
+            else return this.getFilteredSublist(this.list, undefined);
         }
     },
     methods: {
@@ -37,8 +37,8 @@
             var list = [];
             for (var i = 0; i < sublist.length; ++i) {
                 var filteredChildren = this.getFilteredSublist(sublist[i].children, isChecked);
-                if (filteredChildren.length !== 0 || sublist[i].checked == isChecked) {
-                    sublist[i].children = filteredChildren;
+                if (filteredChildren.length !== 0 || sublist[i].checked === isChecked || isChecked === undefined) {
+                    sublist[i].filteredChildren = filteredChildren;
                     list.push(sublist[i]);
                 };
             }
@@ -110,8 +110,8 @@
                     <todo-list\
                         slot="sublist"\
                         class="todo-item__sublist"\
-                        v-if="item.children.length !== 0"\
-                        :list="item.children"\
+                        v-if="item.filteredChildren.length !== 0"\
+                        :list="item.filteredChildren"\
                         :parentItemId="item.id"\
                         :mode="mode"\
                         v-on:item-toggled="$emit(\'item-toggled\', $event)">\

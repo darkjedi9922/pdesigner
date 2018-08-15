@@ -15,11 +15,6 @@
             type: String,
             required: false,
             default: 'all'
-        },
-        tree: {
-            type: Boolean,
-            required: false,
-            default: false
         }
     },
     mounted: function() {

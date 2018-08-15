@@ -9,23 +9,27 @@
         treeList: []
     },
     mounted: function() {
-        this.treeList = this.getTreeList(0);
-    },
-    watch: {
-        todo: function() {
-            this.treeList = this.getTreeList(0);
-        },
-        list: function() {
-            this.treeList = this.getTreeList(0);
-        }
+        this._setTreeList();
     },
     methods: {
-        getTreeList: function(parentItemId) {
+        _setTreeList: function() {
+            if (this.groups.length !== 0) {
+                this.treeList = this.getTreeList(this.list, 0);
+
+                /*for (var i = 0; i < this.treeList.length; ++i) {
+                    var item = this.treeList[i];
+                    var groupId = item.groupId;
+                    if (this.groups[groupId].list === undefined) this.groups[groupId].list = [];
+                    this.groups[groupId].list.push(item);
+                }*/
+            }
+        },
+        getTreeList: function(linerarList, parentItemId) {
             var list = [];
-            for (var i = 0; i < this.list.length; ++i) {
-                if (this.list[i].parentId === parentItemId) {
-                    this.list[i].children = this.getTreeList(this.list[i].id);
-                    list.push(this.list[i]);
+            for (var i = 0; i < linerarList.length; ++i) {
+                if (linerarList[i].parentId === parentItemId) {
+                    linerarList[i].children = this.getTreeList(linerarList, linerarList[i].id);
+                    list.push(linerarList[i]);
                 }
             }
             return list;
@@ -34,34 +38,23 @@
             this.setTaskChecked($event.id, $event.checked, this.token);
         },
         deleteItem: function(id) {
-            /**
-             * Сначала я рекурсивно удалял всех детей, вызывая этот метод.
-             * Но оказалось, что в БД в итоге иногда удалялись не все итемы.
-             * Некоторые AJAX запросы просто исчезали. Скорей всего это из-за
-             * того, что каждый раз при удалении одного из итемов, переопределялся
-             * новый список для удаления итемов из DOM, а он ведь реактивный и Vue, 
-             * как всегда, в своем отдельном потоке что-то где-то неуспевал.
-             * 
-             * Поэтому было решено сначала найти все итемы для удаления, а уже потом
-             * линейно пройтись по ним циклом, удалить их в нем, и в самом конце,
-             * только один раз переопределить список. Это решило проблему.
-             */
-
-            var itemsToDelete = this.findItemsIdToDelete(id, []);
-
-            for (var i = 0; i < itemsToDelete.length; ++i) {
-                // Делаем запрос в БД на удаление
-                $.ajax({
-                    url: this.store.tasks.links.getDelete(itemsToDelete[i])
-                });
+            this.removeItemFromDb(id);
+            this.treeList = this.removeItemFromList(this.treeList, id);
+        },
+        removeItemFromDb(itemId) {
+            var itemsToDelete = this.findItemsIdToDelete(itemId, []);
+            for (var i = 0; i < itemsToDelete.length; ++i)
+                $.ajax({ url: this.store.tasks.links.getDelete(itemsToDelete[i]) });
+        },
+        removeItemFromList(treeList, itemId) {
+            var list = [];
+            for (var i = 0; i < treeList.length; ++i) {
+                if (treeList[i].id !== itemId) {
+                    treeList[i].children = this.removeItemFromList(treeList[i].children, itemId);
+                    list.push(treeList[i]);
+                }
             }
-            
-            // Удаляем из DOM
-            var newList = [];
-            for (var i = 0; i < this.list.length; ++i) {
-                if (!itemsToDelete.includes(this.list[i].id)) newList.push(this.list[i]);
-            }
-            this.list = newList;
+            return list;
         },
         findItemsIdToDelete(parentItemId, array) {
             // добавляем в массив своих детей

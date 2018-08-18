@@ -31,9 +31,6 @@
         }
     },
     mounted: function() {
-        //$(document.body).on('contextmenu', this.hide.bind(this));
-        //$(document.body).on('click', this.hide.bind(this));
-
         this.parent = $(this.$el).parent()[0];
         $(document.body).on(this.on, (function (event) {
             if ((this.for === null && event.target === this.parent) || (this.for !== null && $(event.target).closest('#' + this.for).length !== 0)) {

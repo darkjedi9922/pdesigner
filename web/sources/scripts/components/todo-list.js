@@ -3,7 +3,7 @@
         list: {
             type: Array,
             required: false,
-            default: []
+            default: function() { return [] }
         },
         parentItemId: {
             type: Number,
@@ -47,7 +47,7 @@
             }
 
             // отправлям событие
-            this.$emit('item-toggled', $event);
+            this.$root.itemToggled($event);
 
             // Если скрывать не нужно, выходим
             if (this.mode === 'all' || this.mode === 'done' && $event.checked || this.mode === 'undone' && !$event.checked) {

@@ -33,12 +33,13 @@
     mounted: function() {
         this.parent = $(this.$el).parent()[0];
         $(document.body).on(this.on, (function (event) {
-            if ((this.for === null && event.target === this.parent) || (this.for !== null && $(event.target).closest('#' + this.for).length !== 0)) {
+            if (this.isThatTarget(event.target)) {
+                event.preventDefault();
+                if (this.exists) return; // Если оно уже открыто, сработает hide(), а снова открывать тогда не будем
                 this.exists = true;
                 this.x = event.clientX + pageXOffset + 1;
                 this.y = event.clientY + pageYOffset;
                 this.$nextTick(this.checkPosition);
-                event.preventDefault();
                 setTimeout((function() {
                     $(document.body).on('contextmenu', this.hide);
                     $(document.body).on('click', this.hide);
@@ -61,6 +62,9 @@
             this.checked = false;
             $(document.body).off('contextmenu', this.hide);
             $(document.body).off('click', this.hide);
+        },
+        isThatTarget(target) {
+            return (this.for === null && target === this.parent) || (this.for !== null && $(target).closest('#' + this.for).length !== 0);
         }
     },
     template: '\

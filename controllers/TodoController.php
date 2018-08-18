@@ -7,6 +7,7 @@ use app\models\AddTaskForm;
 use app\models\EditTaskForm;
 use app\models\IssueText;
 use app\models\Project;
+use app\models\IssueGroup;
 
 class TodoController extends Controller
 {
@@ -43,19 +44,22 @@ class TodoController extends Controller
     }
 
     /**
-     * Нужно передать либо parent, либо project
+     * Нужно передать либо parent, либо gid
      * 
-     * @param int $parent id родительской задачи
-     * @param int $project id проекта
+     * @param int $parent id родительской задачи=
+     * @param int $group id группы задач
      * @return Response|string
      */
-    public function actionAddItem($parent = null, $project = null)
+    public function actionAddItem($parent = null, $group = null)
     {
         if ($parent) {
             $parent = Issue::findOne($parent);
-            $project = Project::findOne($parent->project_id);
-        } else if ($project) {
-            $project = Project::findOne($project);
+            $group = IssueGroup::findOne($parent->group_id);
+        } else if ($group) {
+            $group = IssueGroup::findOne($group);
+        } else {
+            Yii::$app->response->statusCode = 404;
+            return;
         }
 
         $model = new AddTaskForm();
@@ -63,8 +67,10 @@ class TodoController extends Controller
             return $this->redirect(['todo/index', 'id' => $model->getAddedIssue()->id]);
         }
 
+        $project = Project::findOne($group->project_id);
         return $this->render('add-item', [
             'parent' => $parent,
+            'group' => $group,
             'project' => $project
         ]);
     }

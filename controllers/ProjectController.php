@@ -9,6 +9,7 @@ use app\models\Issue;
 use app\models\AddProjectForm;
 use app\models\ProjectDescription;
 use app\models\EditProjectForm;
+use app\models\IssueGroup;
 
 class ProjectController extends Controller
 {
@@ -27,11 +28,13 @@ class ProjectController extends Controller
         }
 
         $issues = Issue::find()->where(['project_id' => $id])->orderBy('id ASC')->all();
+        $groups = IssueGroup::find()->where(['project_id' => $id])->orderBy('id ASC')->all();
         
         return $this->render('index', [
             'project' => $project,
             'desc' => $project->loadDescription(),
-            'issues' => $issues
+            'issues' => $issues,
+            'groups' => $groups
         ]);
     }
 

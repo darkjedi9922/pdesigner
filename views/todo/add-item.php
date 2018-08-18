@@ -5,6 +5,7 @@ use yii\helpers\Url;
 /** @var \yii\web\View $this */
 /** @var \app\models\Issue|null $parent */
 /** @var \app\models\Project $project */
+/** @var \app\models\IssueGroup $group */
 
 ?>
 
@@ -23,8 +24,8 @@ use yii\helpers\Url;
     <?php endif ?>
     <form method="post" class="form form--table">
         <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
-        <?php if ($parent): ?><input type="hidden" name="AddTaskForm[parent]" value="<?= $parent->id ?>"><?php endif ?>
-        <input type="hidden" name="AddTaskForm[project]" value="<?= $project->id ?>">
+        <?php if ($parent): ?><input type="hidden" name="AddTaskForm[parentId]" value="<?= $parent->id ?>"><?php endif ?>
+        <input type="hidden" name="AddTaskForm[groupId]" value="<?= $group->id ?>">
         <div class="form__field">
             <span class="form__label">Название:</span>
             <div class="form__input-container">

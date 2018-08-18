@@ -8,4 +8,9 @@
             getDelete: function (taskId) { return '/todo/delete?id=' + taskId }
         }
     },
+    groups: {
+        links: {
+            getAddTask: function(groupId) { return '/todo/add-item?group=' + groupId }
+        }
+    }
 };

@@ -7,8 +7,8 @@ use app\models\Issue;
 class AddTaskForm extends Model
 {
     public $title;
-    public $parent = null;
-    public $project = null;
+    public $parentId = null;
+    public $groupId = null;
     public $text = null;
 
     private $issue = null;
@@ -20,8 +20,8 @@ class AddTaskForm extends Model
     {
         return [
             [['title'], 'required'],
-            ['parent', 'integer'],
-            ['project', 'integer'],
+            ['parentId', 'integer'],
+            ['groupId', 'integer'],
             ['text', 'string']
         ];
     }
@@ -34,12 +34,16 @@ class AddTaskForm extends Model
         if ($this->validate()) {
             $issue = new Issue();
 
-            if ($this->parent) {
-                $issue->parent_issue_id = $this->parent;
-                $issue->project_id = Issue::findOne($this->parent)->project_id;
-            } else if ($this->project) {
+            if ($this->parentId) {
+                $parent = Issue::findOne($this->parentId);
+                $issue->parent_issue_id = $this->parentId;
+                $issue->group_id = $parent->group_id;
+                $issue->project_id = $parent->project_id;
+            } else if ($this->groupId) {
+                $group = IssueGroup::findOne($this->groupId);
                 $issue->parent_issue_id = null;
-                $issue->project_id = $this->project;
+                $issue->group_id = $this->groupId;
+                $issue->project_id = $group->project_id;
             } else return false;
 
             $issue->number = Issue::calcNewNumber($issue->project_id);

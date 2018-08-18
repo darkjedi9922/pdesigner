@@ -5,10 +5,24 @@
         list: [], // только для инициализации извне
 
         store: mainStore,
-        todo: 'all',
-        groups: [],
+        mode: 'all',
+        groups: {},
         token: '',
         treeList: []
+    },
+    computed: {
+        listedGroups: function() {
+            // Подготавливаем объекты групп
+            for (var id in this.groups) this.$set(this.groups[id], 'list', []);
+                //this.groups[id].list = [];
+
+            // Добавляем итемы первого поколения в группы
+            for (var i = 0; i < this.treeList.length; ++i) {
+                var parentItem = this.treeList[i];
+                this.groups[parentItem.groupId].list.push(parentItem);
+            }
+            return this.groups;
+        }
     },
     mounted: function() {
         this.treeList = this.getTreeList(this.list, 0);

@@ -4,6 +4,7 @@
         number: Number,
         title: String,
         parentId: Number,
+        groupId: Number,
         checked: Boolean
     },
     data: function() {

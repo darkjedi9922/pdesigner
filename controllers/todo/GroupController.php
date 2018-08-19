@@ -5,6 +5,7 @@ namespace app\controllers\todo;
 use Yii;
 use yii\web\Controller;
 use app\models\IssueGroup;
+use app\models\Issue;
 
 class GroupController extends Controller
 {
@@ -42,5 +43,13 @@ class GroupController extends Controller
             'name' => $group->name,
             'color_id' => $group->color_id
         ]);
+    }
+
+    /**
+     * @param int $group Id of the group
+     */
+    public function actionDelete($group)
+    {
+        IssueGroup::remove($group);
     }
 }

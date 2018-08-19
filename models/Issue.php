@@ -22,4 +22,25 @@ class Issue extends ActiveRecord
             'SELECT MAX(number) FROM '.self::tableName().' WHERE project_id = '.$projectId
         )->queryScalar() + 1;
     }
+
+    /**
+     * Removes the issue and its text. 
+     * The children is not removed.
+     * 
+     * @param int $id Id of the issue
+     */
+    public static function remove($id)
+    {
+        IssueText::deleteAll('issue_id = ' . $id);
+        static::deleteAll('id = ' . $id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function delete()
+    {
+        IssueText::deleteAll('issue_id = ' . $this->id);
+        parent::delete();
+    }
 }

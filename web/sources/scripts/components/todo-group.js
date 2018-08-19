@@ -57,6 +57,9 @@
         },
         setCaret(elem) {
             elem.focus();
+        },
+        deleteGroup() {
+            this.$root.deleteGroup(this.data.id);
         }
     },
     template: `
@@ -81,7 +84,7 @@
                     </span>
                     <span class="todo-contextmenu__item" @click="startEditingTitle"><i class="icon pencil alternate"></i>Изменить название</span>
                     <a :href="store.groups.links.getAddTask(data.id)" class="todo-contextmenu__item"><i class="icon add"></i>Добавить задачу</a>
-                    <span class="todo-contextmenu__item"><i class="icon trash"></i>Удалить группу</span>
+                    <span class="todo-contextmenu__item" @click="deleteGroup"><i class="icon trash"></i>Удалить группу</span>
                 </contextmenu>
             </span>
         </div>

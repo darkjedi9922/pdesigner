@@ -35,9 +35,7 @@ class TodoController extends Controller
             else $projectId = null;
         }
 
-        // Удаляем
-        Issue::deleteAll('id = '.$id);
-        IssueText::deleteAll('issue_id = '.$id);
+        Issue::remove($id);
 
         // Редирект если не ajax
         if (!Yii::$app->request->isAjax && $projectId !== null) $this->redirect(['project/index', 'id' => $projectId]);

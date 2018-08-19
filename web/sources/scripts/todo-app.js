@@ -88,6 +88,15 @@
                     });
                 }
             });
+        },
+        deleteGroup: function(groupId) {
+            // Удаляем из БД
+            $.ajax({ url: this.store.groups.links.getDelete(groupId) });
+
+            // Удаляем из JS
+            var groups = {};
+            for (var id in this.groups) if (id != groupId) groups[id] = this.groups[id];
+            this.groups = groups;
         }
     }
 });

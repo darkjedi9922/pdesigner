@@ -67,24 +67,23 @@
                 @blur="titleEnterDown"
                 spellcheck="false"
             >{{ data.name }}<contextmenu class="todo-contextmenu">
-                    <span class="todo-contextmenu__item" id="change-color"><i class="icon paint brush"></i>Изменить цвет</span>
+                    <span class="todo-contextmenu__item todo-group__color-menu" id="change-color"><i class="icon paint brush"></i>Изменить цвет
+                        <table class="todo-group__color-table" @click="colorClicked">
+                            <tr>
+                                <td class="todo-group__color-cell todo-group--bckg-1"></td>
+                                <td class="todo-group__color-cell todo-group--bckg-2"></td>
+                            </tr>
+                            <tr>
+                                <td class="todo-group__color-cell todo-group--bckg-3"></td>
+                                <td class="todo-group__color-cell todo-group--bckg-4"></td>
+                            </tr>
+                        </table>
+                    </span>
                     <span class="todo-contextmenu__item" @click="startEditingTitle"><i class="icon pencil alternate"></i>Изменить название</span>
                     <a :href="store.groups.links.getAddTask(data.id)" class="todo-contextmenu__item"><i class="icon add"></i>Добавить задачу</a>
                     <span class="todo-contextmenu__item"><i class="icon trash"></i>Удалить группу</span>
                 </contextmenu>
             </span>
-            <contextmenu class="todo-contextmenu" for="change-color" on="click">
-                <table class="todo-group__color-table" @click="colorClicked">
-                    <tr>
-                        <td class="todo-group__color-cell todo-group--bckg-1"></td>
-                        <td class="todo-group__color-cell todo-group--bckg-2"></td>
-                    </tr>
-                    <tr>
-                        <td class="todo-group__color-cell todo-group--bckg-3"></td>
-                        <td class="todo-group__color-cell todo-group--bckg-4"></td>
-                    </tr>
-                </table>
-            </contextmenu>
         </div>
     `
 });

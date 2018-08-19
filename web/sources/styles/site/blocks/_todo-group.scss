@@ -23,12 +23,22 @@
         }
     }*/
     &__color-table { // class of <table>
+        background: $box-background;
+        box-shadow: 0 0 2px 1px lightgray;
         border-spacing: 5px;
+        visibility: hidden;
+        position: absolute;
+        left: 100%;
+        top: 0;
     }
     &__color-cell { // class of <td>
         width: 40px;
         height: 40px;
         cursor: pointer;
+    }
+
+    &__color-menu:hover &__color-table {
+        visibility: visible;
     }
 
     &--color-1 { color: $error-color }

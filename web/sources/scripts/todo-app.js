@@ -16,7 +16,6 @@
         listedGroups: function() {
             // Подготавливаем объекты групп
             for (var id in this.groups) this.$set(this.groups[id], 'list', []);
-                //this.groups[id].list = [];
 
             // Добавляем итемы первого поколения в группы
             for (var i = 0; i < this.treeList.length; ++i) {
@@ -81,7 +80,7 @@
                 url: this.store.groups.links.getAdd(this.projectId),
                 success: function(data) {
                     data = JSON.parse(data);
-                    self.$set(self.groups, data, {
+                    self.$set(self.groups, data.id, {
                         id: data.id,
                         name: data.name,
                         colorId: data.color_id,

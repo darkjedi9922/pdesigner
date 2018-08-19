@@ -25,4 +25,22 @@ class GroupController extends Controller
     {
         IssueGroup::updateAll(['name' => $name], 'id =' . $group);
     }
+
+    /**
+     * @param int $project Id of the project
+     * @return string Id новой группы
+     */
+    public function actionAdd($project)
+    {
+        $group = new IssueGroup();
+        $group->name = 'Новая группа';
+        $group->color_id = 4;
+        $group->project_id = $project;
+        $group->insert();
+        echo json_encode([
+            'id' => $group->id,
+            'name' => $group->name,
+            'color_id' => $group->color_id
+        ]);
+    }
 }

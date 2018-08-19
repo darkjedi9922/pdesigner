@@ -22,6 +22,7 @@ use yii\helpers\Url;
         <?php endif ?>
         <div class="box" id="todo-app">
             <vue-app-init @before-mount="
+                projectId = <?= $project->id ?>;
                 list = [<?php foreach ($issues as $issue) : ?>{
                     id: <?= $issue->id ?>,
                     number: <?= $issue->number ?>,
@@ -48,6 +49,7 @@ use yii\helpers\Url;
                 :listed-groups="listedGroups"
                 :mode="mode"
             ></vue-todo>
+            <button class="form__button" @click="addGroup">Добавить группу</button>
         </div>
     </div>
     <div class="boxes__item">

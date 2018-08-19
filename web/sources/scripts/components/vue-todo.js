@@ -14,7 +14,8 @@
     <div>
         <div 
             v-for="(group, id) in listedGroups"
-            :key="id">
+            :key="id"
+            class="todo">
 
             <todo-group
                 :data="group"

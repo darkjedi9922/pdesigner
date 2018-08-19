@@ -2,12 +2,14 @@
     el: "#todo-app",
     mixins: [taskMixin],
     data: {
-        list: [], // только для инициализации извне
-
-        store: mainStore,
+        // props
+        projectId: null,
+        list: [],
         mode: 'all',
         groups: {},
         token: '',
+        // other data
+        store: mainStore,
         treeList: []
     },
     computed: {
@@ -45,12 +47,12 @@
             this.removeItemFromDb(this.treeList, id);
             this.treeList = this.removeItemFromList(this.treeList, id);
         },
-        removeItemFromDb(treeList, itemId) {
+        removeItemFromDb: function(treeList, itemId) {
             var itemsToDelete = this.findItemsIdToDelete(treeList, itemId, []);
             for (var i = 0; i < itemsToDelete.length; ++i)
                 $.ajax({ url: this.store.tasks.links.getDelete(itemsToDelete[i]) });
         },
-        removeItemFromList(treeList, itemId) {
+        removeItemFromList: function(treeList, itemId) {
             var list = [];
             for (var i = 0; i < treeList.length; ++i) {
                 if (treeList[i].id !== itemId) {
@@ -60,7 +62,7 @@
             }
             return list;
         },
-        findItemsIdToDelete(treeList, itemId, itemIds) {
+        findItemsIdToDelete: function(treeList, itemId, itemIds) {
             for (var i = 0; i < treeList.length; ++i) {
                 var item = treeList[i];
                 if (item.id === itemId) {
@@ -72,6 +74,21 @@
                 } else this.findItemsIdToDelete(item.children, itemId, itemIds);
             }
             return itemIds;
+        },
+        addGroup: function() {
+            var self = this;
+            $.ajax({
+                url: this.store.groups.links.getAdd(this.projectId),
+                success: function(data) {
+                    data = JSON.parse(data);
+                    self.$set(self.groups, data, {
+                        id: data.id,
+                        name: data.name,
+                        colorId: data.color_id,
+                        isNew: true
+                    });
+                }
+            });
         }
     }
 });

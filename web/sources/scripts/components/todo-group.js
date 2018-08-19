@@ -18,7 +18,9 @@
         }
     },
     mounted: function() {
-        this.colorId = this.data.colorId;
+        this.colorId = this.data.colorId; // свойства Vue.props изменять "нельзя", поэтому используем Vue.data
+        if (this.data.isNew) // Устанавливается в $root при добавлении новой группы
+            this.startEditingTitle();
     },
     methods: {
         colorClicked: function(event) {
@@ -48,7 +50,6 @@
             }
         },
         titleEnterDown: function(event) {
-            debugger;
             if (this.titleElem.contentEditable === 'true') {
                 event.preventDefault();
                 this.endEditingTitle();

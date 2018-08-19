@@ -1,9 +1,8 @@
 .todo-group {
     font-size: 1.4rem;
-    color: $link-color;
     border-bottom: solid 1px;
     margin-bottom: 8px;
-    &__settings {
+    /*&__settings {
         visibility: hidden;
         font-size: 1rem;
         cursor: pointer;
@@ -17,5 +16,23 @@
         i.icon {
             opacity: 1;
         }
+    }*/
+    &__color-table { // class of <table>
+        border-spacing: 5px;
     }
+    &__color-cell { // class of <td>
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+    }
+
+    &--color-1 { color: $error-color }
+    &--color-2 { color: $input-color }
+    &--color-3 { color: $ok-color }
+    &--color-4 { color: $link-color }
+
+    &--bckg-1 { background: $error-color }
+    &--bckg-2 { background: $input-color }
+    &--bckg-3 { background: $ok-color }
+    &--bckg-4 { background: $link-color }
 }

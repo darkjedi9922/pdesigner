@@ -10,7 +10,8 @@
     },
     groups: {
         links: {
-            getAddTask: function(groupId) { return '/todo/add-item?group=' + groupId }
+            getAddTask: function(groupId) { return '/todo/add-item?group=' + groupId },
+            setColorId: function(groupId, colorId) { return '/todo/group/set-color?group=' + groupId + '&color=' + colorId }
         }
     }
 };

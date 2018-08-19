@@ -4,11 +4,34 @@
     },
     data: function() {
         return {
-            store: mainStore
+            store: mainStore,
+            colorId: undefined,
+            mainClass: 'todo-group'
+        }
+    },
+    computed: {
+        colorClass: function() {
+            return 'todo-group--color-' + this.colorId;
+        }
+    },
+    mounted: function() {
+        this.colorId = this.data.colorId;
+    },
+    methods: {
+        colorClicked: function(event) {
+            for (var i = 1; i <= 4; ++i) {
+                if ($(event.target).hasClass('todo-group--bckg-' + i)) {
+                    this.colorId = i;
+                    this.setDbColorId(i);
+                }
+            }
+        },
+        setDbColorId: function(id) {
+            $.ajax({ url: mainStore.groups.links.setColorId(this.data.id, id) });
         }
     },
     template: `
-        <div class="todo-group">
+        <div :class="[mainClass, colorClass]">
             <span class="todo-group__title">{{ data.name }}</span>
             <contextmenu class="todo-contextmenu">
                 <span class="todo-contextmenu__item" id="change-color"><i class="icon paint brush"></i>Изменить цвет</span>
@@ -16,11 +39,17 @@
                 <a :href="store.groups.links.getAddTask(data.id)" class="todo-contextmenu__item"><i class="icon add"></i>Добавить задачу</a>
                 <span class="todo-contextmenu__item"><i class="icon trash"></i>Удалить группу</span>
             </contextmenu>
-            <contextmenu class="todo-contextmenu todo-contextmenu--grid" for="change-color" on="click">
-                <div class="todo-contextmenu__item" style="background: #F14C4C"></div>
-                <div class="todo-contextmenu__item" style="background: #F8A13F"></div>
-                <div class="todo-contextmenu__item" style="background: #75C181"></div>
-                <div class="todo-contextmenu__item" style="background: #4192C1"></div>
+            <contextmenu class="todo-contextmenu" for="change-color" on="click">
+                <table class="todo-group__color-table" @click="colorClicked">
+                    <tr>
+                        <td class="todo-group__color-cell todo-group--bckg-1"></td>
+                        <td class="todo-group__color-cell todo-group--bckg-2"></td>
+                    </tr>
+                    <tr>
+                        <td class="todo-group__color-cell todo-group--bckg-3"></td>
+                        <td class="todo-group__color-cell todo-group--bckg-4"></td>
+                    </tr>
+                </table>
             </contextmenu>
         </div>
     `

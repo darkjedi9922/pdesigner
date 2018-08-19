@@ -12,6 +12,9 @@
     computed: {
         colorClass: function() {
             return 'todo-group--color-' + this.colorId;
+        },
+        titleElem: function() {
+            return this.$el.querySelector('.todo-group__title');
         }
     },
     mounted: function() {
@@ -28,17 +31,47 @@
         },
         setDbColorId: function(id) {
             $.ajax({ url: mainStore.groups.links.setColorId(this.data.id, id) });
+        },
+        setDbName: function(name) {
+            $.ajax({ url: mainStore.groups.links.setName(this.data.id, name) });
+        },
+        startEditingTitle: function() {
+            this.titleElem.contentEditable = true;
+            this.setCaret(this.titleElem);
+        },
+        endEditingTitle: function() {
+            if (this.titleElem.textContent.length === 0) this.titleElem.focus();
+            else {
+                this.titleElem.contentEditable = false;
+                this.titleElem.blur();
+                this.setDbName(this.titleElem.textContent);
+            }
+        },
+        titleEnterDown: function(event) {
+            debugger;
+            if (this.titleElem.contentEditable === 'true') {
+                event.preventDefault();
+                this.endEditingTitle();
+            }
+        },
+        setCaret(elem) {
+            elem.focus();
         }
     },
     template: `
         <div :class="[mainClass, colorClass]">
-            <span class="todo-group__title">{{ data.name }}</span>
-            <contextmenu class="todo-contextmenu">
-                <span class="todo-contextmenu__item" id="change-color"><i class="icon paint brush"></i>Изменить цвет</span>
-                <span class="todo-contextmenu__item"><i class="icon pencil alternate"></i>Изменить название</span>
-                <a :href="store.groups.links.getAddTask(data.id)" class="todo-contextmenu__item"><i class="icon add"></i>Добавить задачу</a>
-                <span class="todo-contextmenu__item"><i class="icon trash"></i>Удалить группу</span>
-            </contextmenu>
+            <span 
+                class="todo-group__title" 
+                @keydown.enter="titleEnterDown" 
+                @blur="titleEnterDown"
+                spellcheck="false"
+            >{{ data.name }}<contextmenu class="todo-contextmenu">
+                    <span class="todo-contextmenu__item" id="change-color"><i class="icon paint brush"></i>Изменить цвет</span>
+                    <span class="todo-contextmenu__item" @click="startEditingTitle"><i class="icon pencil alternate"></i>Изменить название</span>
+                    <a :href="store.groups.links.getAddTask(data.id)" class="todo-contextmenu__item"><i class="icon add"></i>Добавить задачу</a>
+                    <span class="todo-contextmenu__item"><i class="icon trash"></i>Удалить группу</span>
+                </contextmenu>
+            </span>
             <contextmenu class="todo-contextmenu" for="change-color" on="click">
                 <table class="todo-group__color-table" @click="colorClicked">
                     <tr>

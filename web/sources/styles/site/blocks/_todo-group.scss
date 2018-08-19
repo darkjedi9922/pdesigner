@@ -2,6 +2,11 @@
     font-size: 1.4rem;
     border-bottom: solid 1px;
     margin-bottom: 8px;
+    &__title {
+        display: block;
+        height: 25px;
+        line-height: 25px;
+    }
     /*&__settings {
         visibility: hidden;
         font-size: 1rem;

@@ -79,30 +79,30 @@
         }
     }
 
-    &--table {
+    &__content {
         display: table;
         width: 100%;
         border-spacing: 10px;
         margin: -10px;
     }
-    &--table &__field {
+    &__content &__field {
         display: table-row;
     }
-    &--table &__label {
+    &__content &__label {
         display: table-cell;
         vertical-align: top;
         width: 100px;
     }
-    &--table &__input-container {
+    &__content &__input-container {
         display: table-cell;
         width: 100%;
     }
-    &--table &__input {
+    &__content &__input {
         width: 100%;
         box-sizing: border-box;
         height: 27px + 2px * 2; // 1 + 2
     }
-    &--table &__textarea {
+    &__content &__textarea {
         width: 100%;
         box-sizing: border-box;
     }

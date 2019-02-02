@@ -22,20 +22,22 @@ use yii\helpers\Url;
             <span class="form__label">Задача: <?= $parent->title ?></span>
         </div>
     <?php endif ?>
-    <form method="post" class="form form--table">
-        <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
-        <?php if ($parent): ?><input type="hidden" name="AddTaskForm[parentId]" value="<?= $parent->id ?>"><?php endif ?>
-        <input type="hidden" name="AddTaskForm[groupId]" value="<?= $group->id ?>">
-        <div class="form__field">
-            <span class="form__label">Название:</span>
-            <div class="form__input-container">
-                <input class="form__input" type="text" name="AddTaskForm[title]">
+    <form method="post" class="form">
+        <div class="form__content">
+            <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
+            <?php if ($parent): ?><input type="hidden" name="AddTaskForm[parentId]" value="<?= $parent->id ?>"><?php endif ?>
+            <input type="hidden" name="AddTaskForm[groupId]" value="<?= $group->id ?>">
+            <div class="form__field">
+                <span class="form__label">Название:</span>
+                <div class="form__input-container">
+                    <input class="form__input" type="text" name="AddTaskForm[title]">
+                </div>
             </div>
-        </div>
-        <div class="form__field">
-            <span class="form__label">Текст:</span>
-            <div class="form__input-container">
-                <textarea class="form__textarea" name="AddTaskForm[text]" rows="10" spellcheck="false"></textarea>
+            <div class="form__field">
+                <span class="form__label">Текст:</span>
+                <div class="form__input-container">
+                    <textarea class="form__textarea" name="AddTaskForm[text]" rows="10" spellcheck="false"></textarea>
+                </div>
             </div>
         </div>
         <button class="form__button">Добавить</button>

@@ -3,16 +3,14 @@ var sass = require('gulp-sass');
 //var concatCss = require('gulp-concat-css');
 var minifyCss = require('gulp-clean-css');
 var autoprefixer = require('gulp-autoprefixer');
-//var run = require('gulp-run-command').default;
-//var runSequence = require('run-sequence');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var glob = require('glob');
 
 var vuetask = require('./browserify');
 
-gulp.task('styles', function() {
-    gulp.src([
+gulp.task('styles', function () {
+    return gulp.src([
         'sources/styles/*.scss',
     ])
         .pipe(sass())
@@ -23,7 +21,7 @@ gulp.task('styles', function() {
 });
 
 gulp.task('js', function () {
-    gulp.src([
+    return gulp.src([
         'libs/jquery-3.3.1.min.js',
         'libs/src/semantic/build/semantic.min.js',
         'libs/vue.js',
@@ -49,13 +47,15 @@ gulp.task('semantic-all', function() {
     runSequence('semantic', 'styles');
 });*/
 
-gulp.task('build', function() {
-    gulp.start('styles');
-    gulp.start('js');
-});
-gulp.task('watch', function() {
-    gulp.watch(['sources/styles/*', 'sources/styles/*/*', 'sources/styles/*/*/*'], ['styles']);
-    gulp.watch(['sources/scripts/*', 'sources/scripts/*/*', 'sources/scripts/*/*/*'], ['js']);
+gulp.task('build', gulp.parallel('styles', 'js', 'vue'));
+
+gulp.task('watch-styles', () => {
+    return gulp.watch(['sources/styles/*', 'sources/styles/*/*', 'sources/styles/*/*/*'], gulp.series('styles'));
 });
 
-gulp.task('default', ['build', 'watch']);
+gulp.task('watch-js', () => {
+    return gulp.watch(['sources/scripts/*', 'sources/scripts/*/*', 'sources/scripts/*/*/*'], gulp.series('js'));
+});
+
+gulp.task('watch', gulp.parallel('watch-styles', 'watch-js'));
+gulp.task('default', gulp.parallel('build', 'watch'));

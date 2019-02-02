@@ -27,7 +27,6 @@ module.exports = (options) => {
     b.transform('babelify', { presets: ['@babel/env'] });
     b.transform('vueify');
 
-    //gulp.task('js', gulp.series(bundle)); // so you can run `gulp js` to build the file
     b.on('update', bundle); // on any dep update, runs the bundler
     b.on('log', log.info); // output build logs to terminal
 
@@ -46,6 +45,5 @@ module.exports = (options) => {
             .pipe(gulp.dest(options.dest));
     }
 
-    return bundle;
-    // return gulp.series(bundle);
+    return gulp.series(bundle);
 };

@@ -7,6 +7,9 @@ var autoprefixer = require('gulp-autoprefixer');
 //var runSequence = require('run-sequence');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
+var glob = require('glob');
+
+var vuetask = require('./browserify');
 
 gulp.task('styles', function() {
     gulp.src([
@@ -34,6 +37,12 @@ gulp.task('js', function () {
         .pipe(concat('asset.js'))
         .pipe(gulp.dest('js'));
 });
+
+gulp.task('vue', vuetask({
+    entries: glob.sync('sources/vue/*.js'),
+    output: 'asset.js',
+    dest: 'build'
+}));
 
 /*gulp.task('semantic', run('gulp build --cwd libs/semantic'));
 gulp.task('semantic-all', function() {

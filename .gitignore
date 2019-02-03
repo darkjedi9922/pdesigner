@@ -37,5 +37,6 @@ web/node_modules
 web/package-lock.json
 web/libs/src/semantic/
 web/semantic.json
+web/build
 web/css
 web/js

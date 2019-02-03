@@ -8,6 +8,17 @@ use yii\helpers\Url;
 /** @var string $text */
 ?>
 
+<script>
+
+var _taskFormAppOuterData = {
+    csrfToken: '<?= Yii::$app->request->csrfToken ?>',
+    yiiModel: 'EditTaskForm',
+    title: '<?= $item->title ?>',
+    text: '<?= str_replace(["\r", "\n"], ['\r', '\n'], $text) ?>'
+};
+
+</script>
+
 <div class="breadcrumb">
     <span class="breadcrumb__section">Проекты</span>
     <span class="breadcrumb__divisor"></span>
@@ -16,24 +27,5 @@ use yii\helpers\Url;
     <span class="breadcrumb__section">Редактировать задачу</span>
 </div>
 <div class="box">
-    <div class="form__content">
-            <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
-            <div class="form__field">
-                <span class="form__label">Название:</span>
-                <div class="form__input-container">
-                    <input class="form__input" type="text" name="EditTaskForm[title]" value='<?= $item->title ?>' spellcheck="false">
-                </div>
-            </div>
-            <div class="form__field">
-                <span class="form__label">Текст:</span>
-                <div class="form__input-container">
-                    <textarea class="form__textarea" name="EditTaskForm[text]" rows="10" spellcheck="false"><?= $text ?></textarea>
-                </div>
-            </div>
-        </div>
-        <div class="form__preview">
-            Бла бла бла еще бла бла бла бла бла
-        </div>
-        <button class="form__button">Сохранить</button>
-    </form>
+    <div id="task-form-app"></div>
 </div>

@@ -7,7 +7,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var glob = require('glob');
 
-var vuetask = require('./browserify');
+var browserify = require('./browserify');
 
 gulp.task('styles', function () {
     return gulp.src([
@@ -36,8 +36,8 @@ gulp.task('js', function () {
         .pipe(gulp.dest('js'));
 });
 
-gulp.task('vue', vuetask({
-    entries: glob.sync('sources/vue/*.js'),
+gulp.task('jsify', browserify({
+    entries: [].concat(glob.sync('scripts/vue/*.js')),
     output: 'asset.js',
     dest: 'build'
 }));
@@ -47,7 +47,7 @@ gulp.task('semantic-all', function() {
     runSequence('semantic', 'styles');
 });*/
 
-gulp.task('build', gulp.parallel('styles', 'js', 'vue'));
+gulp.task('build', gulp.parallel('styles', 'js', 'jsify'));
 
 gulp.task('watch-styles', () => {
     return gulp.watch(['sources/styles/*', 'sources/styles/*/*', 'sources/styles/*/*/*'], gulp.series('styles'));

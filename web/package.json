@@ -4,6 +4,7 @@
   "description": "",
   "main": "",
   "dependencies": {
+    "lodash.debounce": "^4.0.8",
     "marked": "^0.4.0"
   },
   "devDependencies": {

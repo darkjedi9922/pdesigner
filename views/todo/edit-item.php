@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 /** @var \yii\web\View $this */
 /** @var \app\models\Issue $item */
@@ -14,7 +15,7 @@ var _taskFormAppOuterData = {
     csrfToken: '<?= Yii::$app->request->csrfToken ?>',
     yiiModel: 'EditTaskForm',
     title: '<?= $item->title ?>',
-    text: '<?= str_replace(["\r", "\n"], ['\r', '\n'], $text) ?>'
+    text: '<?= Html::decode(str_replace(["\r", "\n"], ['\r', '\n'], $text)) ?>'
 };
 
 </script>

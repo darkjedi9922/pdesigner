@@ -37,7 +37,7 @@ gulp.task('js', function () {
 });
 
 gulp.task('jsify', browserify({
-    entries: [].concat(glob.sync('scripts/vue/*.js')),
+    entries: [].concat(glob.sync('scripts/vue/__apps.js')),
     output: 'asset.js',
     dest: 'build'
 }));

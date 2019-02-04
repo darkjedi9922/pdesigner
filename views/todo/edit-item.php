@@ -10,7 +10,7 @@ use yii\helpers\Url;
 
 <script>
 
-var _taskFormAppOuterData = {
+var _editTaskFormAppOuterData = {
     csrfToken: '<?= Yii::$app->request->csrfToken ?>',
     yiiModel: 'EditTaskForm',
     title: '<?= $item->title ?>',
@@ -27,5 +27,5 @@ var _taskFormAppOuterData = {
     <span class="breadcrumb__section">Редактировать задачу</span>
 </div>
 <div class="box">
-    <div id="task-form-app"></div>
+    <div id="edit-task-form-app"></div>
 </div>

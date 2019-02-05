@@ -19,7 +19,7 @@
                         :name="yiiModel + '[text]'" 
                         rows="10" 
                         spellcheck="false"
-                        @keyup="updatePreview"
+                        @keyup="updateTextPreview"
                     ></textarea>
                 </div>
             </div>

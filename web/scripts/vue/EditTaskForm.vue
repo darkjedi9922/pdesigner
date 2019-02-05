@@ -17,8 +17,8 @@
                         :name="yiiModel + '[text]'" 
                         rows="10" 
                         spellcheck="false"
-                        @keyup="updatePreview"
-                    >{{ undecodedText }}</textarea>
+                        @keyup="updateTextPreview"
+                    >{{ decodedText }}</textarea>
                 </div>
             </div>
         </div>

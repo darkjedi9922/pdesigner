@@ -18,8 +18,8 @@
                             rows="10" 
                             spellcheck="false"
                             ref="descriptionInput"
-                            @keyup="updatePreview"
-                        >{{ undecodedDescription }}</textarea>
+                            @keyup="updateDescriptionPreview"
+                        >{{ decodedDescription }}</textarea>
                     </div>
                 </div>
             </div>
@@ -30,45 +30,9 @@
 </template>
 
 <script>
-var YiiForm = require('./mixins/yii-form');
-var marked = require('marked');
-var debounce = require('lodash.debounce');
-var htmlspecial = require('./../htmlspecialchars');
+var ProjectForm = require('./mixins/project-form');
 
 module.exports = {
-    extends: YiiForm,
-    props: {
-        name: {
-            type: String,
-            required: true
-        },
-        description: {
-            type: String,
-            default: ''
-        }
-    },
-    computed: {
-        undecodedDescription: function () {
-            // Из PHP передаются закодированные html спецсимволы, и чтобы textarea
-            // понимал их так как они были перед кодировкой (как их ввел юзер), нужно
-            // декодировать их обратно.
-            return htmlspecial.decode(this.description);
-
-            // О безопасности не стоит волноваться, marked потом обрабатывает это все
-            // и все "небезопасные" скрипты будут вставлены динамически, а так
-            // они не выполняются.
-        }
-    },
-    mounted() {
-        this.updatePreview();
-    },
-    methods: {
-        updatePreview: debounce((function () {
-            var text = this.$refs.descriptionInput.value;
-            this.$refs.preview.innerHTML = marked(text, {
-                sanitize: false
-            });
-        }), 200)
-    }
+    extends: ProjectForm,
 }
 </script>

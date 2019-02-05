@@ -18,7 +18,7 @@
                             rows="10" 
                             spellcheck="false"
                             ref="descriptionInput"
-                            @keyup="updatePreview"
+                            @keyup="updateDescriptionPreview"
                         ></textarea>
                     </div>
                 </div>
@@ -30,19 +30,9 @@
 </template>
 
 <script>
-var YiiForm = require('./mixins/yii-form');
-var marked = require('marked');
-var debounce = require('lodash.debounce');
+var ProjectForm = require('./mixins/project-form');
 
 module.exports = {
-    extends: YiiForm,
-    methods: {
-        updatePreview: debounce((function () {
-            var text = this.$refs.descriptionInput.value;
-            this.$refs.preview.innerHTML = marked(text, {
-                sanitize: false
-            });
-        }), 200)
-    }
-};
+    extends: ProjectForm,
+}
 </script>

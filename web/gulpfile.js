@@ -23,7 +23,7 @@ gulp.task('styles', function () {
 gulp.task('js', function () {
     return gulp.src([
         'libs/jquery-3.3.1.min.js',
-        'libs/src/semantic/build/semantic.min.js',
+        //'libs/src/semantic/build/semantic.min.js',
         'libs/vue.js',
         'libs/marked.min.js',
         'sources/scripts/stores/*.js',

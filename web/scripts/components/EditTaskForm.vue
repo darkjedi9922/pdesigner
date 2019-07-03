@@ -28,7 +28,7 @@
 </template>
 
 <script>
-var TaskForm = require('./mixins/task-form');
+var TaskForm = require('./../mixins/task-form');
 
 module.exports = {
     extends: TaskForm

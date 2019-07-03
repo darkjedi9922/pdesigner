@@ -1,4 +1,9 @@
-;Vue.component('todo-list-item', {
+import Vue from 'vue';
+import mainStore from '../stores/main';
+import VueCheckbox from './vue-checkbox';
+
+Vue.component('todo-list-item', {
+    components: { VueCheckbox },
     props: {
         id: Number,
         number: Number,

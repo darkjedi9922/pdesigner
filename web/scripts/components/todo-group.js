@@ -1,4 +1,8 @@
-;Vue.component('todo-group', {
+import Vue from 'vue';
+import $ from 'jquery';
+import mainStore from '../stores/main';
+
+Vue.component('todo-group', {
     props: {
         data: Object
     },

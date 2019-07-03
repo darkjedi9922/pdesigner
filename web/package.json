@@ -10,29 +10,31 @@
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
-    "babelify": "^10.0.0",
-    "gulp": "^4.0.0",
-    "gulp-autoprefixer": "^5.0.0",
-    "gulp-clean-css": "^3.9.4",
-    "gulp-concat": "^2.6.1",
-    "gulp-concat-css": "^3.1.0",
-    "gulp-sass": "^4.0.1",
-    "gulp-sourcemaps": "^2.6.4",
-    "gulp-uglify": "^3.0.1",
-    "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0",
-    "vue": "^2.5.22",
-    "vueify": "^9.4.1",
-    "watchify": "^3.11.0"
+    "acorn": "^6.1.1",
+    "babel-loader": "^8.0.6",
+    "cross-env": "^5.2.0",
+    "css-loader": "^3.0.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "jquery": "^3.4.1",
+    "node-sass": "^4.12.0",
+    "node-sass-once-importer": "^5.3.2",
+    "resolve-url-loader": "^3.1.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "url-loader": "^2.0.1",
+    "vue": "2.6.6",
+    "vue-loader": "^15.6.2",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "2.6.6",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
   },
   "scripts": {
-    "gulp": "gulp",
+    "webpack": "cross-env NODE_DEV=true webpack",
+    "webpack-watch": "cross-env NODE_DEV=true webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jed Dark",
   "license": "ISC",
-  "private": true,
-  "browser": {
-    "vue": "vue/dist/vue.common.js"
-  }
+  "private": true
 }

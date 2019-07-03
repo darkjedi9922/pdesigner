@@ -3,8 +3,8 @@
 @import 'site-variables';
 @import 'functions';
 @import 'site/mixins';
-@import '../../libs/normalize.css';
-@import '../../libs/semantic/icon.css';
+@import '../libs/normalize.css';
+@import '../libs/semantic/icon.css';
 
 // Blocks
 @import 'site/blocks/form';
@@ -81,7 +81,7 @@ body {
     background: #26282C;
     color: #d0d2d6;
 }
-.menu__item, {
+.menu__item {
     color: #9B9DA2;
     text-decoration: none;
     font-family: $font;

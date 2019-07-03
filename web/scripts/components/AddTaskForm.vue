@@ -30,9 +30,9 @@
 </template>
 
 <script>
-var TaskForm = require('./mixins/task-form');
+import TaskForm from '../mixins/task-form';
 
-module.exports = {
+export default {
     extends: TaskForm,
     props: {
         parentId: {

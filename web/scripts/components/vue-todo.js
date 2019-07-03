@@ -1,4 +1,4 @@
-;Vue.component('vue-todo', {
+export default {
     props: {
         listedGroups: {
             required: true,
@@ -28,4 +28,4 @@
 
         </div>
     </div>`
-});
+};

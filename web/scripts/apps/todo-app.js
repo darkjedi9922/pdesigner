@@ -1,6 +1,17 @@
-;new Vue({ 
+import Vue from 'vue';
+import taskMixin from '../mixins/task';
+import mainStore from '../stores/main';
+import VueAppInit from '../components/vue-app-init';
+import VueTodo from  '../components/vue-todo';
+import $ from 'jquery';
+
+new Vue({ 
     el: "#todo-app",
     mixins: [taskMixin],
+    components: {
+        VueAppInit,
+        VueTodo
+    },
     data: {
         // props
         projectId: null,

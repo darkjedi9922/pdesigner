@@ -1,4 +1,4 @@
-;var mainStore = {
+export default {
     tasks: {
         links: {
             getPage: function (taskId) { return '/todo?id=' + taskId },

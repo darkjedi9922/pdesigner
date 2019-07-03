@@ -6,7 +6,7 @@
                 <div class="form__field">
                     <span class="form__label">Название:</span>
                     <div class="form__input-container">
-                        <input type="text" :name="yiiModel + '[name]'" class="form__input">
+                        <input type="text" class="form__input" :name="yiiModel + '[name]'" spellcheck="false" :value="name">
                     </div>
                 </div>
                 <div class="form__field">
@@ -19,18 +19,18 @@
                             spellcheck="false"
                             ref="descriptionInput"
                             @keyup="updateDescriptionPreview"
-                        ></textarea>
+                        >{{ decodedDescription }}</textarea>
                     </div>
                 </div>
             </div>
-            <div class="form__preview" ref="preview"></div>
+            <div ref="preview" class="form__preview"></div>
         </div>
-        <button class="form__button">Создать проект</button>
+        <button class="form__button">Сохранить</button>
     </form>
 </template>
 
 <script>
-var ProjectForm = require('./mixins/project-form');
+var ProjectForm = require('./../mixins/project-form');
 
 module.exports = {
     extends: ProjectForm,

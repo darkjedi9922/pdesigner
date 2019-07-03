@@ -1,4 +1,4 @@
-; Vue.component('vue-checkbox', {
+export default {
     props: {
         checked: Boolean
     },
@@ -17,4 +17,4 @@
             <span class="_label_"><slot></slot></span>\
         </div>\
     '
-});
+};

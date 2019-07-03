@@ -1,4 +1,7 @@
-;Vue.component('todo-list', {
+import Vue from 'vue';
+import $ from 'jquery';
+
+Vue.component('todo-list', {
     props: {
         list: {
             type: Array,

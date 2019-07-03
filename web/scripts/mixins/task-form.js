@@ -1,26 +1,26 @@
+var htmlspecial = require('./../htmlspecialchars');
 var YiiForm = require('./yii-form');
 var previewMixin = require('./preview');
-var htmlspecial = require('./../../htmlspecialchars');
-
+    
 module.exports = {
     extends: YiiForm,
     mixins: [previewMixin],
     props: {
-        name: {
+        title: {
             type: String,
             default: ''
         },
-        description: {
+        text: {
             type: String,
             default: ''
         }
     },
     computed: {
-        decodedDescription: function () {
+        decodedText: function () {
             // Из PHP передаются закодированные html спецсимволы, и чтобы textarea
             // понимал их так как они были перед кодировкой (как их ввел юзер), нужно
             // декодировать их обратно.
-            return htmlspecial.decode(this.description);
+            return htmlspecial.decode(this.text);
 
             // О безопасности не стоит волноваться, marked потом обрабатывает это все
             // и все "небезопасные" скрипты будут вставлены динамически, а так
@@ -28,11 +28,11 @@ module.exports = {
         }
     },
     mounted() {
-        this.updateDescriptionPreview();
+        this.updateTextPreview();
     },
     methods: {
-        updateDescriptionPreview: function () {
-            this.updatePreview(this.$refs.descriptionInput, this.$refs.preview);
+        updateTextPreview() {
+            this.updatePreview(this.$refs.textInput, this.$refs.preview);
         }
     }
-};
+}

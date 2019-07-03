@@ -1,8 +1,8 @@
 import setupApp from './../create-vue-app'
-import EditTaskForm from './EditTaskForm.vue';
-import AddTaskForm from './AddTaskForm.vue';
-import EditProjectForm from './EditProjectForm.vue';
-import AddProjectForm from './AddProjectForm.vue';
+import EditTaskForm from './../components/EditTaskForm';
+import AddTaskForm from './../components/AddTaskForm';
+import EditProjectForm from './../components/EditProjectForm';
+import AddProjectForm from './../components/AddProjectForm';
 
 setupApp(EditTaskForm, '#edit-task-form-app', global._editTaskFormAppOuterData);
 setupApp(AddTaskForm, '#add-task-form-app', global._addTaskFormAppOuterData);

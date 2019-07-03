@@ -1,4 +1,7 @@
-;new Vue({
+import Vue from 'vue';
+import $ from 'jquery';
+
+new Vue({
     el: "#menu",
     mounted: function() {
         var contents = this.$el.querySelectorAll(".menu-item__content");

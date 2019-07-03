@@ -1,4 +1,6 @@
-var markMixin = {
+import marked from 'marked';
+
+export default {
     methods: {
         /**
          * Применяет markdown форматирование к первому элементу с заданным селектором,
@@ -6,7 +8,9 @@ var markMixin = {
          */
         markdown: function(selector) {
             var textElement = this.$el.querySelector(selector);
-            if (textElement) textElement.innerHTML = marked(textElement.innerText, { sanitize: false });
+            if (textElement) textElement.innerHTML = marked(textElement.innerText, { 
+                sanitize: false 
+            });
         }
     }
 }

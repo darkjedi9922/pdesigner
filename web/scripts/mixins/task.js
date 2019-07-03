@@ -1,4 +1,7 @@
-var taskMixin = {
+import mainStore from '../stores/main';
+import $ from 'jquery';
+
+export default {
     data: function() {
         return {
             store: mainStore

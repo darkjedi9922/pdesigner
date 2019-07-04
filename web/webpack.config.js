@@ -99,8 +99,7 @@ module.exports = {
     resolve: {
         extensions: ['*', '.ts', '.tsx', '.js', '.jsx', '.vue'],
         alias: {
-            // Remove 'common' part in the production
-            vue$: 'vue/dist/vue.common.js'
+            vue$: 'vue/dist/vue.esm.js'
         }
     }
 }

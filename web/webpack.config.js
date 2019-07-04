@@ -26,6 +26,7 @@ module.exports = {
         'site.css': ['./styles/site.scss'],
         'asset.js': globs([
             './scripts/apps/*.js',
+            './scripts/apps/*.ts',
             './scripts/components/*.js'
         ])
     },
@@ -59,17 +60,25 @@ module.exports = {
                 test: /\.(png|jpg|jpeg|woff(2)?|eot|ttf|svg)$/,
                 use: ['url-loader']
             },
-            // {
-            //     test: /\.(ts|tsx)$/,
-            //     use: ['babel-loader', 'ts-loader']
-            // },
+            {
+                test: /\.(ts|tsx)$/,
+                use: [
+                    'babel-loader', 
+                    {
+                        loader: 'ts-loader',
+                        options: {
+                            appendTsSuffixTo: [/\.vue$/]
+                        }
+                    }
+                ],
+            },
             {
                 test: /\.(js|jsx)$/,
                 use: ['babel-loader']
             },
             {
                 test: /\.vue$/,
-                loader: 'vue-loader'
+                use: ['vue-loader']
             },
             {
                 test: /\.scss$/,

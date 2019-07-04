@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        // это соответствует поддержке браузеров у Vue
+        "target": "es5",
+        // при использовании webpack 2+ или rollup, добавить поддержку tree-shaking:
+        "module": "es2015",
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+    }
+}

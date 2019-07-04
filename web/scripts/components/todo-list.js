@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import $ from 'jquery';
+import TodoListItem from './TodoListItem';
 
 Vue.component('todo-list', {
+    components: { TodoListItem },
     props: {
         list: {
             type: Array,

@@ -13,6 +13,7 @@
 @import 'site/blocks/todo';
 @import 'site/blocks/todo-group';
 @import 'site/blocks/project';
+@import 'site/blocks/todo-contextmenu';
 
 html, body {
     height: 100%;
@@ -193,40 +194,6 @@ body {
     }
     &__sublist {
         padding-left: $checkbox-size + 4px;
-    }
-}
-
-.todo-contextmenu {
-    display: inline-block;
-    background: $box-background;
-    box-shadow: 0 0 2px 1px lightgray;
-    position: absolute;
-    top: 0;
-    left: 0;
-    visibility: hidden;
-    &__item {
-        display: block;
-        padding: 10px;
-        text-decoration: none;
-        color: black;
-        cursor: pointer;
-        font-size: 1rem;
-        &:hover {
-            background: $link-color;
-            color: white;
-        }
-    }
-
-    &--grid {
-        display: flex;
-        padding: 2.5px;
-        flex-wrap: wrap;
-        width: 90px;
-    }
-    &--grid &__item {
-        width: 20px;
-        height: 20px;
-        margin: 2.5px;
     }
 }
 

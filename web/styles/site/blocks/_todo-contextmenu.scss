@@ -1,0 +1,48 @@
+.todo-contextmenu {
+    display: inline-block;
+    background: $box-background;
+    box-shadow: 0 0 2px 1px lightgray;
+    position: absolute;
+    visibility: hidden;
+    top: 0;
+
+    &__item {
+        display: flex;
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        cursor: pointer;
+        font-size: 1rem;
+
+        // Это обеспечивает top:0 подменю, чтобы их 0 находился не у верхнего края
+        // всего меню, а у верхнего края именно элемента.
+        position: relative;
+
+        &:hover {
+            background: $link-color;
+            color: white;
+        }
+    }
+
+    &--submenu {
+        display: none;
+        left: 100%;
+    }
+
+    &__item:hover &--submenu {
+        display: inline-block;
+        visibility: visible;
+    }
+
+    &--grid {
+        display: flex;
+        padding: 2.5px;
+        flex-wrap: wrap;
+        width: 90px;
+    }
+    &--grid &__item {
+        width: 20px;
+        height: 20px;
+        margin: 2.5px;
+    }
+}

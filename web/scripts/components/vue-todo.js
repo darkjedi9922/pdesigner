@@ -1,4 +1,7 @@
+import TodoGroup from './TodoGroup';
+
 export default {
+    components: { TodoGroup },
     props: {
         listedGroups: {
             required: true,

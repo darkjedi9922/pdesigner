@@ -2,10 +2,23 @@
     <div class="todo-item" :class="{ 'todo-item--checked': isChecked }">
         <div class="todo-item__container">
             <contextmenu class="todo-contextmenu">
-                <a :href="store.tasks.links.getAddSubtask(id)" class="todo-contextmenu__item"><i
-                        class="icon add"></i>Добавить позадачу</a>
-                <a :href="store.tasks.links.getEdit(id)" class="todo-contextmenu__item"><i
-                        class="icon edit"></i>Редактировать</a>
+                <a :href="store.tasks.links.getAddSubtask(id)" class="todo-contextmenu__item">
+                    <i class="icon add"></i>Добавить позадачу
+                </a>
+                <a :href="store.tasks.links.getEdit(id)" class="todo-contextmenu__item">
+                    <i class="icon edit"></i>Редактировать
+                </a>
+                <a class="todo-contextmenu__item">
+                    <i class="icon unlock"></i>Статус
+                    <div class="todo-contextmenu todo-contextmenu--submenu">
+                        <a class="todo-contextmenu__item">
+                            <i class="icon calendar outline"></i>Невыполнено
+                        </a>
+                        <a class="todo-contextmenu__item">
+                            <i class="icon calendar check outline"></i>Выполнено
+                        </a>
+                    </div>
+                </a>
                 <a @click="$root.deleteItem(id)" class="todo-contextmenu__item"><i class="icon trash"></i>Удалить</a>
             </contextmenu>
             <vue-checkbox class="todo-item__checkbox" :checked="isChecked" v-on:toggle="toggle">

@@ -14,6 +14,7 @@
 @import 'site/blocks/todo-group';
 @import 'site/blocks/project';
 @import 'site/blocks/todo-contextmenu';
+@import 'site/blocks/todo-icon';
 
 html, body {
     height: 100%;
@@ -139,9 +140,6 @@ body {
 
 .todo-item {
     $checkbox-size: 21px;
-    $checkbox-border-width: 2px;
-    $checkbox-color: #75C181;
-    $transition-delay: 0.25s;
     $font-size: 18px;
     overflow: hidden;
     // Элементы
@@ -149,39 +147,6 @@ body {
         padding: 4px 0;
         &:hover {
             background: $todo-item-hover-background;
-        }
-    }
-    &__checkbox {
-        display: inline-block;
-        ._box_ {
-            width: $checkbox-size;
-            height: $checkbox-size;
-            border: $checkbox-border-width solid $checkbox-color;
-            border-radius: $checkbox-size;
-            transition: $transition-delay;
-            display: inline-block;
-            text-align: center;
-
-            i.icon {
-                color: white;
-                display: inline-block;
-                width: $checkbox-size - $checkbox-border-width * 2;
-                line-height: $checkbox-size;
-                margin: 0;
-                opacity: 0;
-                transition: $transition-delay;
-                font-size: 1rem;
-            }
-        }
-        &._checked_ ._box_ {
-            background: $checkbox-color;
-            i.check.icon {
-                opacity: 1;
-            }
-        }
-        
-        &--selectable {
-            cursor: pointer;
         }
     }
     &__label {

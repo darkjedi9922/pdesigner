@@ -1,0 +1,49 @@
+.todo-icon {
+    $checkbox-size: 21px;
+    $checkbox-border-width: 2px;
+    $transition-delay: 0.25s;
+
+    display: inline-block;
+    
+    &__box {
+        width: $checkbox-size;
+        height: $checkbox-size;
+        border: $checkbox-border-width solid black;
+        border-radius: $checkbox-size;
+        transition: $transition-delay;
+        display: inline-block;
+        text-align: center;
+
+        i.icon {
+            color: white;
+            display: inline-block;
+            width: $checkbox-size - $checkbox-border-width * 2;
+            line-height: $checkbox-size;
+            margin: 0;
+            transition: $transition-delay;
+            font-size: 1rem;
+        }
+    }
+
+    &--checked &__box {
+        background: black;
+        i.icon {
+            opacity: 1;
+        }
+    }
+    
+    &--selectable {
+        cursor: pointer;
+    }
+
+    &--empty &__box {
+        $color: #75C181;
+        border: $checkbox-border-width solid $color;
+        background: none;
+    }
+    &--green &__box {
+        $color: #75C181;
+        border: $checkbox-border-width solid $color;
+        background: $color;
+    }
+}

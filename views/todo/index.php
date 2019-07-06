@@ -19,14 +19,14 @@ use yii\helpers\Url;
         <div class="box">
             <div class="issue" id="issue-app">
                 <div class="issue__title">
-                    <vue-checkbox 
-                        class="todo-item__checkbox"
+                    <todo-status-icon
                         @load="
                             id = <?= $issue->id ?>;
                             status = <?= $issue->status ?>; 
                             token = '<?= Yii::$app->request->csrfToken ?>'"
-                        :checked="Boolean(status)">
-                    </vue-checkbox>
+                        :status="status"
+                        :selectable="false">
+                    </todo-status-icon>
                     <span>#<?= $issue->number ?> <?= $issue->title ?></span>
                 </div>
                 <?php if ($text) : ?>

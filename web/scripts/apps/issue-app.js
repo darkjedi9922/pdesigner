@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import taskMixin from '../mixins/task';
 import markMixin from '../mixins/mark';
-import VueCheckbox from '../components/vue-checkbox';
+import TodoStatusIcon from '../components/TodoStatusIcon';
 
 new Vue({
     el: '#issue-app',
     mixins: [taskMixin, markMixin],
-    components: { VueCheckbox },
+    components: { TodoStatusIcon },
     data: function() {
         return {
             id: 0,

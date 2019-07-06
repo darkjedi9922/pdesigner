@@ -10,19 +10,19 @@
                 </a>
                 <a @click="$root.deleteItem(id)" class="todo-contextmenu__item"><i class="icon trash"></i>Удалить</a>
             </contextmenu>
-            <vue-checkbox 
-                class="todo-item__checkbox todo-item__checkbox--selectable" 
-                :checked="Boolean(theStatus)" 
+            <todo-status-icon 
+                :status="theStatus"
+                :selectable="true"
                 :id="'checkbox-' + id">
                 <contextmenu class="todo-contextmenu" on="click" :for="'checkbox-' + id">
-                    <a class="todo-contextmenu__item" @click="setStatus(IssueStatus.UNDONE.id)">
-                        <i class="icon calendar outline"></i>Невыполнено
-                    </a>
-                    <a class="todo-contextmenu__item" @click="setStatus(IssueStatus.DONE.id)">
-                        <i class="icon calendar check outline"></i>Выполнено
+                    <a 
+                        v-for="issueStatus in IssueStatus"
+                        :key="issueStatus.id"
+                        class="todo-contextmenu__item" @click="setStatus(issueStatus.id)">
+                        <i :class="'icon ' + issueStatus.menu.icon"></i>{{ issueStatus.name }}
                     </a>
                 </contextmenu>
-            </vue-checkbox>
+            </todo-status-icon>
             <a 
                 :href="store.tasks.links.getPage(id)" 
                 class="todo-item__label"
@@ -36,7 +36,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import mainStore from '../stores/main';
-import VueCheckbox from './vue-checkbox';
+import TodoStatusIcon from './TodoStatusIcon';
 import Component from 'vue-class-component';
 import { IssueStatus } from '../models';
 
@@ -52,7 +52,7 @@ const TodoListProps = Vue.extend({
 })
 
 @Component({
-    components: { VueCheckbox }
+    components: { TodoStatusIcon }
 })
 export default class TodoListItem extends TodoListProps {
     store = mainStore;

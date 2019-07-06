@@ -1,7 +1,8 @@
 import TodoGroup from './TodoGroup';
+import TodoList from './TodoList';
 
 export default {
-    components: { TodoGroup },
+    components: { TodoGroup, TodoList },
     props: {
         listedGroups: {
             required: true,

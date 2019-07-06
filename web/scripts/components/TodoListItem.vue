@@ -1,5 +1,5 @@
 <template>
-    <div class="todo-item" :class="{ 'todo-item--checked': isChecked }">
+    <div class="todo-item" :class="{ 'todo-item--checked': theStatus }">
         <div class="todo-item__container">
             <contextmenu class="todo-contextmenu">
                 <a :href="store.tasks.links.getAddSubtask(id)" class="todo-contextmenu__item">
@@ -11,19 +11,19 @@
                 <a class="todo-contextmenu__item">
                     <i class="icon unlock"></i>Статус
                     <div class="todo-contextmenu todo-contextmenu--submenu">
-                        <a class="todo-contextmenu__item">
+                        <a class="todo-contextmenu__item" @click="setStatus(IssueStatus.UNDONE.id)">
                             <i class="icon calendar outline"></i>Невыполнено
                         </a>
-                        <a class="todo-contextmenu__item">
+                        <a class="todo-contextmenu__item" @click="setStatus(IssueStatus.DONE.id)">
                             <i class="icon calendar check outline"></i>Выполнено
                         </a>
                     </div>
                 </a>
                 <a @click="$root.deleteItem(id)" class="todo-contextmenu__item"><i class="icon trash"></i>Удалить</a>
             </contextmenu>
-            <vue-checkbox class="todo-item__checkbox" :checked="isChecked" v-on:toggle="toggle">
+            <vue-checkbox class="todo-item__checkbox" :checked="Boolean(theStatus)">
                 <a :href="store.tasks.links.getPage(id)" class="todo-item__label"
-                    :class="{ 'todo-item__label--checked': isChecked }">#{{ number }} {{ title }}</a>
+                    :class="{ 'todo-item__label--checked': theStatus }">#{{ number }} {{ title }}</a>
             </vue-checkbox>
         </div>
         <slot name="sublist"></slot>
@@ -34,34 +34,37 @@
 import Vue from 'vue';
 import mainStore from '../stores/main';
 import VueCheckbox from './vue-checkbox';
+import Component from 'vue-class-component';
+import { IssueStatus } from '../models';
 
-export default {
-    components: { VueCheckbox },
+const TodoListProps = Vue.extend({
     props: {
         id: Number,
         number: Number,
         title: String,
         parentId: Number,
         groupId: Number,
-        checked: Boolean
+        status: Number
     },
-    data: function() {
-        return {
-            store: mainStore,
-            isChecked: this.checked
-        }
-    },
-    methods: {
-        toggle: function() {
-            this.isChecked = !this.isChecked;
-            this.$nextTick(function() {
-                this.$emit('toggle', {
-                    el: this.$el,
-                    id: this.id,
-                    checked: this.isChecked
-                });
+})
+
+@Component({
+    components: { VueCheckbox }
+})
+export default class TodoListItem extends TodoListProps {
+    store = mainStore;
+    theStatus: number = this.status;
+    
+    $root: any;
+    IssueStatus = IssueStatus;
+
+    setStatus(status: number): void {
+        this.theStatus = status;
+        this.$nextTick(function() {
+            this.$emit('status-changed', {
+                status: status
             });
-        }
-    },
+        });
+    }
 };
 </script>

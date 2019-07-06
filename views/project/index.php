@@ -29,7 +29,7 @@ use yii\helpers\Url;
                     title: '<?= str_replace('&#039;', '\&#039;', $issue->title) ?>', 
                     parentId: <?= $issue->parent_issue_id ? $issue->parent_issue_id : 0 ?>,
                     groupId: <?= $issue->group_id ?>, 
-                    checked: <?= $issue->checked ? 'true' : 'false' ?>
+                    status: <?= $issue->status ?>
                 },<?php endforeach ?>]; 
                 groups = {<?php foreach ($groups as $group) : ?>
                 <?= $group->id ?>: {

@@ -12,7 +12,7 @@ export default class TaskMixin extends Vue {
             url: this.store.tasks.links.getToggle(),
             method: 'POST',
             data: 'id=' + id
-                + '&checked=' + +status
+                + '&status=' + +status
                 + '&_csrf=' + token
             // TODO: красиво выводить красивую ошибку при ошибке
         });

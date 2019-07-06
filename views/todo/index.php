@@ -23,10 +23,9 @@ use yii\helpers\Url;
                         class="todo-item__checkbox"
                         @load="
                             id = <?= $issue->id ?>;
-                            checked = <?php echo $issue->checked ? 'true' : 'false' ?>; 
+                            status = <?= $issue->status ?>; 
                             token = '<?= Yii::$app->request->csrfToken ?>'"
-                        :checked="checked"
-                        @toggle="switchChecked">
+                        :checked="Boolean(status)">
                     </vue-checkbox>
                     <span>#<?= $issue->number ?> <?= $issue->title ?></span>
                 </div>

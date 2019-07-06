@@ -1,10 +1,9 @@
-import Vue, { VueConstructor } from 'vue';
+import Vue from 'vue';
 import taskMixin from '../mixins/task';
 import mainStore from '../stores/main';
 import VueAppInit from '../components/vue-app-init';
 import VueTodo from  '../components/vue-todo';
 import $ from 'jquery';
-import { IssueStatus } from "../models";
 
 new Vue({ 
     el: "#todo-app",
@@ -51,8 +50,8 @@ new Vue({
             }
             return list;
         },
-        itemToggled: function($event) {
-            this.setTaskStatus($event.id, $event.checked, this.token);
+        setItemStatus: function(id: number, status: number) {
+            this.setTaskStatus(id, status, this.token);
         },
         deleteItem: function(id) {
             this.removeItemFromDb(this.treeList, id);

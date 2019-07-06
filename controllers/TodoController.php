@@ -16,8 +16,8 @@ class TodoController extends Controller
     public function actionToggle()
     {
         $post = Yii::$app->request->post();
-        if (isset($post['id']) && isset($post['checked'])) {
-            $data = ['checked' => $post['checked']];
+        if (isset($post['id']) && isset($post['status'])) {
+            $data = ['status' => $post['status']];
             $condition = 'id = ' . $post['id'];
             Issue::updateAll($data, $condition);
         }

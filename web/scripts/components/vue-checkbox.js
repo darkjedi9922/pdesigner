@@ -8,7 +8,7 @@ export default {
     template: '\
         <div :class="{ \'_checked_\': checked }">\
             <div class="_box_"><i class="check icon"></i></div>\
-            <span class="_label_"><slot></slot></span>\
+            <slot></slot>\
         </div>\
     '
 };

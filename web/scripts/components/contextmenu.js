@@ -67,7 +67,8 @@ Vue.component('contextmenu', {
             $(document.body).off('click', this.hide);
         },
         isThatTarget(target) {
-            return (this.for === null && target === this.parent) || (this.for !== null && $(target).closest('#' + this.for).length !== 0);
+            return (this.for === null && target === this.parent) || 
+                (this.for !== null && $(target).closest('#' + this.for).length !== 0);
         }
     },
     template: '\

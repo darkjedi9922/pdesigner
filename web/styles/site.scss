@@ -161,6 +161,7 @@ body {
             transition: $transition-delay;
             display: inline-block;
             text-align: center;
+
             i.icon {
                 color: white;
                 display: inline-block;
@@ -177,6 +178,10 @@ body {
             i.check.icon {
                 opacity: 1;
             }
+        }
+        
+        &--selectable {
+            cursor: pointer;
         }
     }
     &__label {

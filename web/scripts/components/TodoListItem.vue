@@ -8,23 +8,26 @@
                 <a :href="store.tasks.links.getEdit(id)" class="todo-contextmenu__item">
                     <i class="icon edit"></i>Редактировать
                 </a>
-                <a class="todo-contextmenu__item">
-                    <i class="icon unlock"></i>Статус
-                    <div class="todo-contextmenu todo-contextmenu--submenu">
-                        <a class="todo-contextmenu__item" @click="setStatus(IssueStatus.UNDONE.id)">
-                            <i class="icon calendar outline"></i>Невыполнено
-                        </a>
-                        <a class="todo-contextmenu__item" @click="setStatus(IssueStatus.DONE.id)">
-                            <i class="icon calendar check outline"></i>Выполнено
-                        </a>
-                    </div>
-                </a>
                 <a @click="$root.deleteItem(id)" class="todo-contextmenu__item"><i class="icon trash"></i>Удалить</a>
             </contextmenu>
-            <vue-checkbox class="todo-item__checkbox" :checked="Boolean(theStatus)">
-                <a :href="store.tasks.links.getPage(id)" class="todo-item__label"
-                    :class="{ 'todo-item__label--checked': theStatus }">#{{ number }} {{ title }}</a>
+            <vue-checkbox 
+                class="todo-item__checkbox todo-item__checkbox--selectable" 
+                :checked="Boolean(theStatus)" 
+                :id="'checkbox-' + id">
+                <contextmenu class="todo-contextmenu" on="click" :for="'checkbox-' + id">
+                    <a class="todo-contextmenu__item" @click="setStatus(IssueStatus.UNDONE.id)">
+                        <i class="icon calendar outline"></i>Невыполнено
+                    </a>
+                    <a class="todo-contextmenu__item" @click="setStatus(IssueStatus.DONE.id)">
+                        <i class="icon calendar check outline"></i>Выполнено
+                    </a>
+                </contextmenu>
             </vue-checkbox>
+            <a 
+                :href="store.tasks.links.getPage(id)" 
+                class="todo-item__label"
+                :class="{ 'todo-item__label--checked': theStatus }"
+            >#{{ number }} {{ title }}</a>
         </div>
         <slot name="sublist"></slot>
     </div>

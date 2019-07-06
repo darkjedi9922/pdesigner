@@ -34,8 +34,8 @@
     "webpack-cli": "^3.3.5"
   },
   "scripts": {
-    "webpack": "cross-env NODE_DEV=true webpack",
-    "webpack-watch": "cross-env NODE_DEV=true webpack --watch",
+    "webpack": "cross-env NODE_DEV=true webpack --progress=true",
+    "webpack-watch": "cross-env NODE_DEV=true webpack --watch --progress=true",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jed Dark",

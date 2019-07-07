@@ -42,11 +42,11 @@ Vue.component('contextmenu', {
                 this.exists = true;
                 this.x = event.clientX + pageXOffset + 1;
                 this.y = event.clientY + pageYOffset;
-                this.$nextTick(this.checkPosition);
-                setTimeout((function() {
+                this.$nextTick(() => {
+                    this.checkPosition();
                     $(document.body).on('contextmenu', this.hide);
                     $(document.body).on('click', this.hide);
-                }).bind(this), 200);
+                });
             }
         }).bind(this));
     },

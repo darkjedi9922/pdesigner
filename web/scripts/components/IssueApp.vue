@@ -10,7 +10,7 @@
                         </todo-status-icon>
                         <span>#{{ number }} {{ title }}</span>
                     </div>
-                    <span class="issue__text" v-if="text">{{ text }}</span>
+                    <span class="issue__text" v-if="decodedText">{{ decodedText }}</span>
                 </div>
             </div>
         </div>
@@ -48,6 +48,7 @@ import taskMixin from '../mixins/task';
 import markMixin from '../mixins/mark';
 import TodoStatusIcon from './TodoStatusIcon';
 import { IssueStatus } from '../models';
+import { decode } from '../htmlspecialchars';
 
 const IssueAppProps = Vue.extend({
     props: {
@@ -68,6 +69,7 @@ const IssueAppProps = Vue.extend({
 })
 export default class IssueApp extends mixins(IssueAppProps, taskMixin, markMixin) {
     theStatus: number = this.status;
+    decodedText: string = decode(this.text);
     IssueStatus = IssueStatus;
 
     mounted(): void {

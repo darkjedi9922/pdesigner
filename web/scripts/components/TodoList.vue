@@ -27,7 +27,7 @@
 import Vue from 'vue';
 import $ from 'jquery';
 import TodoListItem from './TodoListItem.vue';
-import { IssueStatus } from '../models';
+import { IssueStatus, findStatusById } from '../models';
 
 export default {
     name: 'todo-list',
@@ -55,8 +55,8 @@ export default {
     },
     computed: {
         filteredList: function() {
-            if (this.mode == 'done') return this.getFilteredSublist(this.list, IssueStatus.DONE.id);
-            else if (this.mode == 'undone') return this.getFilteredSublist(this.list, IssueStatus.UNDONE.id);
+            if (this.mode == 'done') return this.getFilteredSublist(this.list, true);
+            else if (this.mode == 'undone') return this.getFilteredSublist(this.list, false);
             else return this.getFilteredSublist(this.list, undefined);
         }
     },
@@ -65,7 +65,8 @@ export default {
             var list = [];
             for (var i = 0; i < sublist.length; ++i) {
                 var filteredChildren = this.getFilteredSublist(sublist[i].children, isChecked);
-                if (filteredChildren.length !== 0 || sublist[i].status === isChecked || isChecked === undefined) {
+                var statusDetails = IssueStatus[findStatusById(sublist[i].status)];
+                if (filteredChildren.length !== 0 || statusDetails.checked === isChecked || isChecked === undefined) {
                     sublist[i].filteredChildren = filteredChildren;
                     list.push(sublist[i]);
                 };

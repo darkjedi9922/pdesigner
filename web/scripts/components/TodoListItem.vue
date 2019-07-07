@@ -1,5 +1,7 @@
 <template>
-    <div class="todo-item">
+    <div :class="['todo-item', {
+        'todo-item--checked': statusChecked
+    }]">
         <div class="todo-item__container">
             <contextmenu class="todo-contextmenu">
                 <a :href="store.tasks.links.getAddSubtask(id)" class="todo-contextmenu__item">

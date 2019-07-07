@@ -95,37 +95,37 @@ export default {
 
             // Иначе ищем жертву скрытия (если она есть)
             var item = $(this.$el).find('[data-item-id=' + itemId + ']').first();
-            var closestItem = this.closestFilledItem(item, status);
+            var closestItem = this.closestFilledItem(item, statusDetails.checked);
             if (closestItem) $(closestItem).animate({ 'height': 0 }, 250, '', checkInList.bind(this));
             else checkInList.call(this);
         },
         /**
-         * Содержит ли заданный item-элемент детей, которые имеют status 
+         * Содержит ли заданный item-элемент детей, которые имеют checked
          * соответственно заданному аргументу.
          */
-        itemHasChildren: function(element, status) {
-            var children = $(element).find(status ? '.todo-item.todo-item--checked' : '.todo-item:not(.todo-item--checked)');
+        itemHasChildren: function(element, checked: boolean) {
+            var children = $(element).find(checked ? '.todo-item.todo-item--checked' : '.todo-item:not(.todo-item--checked)');
             if (children.length !== 0) return true;
             else return false;
         },
         /**
          * Возвращает прямого item-родителя заданного элемента. При этом если его 
-         * status не соотвествует заданному, вернет false.
+         * checked не соотвествует заданному, вернет false.
          */
-        itemHasParent: function(element, status) {
+        itemHasParent: function(element, checked: boolean) {
             var parent = $(element).parent().closest('.todo-item')[0];
-            if (parent && $(parent).hasClass('todo-item--checked') === status) return parent;
+            if (parent && $(parent).hasClass('todo-item--checked') === checked) return parent;
             else return false;
         },
         /**
-         * Находит ближайший полностью заполненный одинаковыми status детьми.
+         * Находит ближайший полностью заполненный одинаковыми checked детьми.
          * Это либо заданный элемент-item, либо один из его родителей. При этом, 
          * может вернуть null, если текущий элемент содержит "обратных" детей.
          */
-        closestFilledItem: function(element, status) {
-            if (this.itemHasChildren(element, !status)) return null;
-            var parent = this.itemHasParent(element, status);
-            if (parent && !this.itemHasChildren(parent, !status)) return this.closestFilledItem(parent, status);
+        closestFilledItem: function(element, checked: boolean) {
+            if (this.itemHasChildren(element, !checked)) return null;
+            var parent = this.itemHasParent(element, checked);
+            if (parent && !this.itemHasChildren(parent, !checked)) return this.closestFilledItem(parent, checked);
             else return element;
         }
     }

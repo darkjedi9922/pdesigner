@@ -1,0 +1,26 @@
+.task-status {
+    &__item {
+        padding: 7px 15px;
+        text-align: center;
+        border: solid 1px;
+        min-width: 200px;
+        display: block;
+        cursor: pointer;
+
+        &:not(:first-of-type) {
+            margin-top: 5px;
+        }
+        
+        $color: $link-color;
+        color: $color;
+        &:not(&--selected):hover {
+            border-color: darken($color, 20);
+            color: darken($color, 20);
+        }
+        &--selected {
+            color: white;
+            background: $color;
+            cursor: default;
+        }
+    }
+}

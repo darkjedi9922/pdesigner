@@ -84,7 +84,11 @@ export default {
             this.$root.setItemStatus(itemId, status);
 
             // Если скрывать не нужно, выходим
-            if (this.mode === 'all' || this.mode === 'done' && status || this.mode === 'undone' && !status) {
+            var statusDetails = IssueStatus[findStatusById(status)];
+            if (this.mode === 'all' || 
+                this.mode === 'done' && statusDetails.checked || 
+                this.mode === 'undone' && !statusDetails.checked
+            ) {
                 checkInList.call(this);
                 return;
             }

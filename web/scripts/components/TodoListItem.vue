@@ -1,5 +1,5 @@
 <template>
-    <div class="todo-item" :class="{ 'todo-item--checked': theStatus }">
+    <div class="todo-item">
         <div class="todo-item__container">
             <contextmenu class="todo-contextmenu">
                 <a :href="store.tasks.links.getAddSubtask(id)" class="todo-contextmenu__item">
@@ -26,7 +26,7 @@
             <a 
                 :href="store.tasks.links.getPage(id)" 
                 class="todo-item__label"
-                :class="{ 'todo-item__label--checked': theStatus }"
+                :class="{ 'todo-item__label--checked': statusChecked }"
             >#{{ number }} {{ title }}</a>
         </div>
         <slot name="sublist"></slot>
@@ -38,7 +38,7 @@ import Vue from 'vue';
 import mainStore from '../stores/main';
 import TodoStatusIcon from './TodoStatusIcon';
 import Component from 'vue-class-component';
-import { IssueStatus } from '../models';
+import { IssueStatus, findStatusById } from '../models';
 
 const TodoListProps = Vue.extend({
     props: {
@@ -52,7 +52,12 @@ const TodoListProps = Vue.extend({
 })
 
 @Component({
-    components: { TodoStatusIcon }
+    components: { TodoStatusIcon },
+    computed: {
+        statusChecked: function() {
+            return IssueStatus[findStatusById(this.theStatus)].checked;
+        }
+    }
 })
 export default class TodoListItem extends TodoListProps {
     store = mainStore;

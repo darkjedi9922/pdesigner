@@ -4,10 +4,15 @@ export interface IssueStatusList {
         name: string,
         checked: boolean,
         icon: {
+            // Иконки берутся из набора semantic ui. Указывается только имя класса
+            // иконки, без слова `icon`
             name: string,
-            color: 'empty' | 'green'
+            // Предопределяется в CSS.
+            color: string
         },
         menu: {
+            // Иконка из того же semantic ui для показа ее в контекстном меню при
+            // выборе статуса задачи.
             icon: string
         }
     }
@@ -23,7 +28,7 @@ export const IssueStatus: IssueStatusList = {
             color: 'empty',
         },
         menu: {
-            icon: 'calendar outline'
+            icon: 'circle outline'
         }
     },
     DONE: {
@@ -35,7 +40,43 @@ export const IssueStatus: IssueStatusList = {
             color: 'green'
         },
         menu: {
-            icon: 'calendar check outline'
+            icon: 'check circle outline'
+        }
+    },
+    IN_PROCESS: {
+        id: 2,
+        name: 'В процессе',
+        checked: false,
+        icon: {
+            name: 'flag',
+            color: 'blue'
+        },
+        menu: {
+            icon: 'flag outline'
+        }
+    },
+    POSTPONED: {
+        id: 3,
+        name: 'Отложено',
+        checked: true,
+        icon: {
+            name: 'history',
+            color: 'yellow'
+        },
+        menu: {
+            icon: 'history'
+        }
+    },
+    REJECTED: {
+        id: 4,
+        name: 'Отменено',
+        checked: true,
+        icon: {
+            name: 'times',
+            color: 'red'
+        },
+        menu: {
+            icon: 'times circle outline'
         }
     }
 };

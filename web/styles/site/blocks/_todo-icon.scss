@@ -46,4 +46,19 @@
         border: $checkbox-border-width solid $color;
         background: $color;
     }
+    &--blue &__box {
+        $color: #4192C1;
+        border: $checkbox-border-width solid $color;
+        background: $color;
+    }
+    &--yellow &__box {
+        $color: #F8A13F;
+        border: $checkbox-border-width solid $color;
+        background: $color;
+    }
+    &--red &__box {
+        $color: #F14C4C;
+        border: $checkbox-border-width solid $color;
+        background: $color;
+    }
 }

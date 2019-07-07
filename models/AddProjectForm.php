@@ -31,6 +31,7 @@ class AddProjectForm extends Model
             $project = new Project();
             $project->name = Html::encode($this->name);
             $project->insert();
+            
             // Его описание
             if ($this->description) {
                 $desc = new ProjectDescription();
@@ -38,6 +39,13 @@ class AddProjectForm extends Model
                 $desc->description = $this->description;
                 $desc->insert();
             }
+            
+            // А также стандартная группа задач
+            $group = new IssueGroup();
+            $group->project_id = $project->id;
+            $group->name = 'Общее';
+            $group->insert();
+
             return $project;
         }
         return null;

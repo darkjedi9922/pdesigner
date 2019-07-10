@@ -1,5 +1,7 @@
 .form {
     font-size: 1.2rem;
+    margin-top: 10px;
+
     &__field {
         clear: both;
         overflow: hidden;
@@ -74,6 +76,7 @@
         outline: none;
         text-decoration: none;
         font-size: 1rem;
+        margin-top: 5px;
         &:hover {
             background: button-hover-color($form-button-color);
         }
@@ -105,5 +108,14 @@
     &__content &__textarea {
         width: 100%;
         box-sizing: border-box;
+    }
+
+    &__result {
+        display: inline-block;
+        margin-bottom: 10px;
+
+        &--error {
+            color: red;
+        }
     }
 }

@@ -6,6 +6,8 @@ use yii\base\Model;
 
 class SignupForm extends Model
 {
+    const USERNAME_ALREADY_EXISTS = 'The username already exists.';
+
     public $username;
     public $password;
 
@@ -15,7 +17,8 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            [['username', 'password'], 'required']
+            [['username', 'password'], 'required'],
+            ['username', 'validateUsername']
         ];
     }
 
@@ -35,5 +38,14 @@ class SignupForm extends Model
             $this->password
         );
         return $user->insert();
+    }
+
+    /**
+     * @param string $attribute
+     */
+    public function validateUsername($attribute)
+    {
+        $user = User::findByUsername($this->username);
+        if ($user) $this->addError($attribute, self::USERNAME_ALREADY_EXISTS);
     }
 }

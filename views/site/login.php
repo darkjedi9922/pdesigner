@@ -15,7 +15,6 @@ $this->context->layout = 'simple'; // эта страница имеет сво�
             <i class="breadcrumb__divisor"></i>
             <span class="breadcrumb__section">Вход</span>
         </div>
-        <br>
         <form class="form" method="post">
             <input type="hidden" name="_csrf" value="<?= Yii::$app->request->getCsrfToken() ?>">
             <div class="form__field">

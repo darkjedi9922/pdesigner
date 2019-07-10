@@ -28,7 +28,7 @@ class SignupForm extends Model
 
         $user = new User;
         $user->username = $this->username;
-        $user->password = $this->password;
+        $user->password = User::encodePassword($this->password);
         $user->authKey = User::generateAuthKey($this->username, $this->password);
         $user->accessToken = User::generateAccessToken(
             $this->username, 

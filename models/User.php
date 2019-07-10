@@ -43,13 +43,22 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * @param string $password
+     * @return string
+     */
+    public static function encodePassword($password)
+    {
+        return md5($password | md5('bg2eibugo42g82bvuo2b32v'));
+    }
+
+    /**
      * @param string $username
      * @param string $password
      * @return string
      */
     public static function generateAuthKey($username, $password)
     {
-        return md5(($username . $password) | 'authkey_1853984207');
+        return md5(($username . $password) | md5('authkey_1853984207'));
     }
 
     /**
@@ -59,7 +68,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function generateAccessToken($username, $password)
     {
-        return md5(($username . $password) | 'accessToken_t712923849586970');
+        return md5(($username . $password) | md5('accessToken_t712923849586970'));
     }
 
     /**
@@ -94,6 +103,6 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return $this->password === self::encodePassword($password);
     }
 }

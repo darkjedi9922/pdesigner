@@ -29,6 +29,10 @@ body {
     background: $background;
 }
 
+code {
+    font-size: 0.9rem;
+}
+
 .container {
     display: flex;
     flex-direction: row;

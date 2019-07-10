@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /** @var \yii\web\View $this */
 
@@ -10,7 +11,7 @@ $this->context->layout = 'simple'; // эта страница имеет сво�
 <div class="desk">
     <div class="box box--page-centered">
         <div class="breadcrumb">
-            <a href="/web" class="breadcrumb__section breadcrumb__section--link">Главная</a>
+            <a href="<?= Url::to(['/']) ?>" class="breadcrumb__section breadcrumb__section--link">Главная</a>
             <i class="breadcrumb__divisor"></i>
             <span class="breadcrumb__section">Вход</span>
         </div>

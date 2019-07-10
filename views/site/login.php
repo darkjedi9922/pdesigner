@@ -44,6 +44,8 @@ $this->context->layout = 'simple'; // эта страница имеет сво�
                 </label>
             </div>
             <button class="form__button">Войти</button>
+            <span>или</span>
+            <a href="<?= Url::to(['site/signup']) ?>" class="form__link">зарегистрироваться</a>
         </form>
     </div>
 </div>

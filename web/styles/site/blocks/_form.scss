@@ -118,4 +118,13 @@
             color: red;
         }
     }
+
+    &__link {
+        text-decoration: none;
+        color: $link-color;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }

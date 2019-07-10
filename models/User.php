@@ -43,6 +43,26 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * @param string $username
+     * @param string $password
+     * @return string
+     */
+    public static function generateAuthKey($username, $password)
+    {
+        return md5(($username . $password) | 'authkey_1853984207');
+    }
+
+    /**
+     * @param string $username
+     * @param string $password
+     * @return string
+     */
+    public static function generateAccessToken($username, $password)
+    {
+        return md5(($username . $password) | 'accessToken_t712923849586970');
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getId()

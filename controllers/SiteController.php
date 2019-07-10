@@ -99,15 +99,17 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    public function actionSignup()
+    /**
+     * @param bool|int $signedUp
+     */
+    public function actionSignup($signedUp = false)
     {
         if (!Yii::$app->user->isGuest) return $this->goHome();
 
-        $signedUp = null;
         $signupForm = new SignupForm;
         $post = Yii::$app->request->post();
         if ($signupForm->load($post) && $signupForm->signup()) {
-            $signedUp = true;
+            $this->redirect(['site/signup', 'signedUp' => true]);
         }
 
         return $this->render('signup', [

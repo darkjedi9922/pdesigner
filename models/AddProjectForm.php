@@ -4,6 +4,7 @@ use yii\base\Model;
 use yii\helpers\Html;
 use app\models\Project;
 use app\models\ProjectDescription;
+use Yii;
 
 class AddProjectForm extends Model
 {
@@ -30,6 +31,7 @@ class AddProjectForm extends Model
             // Сам проект
             $project = new Project();
             $project->name = Html::encode($this->name);
+            $project->author_id = Yii::$app->user->id;
             $project->insert();
             
             // Его описание

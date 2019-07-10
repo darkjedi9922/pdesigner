@@ -2,8 +2,9 @@
 
 use app\models\Project;
 use yii\helpers\Url;
-
-$projects = Project::find()->orderBy('id ASC')->all();
+$projects = Project::find()
+    ->where(['author_id' => Yii::$app->user->id])
+    ->orderBy('id ASC')->all();
 ?>
 
 <?php $this->beginContent('@app/views/layouts/simple.php') ?>

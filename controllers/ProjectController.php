@@ -21,11 +21,11 @@ class ProjectController extends Controller
      */
     public function actionIndex($id)
     {
-        $project = Project::findOne($id);
-        if (!$project) {
-            Yii::$app->response->statusCode = 404;
-            return;
-        }
+        $project = Project::findOne([
+            'id' => $id,
+            'author_id' => Yii::$app->user->id
+        ]);
+        if (!$project) return Yii::$app->response->statusCode = 404;
 
         $issues = Issue::find()->where(['project_id' => $id])->orderBy('id ASC')->all();
         $groups = IssueGroup::find()->where(['project_id' => $id])->orderBy('id ASC')->all();
@@ -57,11 +57,11 @@ class ProjectController extends Controller
      */
     public function actionEdit($id)
     {
-        $project = Project::findOne($id);
-        if (!$project) {
-            Yii::$app->response->statusCode = 404;
-            return;
-        }
+        $project = Project::findOne([
+            'id' => $id,
+            'author_id' => Yii::$app->user->id
+        ]);
+        if (!$project) return Yii::$app->response->statusCode = 404;
 
         if (Yii::$app->request->isPost) {
             $form = new EditProjectForm();
@@ -83,7 +83,10 @@ class ProjectController extends Controller
      */
     public function actionDelete($id)
     {
-        $project = Project::findOne($id);
+        $project = Project::findOne([
+            'id' => $id,
+            'author_id' => Yii::$app->user->id
+        ]);
         if ($project) $project->delete();
         $this->redirect(['/dashboard']);
     }

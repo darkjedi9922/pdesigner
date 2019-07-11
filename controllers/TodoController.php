@@ -17,9 +17,9 @@ class TodoController extends Controller
     {
         $post = Yii::$app->request->post();
         if (isset($post['id']) && isset($post['status'])) {
-            $data = ['status' => $post['status']];
-            $condition = 'id = ' . $post['id'];
-            Issue::updateAll($data, $condition);
+            $issue = Issue::findMyOne($post['id']);
+            $issue->status = $post['status'];
+            $issue->save();
         }
     }
 
@@ -28,17 +28,14 @@ class TodoController extends Controller
      */
     public function actionDelete($id)
     {
-        // Нужно найти id проекта этой задачи для редиректа, если это не ajax
-        if (!Yii::$app->request->isAjax) {
-            $issue = Issue::find()->where(['id' => $id])->one();
-            if ($issue) $projectId = $issue->project_id;
-            else $projectId = null;
-        }
+        $issue = Issue::findMyOne($id);
+        if (!$issue) return $this->goHome();
 
-        Issue::remove($id);
+        $issue->delete();
 
         // Редирект если не ajax
-        if (!Yii::$app->request->isAjax && $projectId !== null) $this->redirect(['project/index', 'id' => $projectId]);
+        if (!Yii::$app->request->isAjax && $issue->project_id !== null) 
+            $this->redirect(['project/index', 'id' => $issue->project_id]);
     }
 
     /**
@@ -79,15 +76,12 @@ class TodoController extends Controller
      */
     public function actionEditItem($id)
     {
-        $item = Issue::find()->where(['id' => $id])->one();
+        $item = Issue::findMyOne($id);
         if ($item) {
             $text = IssueText::find()->where(['issue_id' => $id])->one();
             $text = ($text && $text->text) ? $text->text : '';
             $project = Project::findOne($item->project_id);
-        } else {
-            Yii::$app->response->statusCode = 400;
-            return;
-        }
+        } else return $this->goHome();
 
         if (Yii::$app->request->isPost) {
             $model = new EditTaskForm();
@@ -111,11 +105,8 @@ class TodoController extends Controller
     public function actionIndex($id)
     {
         // Загружаем саму задачу
-        $issue = Issue::find()->where(['id' => $id])->one();
-        if (!$issue) {
-            Yii::$app->response->statusCode = 404;
-            return;
-        }
+        $issue = Issue::findMyOne($id);
+        if (!$issue) return $this->goHome();
         // Находим ее родителя
         if ($issue->parent_issue_id) $parent = Issue::find()->where(['id' => $issue->parent_issue_id])->one();
         else $parent = null;

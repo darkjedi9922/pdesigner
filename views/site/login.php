@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /** @var \yii\web\View $this */
+/** @var \app\models\LoginForm $model */
 
 $this->context->layout = 'simple'; // эта страница имеет свой собственный шаблон
 ?>

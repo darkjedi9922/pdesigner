@@ -24,23 +24,53 @@ class Issue extends ActiveRecord
     }
 
     /**
-     * Removes the issue and its text. 
-     * The children is not removed.
+     * Возвращает issue, который принадлежит текущему пользователю. Если такого
+     * issue не найдено, вернет null.
      * 
-     * @param int $id Id of the issue
+     * @param int $id
+     * @return Issue|null
      */
-    public static function remove($id)
+    public static function findMyOne($id)
     {
-        IssueText::deleteAll('issue_id = ' . $id);
-        static::deleteAll('id = ' . $id);
+        $userId = Yii::$app->user->id;
+        return self::findBySql(
+            "SELECT issues.*
+            FROM issues INNER JOIN projects ON issues.project_id = projects.id
+            WHERE issues.id = ${id} AND projects.author_id = ${userId}"
+        )->one();
     }
 
     /**
+     * Возвращает текущего пользователя ли эта задача (с его ли проекта).
+     * 
+     * @param int $issueId
+     * @return bool
+     */
+    public function doesMeOwn()
+    {
+        $id = $this->id;
+        $userId = Yii::$app->user->id;
+        // Если берем id - первичный ключ - вернет либо 1 или 0 записей. При этом
+        // связываем запись с автором проекта как id пользователя. Если с таким
+        // автором запись не найдена (возвращено 0 записей), значит это не запись
+        // пользователя.
+        return (bool) Yii::$app->db->createCommand(
+            "SELECT issues.id 
+            FROM issues INNER JOIN projects ON issues.project_id = projects.id
+            WHERE issues.id = ${id} AND projects.author_id = ${userId}"
+        )->query()->count();
+    }
+
+    /**
+     * Removes the issue and its text. 
+     * The children is not removed.
+     * 
      * {@inheritDoc}
      */
     public function delete()
     {
+        if (!$this->doesMeOwn()) return false;
         IssueText::deleteAll('issue_id = ' . $this->id);
-        parent::delete();
+        return parent::delete();
     }
 }

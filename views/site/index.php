@@ -34,7 +34,8 @@ $isLogged = !Yii::$app->user->isGuest;
                     <br><br>
                 </div>
                 <div class="slide__bar">
-                    <a href="<?= Url::to(['/dashboard']) ?>" class="slide__button">Начать</a>
+                    <a href="<?= Url::to(['/dashboard']) ?>" class="slide__button"
+                        ><?= Yii::t('app', 'Begin') ?></a>
                 </div>
             </div>
             <div class="slide__image">

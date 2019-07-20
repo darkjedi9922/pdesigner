@@ -52,10 +52,20 @@ $config = [
             'enableStrictParsing' => false,
             //'rules' => [],
         ],
-        
+        'i18n' => [
+            'translations' => [
+                'app' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    // 'basePath' => '@app/messages',
+                    // 'sourceLanguage' => 'en-US',
+                    // 'fileMap' => ['app' => 'app.php'],
+                ]
+            ]
+        ]
     ],
     'name' => 'PDesigner',
     'params' => $params,
+    'language' => 'ru-RU' // used by i18n component to translate in
 ];
 
 if (YII_ENV_DEV) {

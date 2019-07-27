@@ -60,7 +60,7 @@ class ItemController extends \yii\web\Controller
 
         $model = new AddTaskForm();
         if ($model->load(Yii::$app->request->post()) && $model->add()) {
-            return $this->redirect(['index', 'id' => $model->getAddedIssue()->id]);
+            return $this->redirect(['/todo', 'id' => $model->getAddedIssue()->id]);
         }
 
         $project = Project::findOne($group->project_id);
@@ -88,7 +88,7 @@ class ItemController extends \yii\web\Controller
             $model = new EditTaskForm();
             $model->id = $id;
             if ($model->load(Yii::$app->request->post()) && $model->edit()) {
-                return $this->redirect(['index', 'id' => $model->id]);
+                return $this->redirect(['/todo', 'id' => $model->id]);
             }
         } else {
             return $this->render('edit', [

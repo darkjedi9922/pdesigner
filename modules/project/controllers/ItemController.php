@@ -44,7 +44,7 @@ class ItemController extends Controller
     {
         $model = new AddProjectForm();
         if ($model->load(Yii::$app->request->post()) && $project = $model->add()) {
-            return $this->redirect(['index', 'id' => $project->id]);
+            return $this->redirect(['/project', 'id' => $project->id]);
         }
 
         return $this->render('add');
@@ -66,7 +66,7 @@ class ItemController extends Controller
             $form = new EditProjectForm();
             $form->id = $id;
             if ($form->load(Yii::$app->request->post()) && $form->edit()) {
-                return $this->redirect(['index', 'id' => $id]);
+                return $this->redirect(['/project', 'id' => $id]);
             }
         }
 

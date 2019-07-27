@@ -3,7 +3,7 @@
 namespace app\modules\todo\controllers;
 
 use yii\web\Controller;
-use app\models\IssueGroup;
+use app\modules\todo\models\IssueGroup;
 
 class GroupController extends Controller
 {

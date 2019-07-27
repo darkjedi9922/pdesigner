@@ -5,11 +5,11 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use app\models\Project;
-use app\models\Issue;
+use app\modules\todo\models\Issue;
 use app\models\AddProjectForm;
 use app\models\ProjectDescription;
 use app\models\EditProjectForm;
-use app\models\IssueGroup;
+use app\modules\todo\models\IssueGroup;
 
 class ProjectController extends Controller
 {

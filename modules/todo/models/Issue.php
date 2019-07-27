@@ -1,4 +1,4 @@
-<?php namespace app\models;
+<?php namespace app\modules\todo\models;
 
 use Yii;
 use yii\db\ActiveRecord;

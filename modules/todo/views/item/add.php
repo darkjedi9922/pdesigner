@@ -3,9 +3,9 @@
 use yii\helpers\Url;
 
 /** @var \yii\web\View $this */
-/** @var \app\models\Issue|null $parent */
+/** @var \app\modules\todo\models\Issue|null $parent */
 /** @var \app\models\Project $project */
-/** @var \app\models\IssueGroup $group */
+/** @var \app\modules\todo\models\IssueGroup $group */
 
 ?>
 

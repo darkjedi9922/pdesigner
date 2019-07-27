@@ -19,7 +19,7 @@ $projects = Project::find()
                 <?php foreach ($projects as $project): ?>
                     <a href="<?= Url::to(['/project', 'id' => $project['id']]) ?>" class="menu__item"><?= $project['name'] ?></a>
                 <?php endforeach ?>
-                <a href="<?= Url::to(['/project/add']) ?>" class="menu__item">Добавить проект</a>
+                <a href="<?= Url::to(['/project/item/add']) ?>" class="menu__item">Добавить проект</a>
             </div>
         </div>
         <div class="menu__item menu__item--opened menu-item">

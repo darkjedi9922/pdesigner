@@ -55,8 +55,8 @@ use yii\helpers\Url;
     <div class="boxes__item">
         <div class="box">
             <div class="task-toolbar task-toolbar--vertical">
-                <a href="<?= Url::to(['/project/edit', 'id' => $project->id]) ?>" class="task-toolbar__button">Редактировать проект</a>
-                <a href="<?= Url::to(['/project/delete', 'id' => $project->id]) ?>" class="task-toolbar__button task-toolbar__button--bad">Удалить проект</a>
+                <a href="<?= Url::to(['/project/item/edit', 'id' => $project->id]) ?>" class="task-toolbar__button">Редактировать проект</a>
+                <a href="<?= Url::to(['/project/item/delete', 'id' => $project->id]) ?>" class="task-toolbar__button task-toolbar__button--bad">Удалить проект</a>
             </div>
         </div>
     </div>

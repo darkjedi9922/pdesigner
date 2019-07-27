@@ -57,6 +57,9 @@ $config = [
     'name' => 'PDesigner',
     'params' => $params,
     'modules' => [
+        'project' => [
+            'class' => 'app\modules\project\Module'
+        ],
         'todo' => [
             'class' => 'app\modules\todo\Module'
         ]

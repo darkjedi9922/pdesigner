@@ -1,19 +1,18 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\project\controllers;
 
 use Yii;
 use yii\web\Controller;
 use app\models\Project;
 use app\modules\todo\models\Issue;
 use app\models\AddProjectForm;
-use app\models\ProjectDescription;
 use app\models\EditProjectForm;
 use app\modules\todo\models\IssueGroup;
 
-class ProjectController extends Controller
+class ItemController extends Controller
 {
-    public $layout = 'dashboard';
+    public $layout = '@app/views/layouts/dashboard';
 
     /**
      * @param int $id id проекта
@@ -45,7 +44,7 @@ class ProjectController extends Controller
     {
         $model = new AddProjectForm();
         if ($model->load(Yii::$app->request->post()) && $project = $model->add()) {
-            return $this->redirect(['project/index', 'id' => $project->id]);
+            return $this->redirect(['index', 'id' => $project->id]);
         }
 
         return $this->render('add');
@@ -67,7 +66,7 @@ class ProjectController extends Controller
             $form = new EditProjectForm();
             $form->id = $id;
             if ($form->load(Yii::$app->request->post()) && $form->edit()) {
-                return $this->redirect(['/project', 'id' => $id]);
+                return $this->redirect(['index', 'id' => $id]);
             }
         }
 

@@ -65,7 +65,15 @@ $config = [
     ],
     'name' => 'PDesigner',
     'params' => $params,
-    'language' => 'ru-RU' // used by i18n component to translate in
+    'language' => 'ru-RU', // used by i18n component to translate in
+    'modules' => [
+        'project' => [
+            'class' => 'app\modules\project\Module'
+        ],
+        'todo' => [
+            'class' => 'app\modules\todo\Module'
+        ]
+    ]
 ];
 
 if (YII_ENV_DEV) {

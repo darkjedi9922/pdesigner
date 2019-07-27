@@ -3,9 +3,9 @@
 use yii\helpers\Url;
 
 /** @var \yii\web\View $this */
-/** @var \app\models\Issue $issue */
-/** @var \app\models\Issue|null $parent */
-/** @var \app\models\Project $project */
+/** @var \app\modules\todo\models\Issue $issue */
+/** @var \app\modules\todo\models\Issue|null $parent */
+/** @var \app\modules\project\models\Project $project */
 /** @var string $text */
 ?>
 
@@ -22,9 +22,9 @@ use yii\helpers\Url;
         number: <?= $issue->number ?>,
         title: '<?= $issue->title ?>',
         text: '<?= str_replace(["\r", "\n"], ['\r', '<br>'], $text) ?>',
-        addItemUrl: '<?= Url::to(['/todo/add-item', 'parent' => $issue->id]) ?>',
-        editItemUrl: '<?= Url::to(['/todo/edit-item', 'id' => $issue->id]) ?>',
-        deleteItemUrl: '<?= Url::to(['/todo/delete', 'id' => $issue->id]) ?>'
+        addItemUrl: '<?= Url::to(['/todo/item/add', 'parent' => $issue->id]) ?>',
+        editItemUrl: '<?= Url::to(['/todo/item/edit', 'id' => $issue->id]) ?>',
+        deleteItemUrl: '<?= Url::to(['/todo/item/delete', 'id' => $issue->id]) ?>'
     }
 </script>
 <div id="issue-app"></div>

@@ -1,8 +1,10 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /** @var \yii\web\View $this */
+/** @var \app\models\LoginForm $model */
 
 $this->context->layout = 'simple'; // эта страница имеет свой собственный шаблон
 ?>
@@ -10,11 +12,10 @@ $this->context->layout = 'simple'; // эта страница имеет сво�
 <div class="desk">
     <div class="box box--page-centered">
         <div class="breadcrumb">
-            <a href="/web" class="breadcrumb__section breadcrumb__section--link">Главная</a>
+            <a href="<?= Url::to(['/']) ?>" class="breadcrumb__section breadcrumb__section--link">Главная</a>
             <i class="breadcrumb__divisor"></i>
             <span class="breadcrumb__section">Вход</span>
         </div>
-        <br>
         <form class="form" method="post">
             <input type="hidden" name="_csrf" value="<?= Yii::$app->request->getCsrfToken() ?>">
             <div class="form__field">
@@ -44,6 +45,8 @@ $this->context->layout = 'simple'; // эта страница имеет сво�
                 </label>
             </div>
             <button class="form__button">Войти</button>
+            <span>или</span>
+            <a href="<?= Url::to(['site/signup']) ?>" class="form__link">зарегистрироваться</a>
         </form>
     </div>
 </div>

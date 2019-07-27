@@ -1,25 +1,43 @@
-<?php namespace app\controllers;
+<?php
+
+namespace app\modules\todo\controllers;
 
 use Yii;
-use yii\web\Controller;
-use app\models\Issue;
-use app\models\AddTaskForm;
-use app\models\EditTaskForm;
-use app\models\IssueText;
-use app\models\Project;
-use app\models\IssueGroup;
+use app\modules\todo\models\Issue;
+use app\modules\todo\models\AddTaskForm;
+use app\modules\todo\models\EditTaskForm;
+use app\modules\todo\models\IssueText;
+use app\modules\project\models\Project;
+use app\modules\todo\models\IssueGroup;
+use app\modules\todo\models\IssueRights;
+use yii\web\NotFoundHttpException;
 
-class TodoController extends Controller
+class ItemController extends \yii\web\Controller
 {
-    public $layout = 'dashboard';
+    public $layout = '@app/views/layouts/dashboard';
+
+    /** @var IssueRights */
+    public $rights;
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+        $this->rights = new IssueRights(Yii::$app->user->identity);
+    }
 
     public function actionToggle()
     {
         $post = Yii::$app->request->post();
         if (isset($post['id']) && isset($post['status'])) {
-            $data = ['status' => $post['status']];
-            $condition = 'id = ' . $post['id'];
-            Issue::updateAll($data, $condition);
+            $issue = Issue::findOne($post['id']);
+            if (!$issue || !$this->rights->canToggle($issue))
+                throw new NotFoundHttpException;
+
+            $issue->status = $post['status'];
+            $issue->save();
         }
     }
 
@@ -28,17 +46,15 @@ class TodoController extends Controller
      */
     public function actionDelete($id)
     {
-        // Нужно найти id проекта этой задачи для редиректа, если это не ajax
-        if (!Yii::$app->request->isAjax) {
-            $issue = Issue::find()->where(['id' => $id])->one();
-            if ($issue) $projectId = $issue->project_id;
-            else $projectId = null;
-        }
+        $issue = Issue::findOne($id);
+        if (!$issue || !$this->rights->canDelete($issue)) 
+            throw new NotFoundHttpException;
 
-        Issue::remove($id);
+        $issue->delete();
 
         // Редирект если не ajax
-        if (!Yii::$app->request->isAjax && $projectId !== null) $this->redirect(['project/index', 'id' => $projectId]);
+        if (!Yii::$app->request->isAjax && $issue->project_id !== null)
+            $this->redirect(['/project', 'id' => $issue->project_id]);
     }
 
     /**
@@ -48,25 +64,26 @@ class TodoController extends Controller
      * @param int $group id группы задач
      * @return Response|string
      */
-    public function actionAddItem($parent = null, $group = null)
+    public function actionAdd($parent = null, $group = null)
     {
         if ($parent) {
             $parent = Issue::findOne($parent);
+            if (!$parent) throw new NotFoundHttpException;
             $group = IssueGroup::findOne($parent->group_id);
         } else if ($group) {
             $group = IssueGroup::findOne($group);
-        } else {
-            Yii::$app->response->statusCode = 404;
-            return;
         }
+
+        if (!$group || !$this->rights->canAdd($group))
+            throw new NotFoundHttpException;
 
         $model = new AddTaskForm();
         if ($model->load(Yii::$app->request->post()) && $model->add()) {
-            return $this->redirect(['todo/index', 'id' => $model->getAddedIssue()->id]);
+            return $this->redirect(['/todo', 'id' => $model->getAddedIssue()->id]);
         }
 
         $project = Project::findOne($group->project_id);
-        return $this->render('add-item', [
+        return $this->render('add', [
             'parent' => $parent,
             'group' => $group,
             'project' => $project
@@ -77,26 +94,24 @@ class TodoController extends Controller
      * @param int $id
      * @return Response|string
      */
-    public function actionEditItem($id)
+    public function actionEdit($id)
     {
-        $item = Issue::find()->where(['id' => $id])->one();
-        if ($item) {
-            $text = IssueText::find()->where(['issue_id' => $id])->one();
-            $text = ($text && $text->text) ? $text->text : '';
-            $project = Project::findOne($item->project_id);
-        } else {
-            Yii::$app->response->statusCode = 400;
-            return;
-        }
+        $item = Issue::findOne($id);
+        if (!$item || !$this->rights->canEdit($item))
+            throw new NotFoundHttpException;
+
+        $text = IssueText::find()->where(['issue_id' => $id])->one();
+        $text = ($text && $text->text) ? $text->text : '';
+        $project = Project::findOne($item->project_id);
 
         if (Yii::$app->request->isPost) {
             $model = new EditTaskForm();
             $model->id = $id;
             if ($model->load(Yii::$app->request->post()) && $model->edit()) {
-                return $this->redirect(['todo/index', 'id' => $model->id]);
+                return $this->redirect(['/todo', 'id' => $model->id]);
             }
         } else {
-            return $this->render('edit-item', [
+            return $this->render('edit', [
                 'item' => $item,
                 'text' => $text,
                 'project' => $project
@@ -111,11 +126,10 @@ class TodoController extends Controller
     public function actionIndex($id)
     {
         // Загружаем саму задачу
-        $issue = Issue::find()->where(['id' => $id])->one();
-        if (!$issue) {
-            Yii::$app->response->statusCode = 404;
-            return;
-        }
+        $issue = Issue::findOne($id);
+        if (!$issue || !$this->rights->canSee($issue))
+            throw new NotFoundHttpException;
+
         // Находим ее родителя
         if ($issue->parent_issue_id) $parent = Issue::find()->where(['id' => $issue->parent_issue_id])->one();
         else $parent = null;

@@ -3,8 +3,8 @@
 use yii\helpers\Url;
 
 /** @var \yii\web\View $this */
-/** @var \app\models\Issue $item */
-/** @var \app\models\Project $project */
+/** @var \app\modules\todo\models\Issue $item */
+/** @var \app\modules\project\models\Project $project */
 /** @var string $text */
 ?>
 

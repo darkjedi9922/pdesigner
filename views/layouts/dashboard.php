@@ -1,9 +1,10 @@
 <?php
 
-use app\models\Project;
+use app\modules\project\models\Project;
 use yii\helpers\Url;
-
-$projects = Project::find()->orderBy('id ASC')->all();
+$projects = Project::find()
+    ->where(['author_id' => Yii::$app->user->id])
+    ->orderBy('id ASC')->all();
 ?>
 
 <?php $this->beginContent('@app/views/layouts/simple.php') ?>
@@ -18,7 +19,7 @@ $projects = Project::find()->orderBy('id ASC')->all();
                 <?php foreach ($projects as $project): ?>
                     <a href="<?= Url::to(['/project', 'id' => $project['id']]) ?>" class="menu__item"><?= $project['name'] ?></a>
                 <?php endforeach ?>
-                <a href="<?= Url::to(['/project/add']) ?>" class="menu__item">Добавить проект</a>
+                <a href="<?= Url::to(['/project/item/add']) ?>" class="menu__item">Добавить проект</a>
             </div>
         </div>
         <div class="menu__item menu__item--opened menu-item">

@@ -22,7 +22,7 @@ $isLogged = !Yii::$app->user->isGuest;
                     </form>
                 <?php else: ?>
                     <a href="<?= Url::to(['/site/login']) ?>" class="header-links__link">Вход</a>
-                    <a href="#" class="header-links__button">Регистрация</a>
+                    <a href="<?= Url::to(['/site/signup']) ?>" class="header-links__button">Регистрация</a>
                 <?php endif ?>
             </div>
         </div>

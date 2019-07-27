@@ -2,8 +2,8 @@
 
 use yii\helpers\Url;
 
-/** @var \app\models\Project $project */
-/** @var \app\models\ProjectDescription|null $desc */
+/** @var \app\modules\project\models\Project $project */
+/** @var \app\modules\project\models\ProjectDescription|null $desc */
 /** @var array $issues */
 /** @var array $groups */
 ?>
@@ -55,8 +55,8 @@ use yii\helpers\Url;
     <div class="boxes__item">
         <div class="box">
             <div class="task-toolbar task-toolbar--vertical">
-                <a href="<?= Url::to(['/project/edit', 'id' => $project->id]) ?>" class="task-toolbar__button">Редактировать проект</a>
-                <a href="<?= Url::to(['/project/delete', 'id' => $project->id]) ?>" class="task-toolbar__button task-toolbar__button--bad">Удалить проект</a>
+                <a href="<?= Url::to(['/project/item/edit', 'id' => $project->id]) ?>" class="task-toolbar__button">Редактировать проект</a>
+                <a href="<?= Url::to(['/project/item/delete', 'id' => $project->id]) ?>" class="task-toolbar__button task-toolbar__button--bad">Удалить проект</a>
             </div>
         </div>
     </div>

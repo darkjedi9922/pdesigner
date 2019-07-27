@@ -1,8 +1,10 @@
-<?php namespace app\models;
+<?php namespace app\modules\todo\models;
 
 use yii\base\Model;
 use yii\helpers\Html;
-use app\models\Issue;
+use app\modules\todo\models\Issue;
+use app\modules\todo\models\IssueGroup;
+use app\modules\todo\models\IssueText;
 
 class AddTaskForm extends Model
 {

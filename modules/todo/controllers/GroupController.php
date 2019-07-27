@@ -1,11 +1,9 @@
 <?php
 
-namespace app\controllers\todo;
+namespace app\modules\todo\controllers;
 
-use Yii;
 use yii\web\Controller;
 use app\models\IssueGroup;
-use app\models\Issue;
 
 class GroupController extends Controller
 {
@@ -51,5 +49,10 @@ class GroupController extends Controller
     public function actionDelete($group)
     {
         IssueGroup::remove($group);
+    }
+
+    public function actionIndex()
+    {
+        return 'hello';
     }
 }

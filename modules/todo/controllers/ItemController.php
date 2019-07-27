@@ -1,7 +1,8 @@
-<?php namespace app\controllers;
+<?php
+
+namespace app\modules\todo\controllers;
 
 use Yii;
-use yii\web\Controller;
 use app\models\Issue;
 use app\models\AddTaskForm;
 use app\models\EditTaskForm;
@@ -9,9 +10,9 @@ use app\models\IssueText;
 use app\models\Project;
 use app\models\IssueGroup;
 
-class TodoController extends Controller
+class ItemController extends \yii\web\Controller
 {
-    public $layout = 'dashboard';
+    public $layout = '@app/views/layouts/dashboard';
 
     public function actionToggle()
     {
@@ -34,8 +35,8 @@ class TodoController extends Controller
         $issue->delete();
 
         // Редирект если не ajax
-        if (!Yii::$app->request->isAjax && $issue->project_id !== null) 
-            $this->redirect(['project/index', 'id' => $issue->project_id]);
+        if (!Yii::$app->request->isAjax && $issue->project_id !== null)
+            $this->redirect(['/project', 'id' => $issue->project_id]);
     }
 
     /**
@@ -45,7 +46,7 @@ class TodoController extends Controller
      * @param int $group id группы задач
      * @return Response|string
      */
-    public function actionAddItem($parent = null, $group = null)
+    public function actionAdd($parent = null, $group = null)
     {
         if ($parent) {
             $parent = Issue::findOne($parent);
@@ -59,11 +60,11 @@ class TodoController extends Controller
 
         $model = new AddTaskForm();
         if ($model->load(Yii::$app->request->post()) && $model->add()) {
-            return $this->redirect(['todo/index', 'id' => $model->getAddedIssue()->id]);
+            return $this->redirect(['index', 'id' => $model->getAddedIssue()->id]);
         }
 
         $project = Project::findOne($group->project_id);
-        return $this->render('add-item', [
+        return $this->render('add', [
             'parent' => $parent,
             'group' => $group,
             'project' => $project
@@ -74,7 +75,7 @@ class TodoController extends Controller
      * @param int $id
      * @return Response|string
      */
-    public function actionEditItem($id)
+    public function actionEdit($id)
     {
         $item = Issue::findMyOne($id);
         if ($item) {
@@ -87,10 +88,10 @@ class TodoController extends Controller
             $model = new EditTaskForm();
             $model->id = $id;
             if ($model->load(Yii::$app->request->post()) && $model->edit()) {
-                return $this->redirect(['todo/index', 'id' => $model->id]);
+                return $this->redirect(['index', 'id' => $model->id]);
             }
         } else {
-            return $this->render('edit-item', [
+            return $this->render('edit', [
                 'item' => $item,
                 'text' => $text,
                 'project' => $project

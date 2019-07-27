@@ -56,6 +56,11 @@ $config = [
     ],
     'name' => 'PDesigner',
     'params' => $params,
+    'modules' => [
+        'todo' => [
+            'class' => 'app\modules\todo\Module'
+        ]
+    ]
 ];
 
 if (YII_ENV_DEV) {

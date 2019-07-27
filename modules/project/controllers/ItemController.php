@@ -4,10 +4,10 @@ namespace app\modules\project\controllers;
 
 use Yii;
 use yii\web\Controller;
-use app\models\Project;
+use app\modules\project\models\Project;
 use app\modules\todo\models\Issue;
-use app\models\AddProjectForm;
-use app\models\EditProjectForm;
+use app\modules\project\models\AddProjectForm;
+use app\modules\project\models\EditProjectForm;
 use app\modules\todo\models\IssueGroup;
 
 class ItemController extends Controller

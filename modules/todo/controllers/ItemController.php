@@ -7,7 +7,7 @@ use app\modules\todo\models\Issue;
 use app\modules\todo\models\AddTaskForm;
 use app\modules\todo\models\EditTaskForm;
 use app\modules\todo\models\IssueText;
-use app\models\Project;
+use app\modules\project\models\Project;
 use app\modules\todo\models\IssueGroup;
 
 class ItemController extends \yii\web\Controller

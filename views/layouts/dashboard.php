@@ -1,6 +1,6 @@
 <?php
 
-use app\models\Project;
+use app\modules\project\models\Project;
 use yii\helpers\Url;
 $projects = Project::find()
     ->where(['author_id' => Yii::$app->user->id])

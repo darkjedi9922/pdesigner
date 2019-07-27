@@ -1,9 +1,10 @@
-<?php namespace app\models;
+<?php namespace app\modules\project\models;
 
 use yii\base\Model;
 use yii\helpers\Html;
-use app\models\Project;
-use app\models\ProjectDescription;
+use app\modules\project\models\Project;
+use app\modules\project\models\ProjectDescription;
+use app\modules\todo\models\IssueGroup;
 use Yii;
 
 class AddProjectForm extends Model

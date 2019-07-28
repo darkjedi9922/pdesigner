@@ -94,16 +94,17 @@ html {
 }
 
 .start {
-    $height: 200px;
-
     background: linear-gradient(to bottom right, 
         $header-background 0%, $header-background 50%, 
         $features-background 50%, $features-background 100%);
-    height: $height;
-    text-align: center;
+    height: 200px;
+    
+    // Для центрирования содержимого (button) - флексы это чудо
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &__button {
-        margin-top: calc(#{$height} / 2 - 1.5rem * 2);
         display: inline-block;
         padding: 1.5rem;
         font-size: 1.5rem;

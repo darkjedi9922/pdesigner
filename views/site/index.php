@@ -12,6 +12,7 @@ $isLogged = !Yii::$app->user->isGuest;
         <span class="header__sitename">Project Designer</span>
         <div class="header__links header-links">
             <?php if ($isLogged) : ?>
+                <span class="header-links__user"><?= Yii::$app->user->identity->username ?></span>
                 <form action="<?= Url::to(['/site/logout']) ?>" method="post">
                     <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
                     <label>

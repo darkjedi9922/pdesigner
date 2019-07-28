@@ -31,13 +31,12 @@ html {
     }
     &__links {
         float: right;
-        @media (max-width: 400px) {
-            display: none;
-        }
     }
 }
 .header-links {
     font-family: 'Calibri';
+    display: flex;
+
     &__link {
         color: $header-link-color;
         font-size: 1rem;
@@ -64,6 +63,14 @@ html {
         &:hover {
             background: darken($color: $header-color, $amount: 10);
         }
+    }
+    &__user {
+        color: white;
+        margin-right: 10px;
+    }
+
+    @media (max-width: 400px) {
+        display: none;
     }
 }
 .footer {

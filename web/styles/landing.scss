@@ -1,4 +1,7 @@
 @import 'landing-variables';
+@import 'fonts';
+
+@import '../libs/semantic/icon.css';
 
 html, body {
     padding: 0;
@@ -10,47 +13,10 @@ html {
 }
 .landing {
     height: 100%;
-}
-.slide {
-    background: #CDDEE6;
-    min-height: 100%;
     display: flex;
     flex-direction: column;
-    &__container {
-        height: 100%;
-        margin: auto;
-        display: flex;
-        overflow: hidden;
-    }
     &__content {
-        padding: 50px;
-    }
-    &__desc {
-        color: white;
-        font-size: 1.7rem;
-        font-family: 'Calibri';
-    }
-    &__bar {
-        text-align: center;
-        margin-top: 20px;
-    }
-    &__button {
-        text-decoration: none;
-        background: $one-slide-color;
-        color: white;
-        font-size: 1rem;
-        font-weight: bold;
-        padding: 8px 18px;
-        border-radius: 7px;
-        font-family: 'Calibri';
-        margin: auto;
-        display: inline-block;
-        &:hover {
-            background: darken($color: $one-slide-color, $amount: 10);
-        }
-    }
-    &__image {
-        margin: auto;
+        flex-grow: 1;
     }
 }
 .header {
@@ -60,7 +26,8 @@ html {
         font-size: 1rem;
         color: $header-color;
         text-transform: uppercase;
-        font-family: 'TakaoPGothic';
+        font-family: 'Nanum Gothic';
+        font-weight: bold;
     }
     &__links {
         float: right;
@@ -104,5 +71,95 @@ html {
     padding: 20px 20px;
     & > * {
         display: block;
+    }
+}
+
+@mixin feature-icon-color($color) {
+    background: transparentize($color, 0.75);
+    color: $color;
+}
+
+.start {
+    $height: 200px;
+
+    background: linear-gradient(to bottom right, 
+        $header-background 0%, $header-background 50%, 
+        $features-background 50%, $features-background 100%);
+    height: $height;
+    text-align: center;
+
+    &__button {
+        margin-top: calc(#{$height} / 2 - 1.5rem * 2);
+        display: inline-block;
+        padding: 1.5rem;
+        font-size: 1.5rem;
+        border-radius: 100%;
+        background: $color-yellow;
+        color: $header-background;
+        transition: 0.25s;
+        text-decoration: none;
+
+        .icon {
+            margin: 0;
+        }
+
+        &:hover {
+            background: $color-green;
+            color: $features-background;
+            cursor: pointer;
+        }
+    }
+}
+
+.features {
+    background: #F9F9F9;
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-wrap: wrap;
+    padding: 1rem 0;
+    &__item {
+        // Делает все элементы одинакового размера
+        flex: 1 1 0;
+        
+        margin: 1rem;
+    }
+
+    @media (max-width: 1000px) {
+        flex-direction: column;
+    }
+}
+
+.feature {
+    font-family: 'Comfortaa';
+    text-align: center;
+    background: #FBFBFC;
+    box-shadow: 0px 0px 25px -10px rgba(0,0,0,0.75);
+    border-radius: 20px;
+    padding: 2rem 1rem;
+    &__title {
+        font-size: 1.2rem;
+        margin: 2rem 0 1rem 0;
+    }
+    &__desc {
+        font-size: 0.8rem;
+        color: lighten($color: black, $amount: 50);
+        line-height: 1.2rem;
+    }
+    &__icon {
+        padding: 0.8rem;
+        border-radius: 10px;
+        display: inline-block;
+        font-size: 1.4rem;
+
+        &--projects {
+            @include feature-icon-color($color-purple);
+        }
+        &--tasks {
+            @include feature-icon-color($color-green);
+        }
+        &--groups {
+            @include feature-icon-color($color-blue);
+        }
     }
 }

@@ -1,4 +1,5 @@
 @import 'landing-variables';
+@import 'site/mixins';
 @import 'fonts';
 
 @import '../libs/semantic/icon.css';
@@ -86,11 +87,6 @@ html {
     @media (max-width: 450px) {
         font-size: 0.8rem;
     }
-}
-
-@mixin feature-icon-color($color) {
-    background: transparentize($color, 0.75);
-    color: $color;
 }
 
 .start {

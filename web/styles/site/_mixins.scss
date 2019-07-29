@@ -5,3 +5,8 @@
         color: darken($normal-color, 20);
     }
 }
+
+@mixin feature-icon-color($color) {
+    background: transparentize($color, 0.75);
+    color: $color;
+}

@@ -1,0 +1,17 @@
+// Project Active Tasks Board
+.project-atb {
+    &__header {
+        display: flex;
+    }
+    &__intro {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    &__logo {
+        margin-right: 0.7rem;
+    }
+    &__title {
+        margin-bottom: 0.4rem;
+    }
+}

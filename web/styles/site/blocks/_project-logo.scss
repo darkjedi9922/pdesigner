@@ -1,0 +1,29 @@
+@import '../../site-variables';
+
+.project-logo {
+    font-family: $font;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+
+    &--red {
+        @include feature-icon-color($color-red);
+    }
+    &--green {
+        @include feature-icon-color($color-green);
+    }
+    &--blue {
+        @include feature-icon-color($color-blue);
+    }
+    &--purple {
+        @include feature-icon-color($color-purple);
+    }
+    &--yellow {
+        @include feature-icon-color($color-yellow);
+    }
+}

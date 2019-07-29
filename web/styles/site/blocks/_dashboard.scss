@@ -1,0 +1,12 @@
+.dashboard {
+    display: flex;
+
+    &__main {
+        flex-grow: 3;
+        margin-right: 15px;
+    }
+
+    &__second {
+        flex-grow: 1;
+    }
+}

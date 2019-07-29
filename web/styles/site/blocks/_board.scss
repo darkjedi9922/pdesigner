@@ -1,0 +1,38 @@
+@import '../../site-variables';
+@import './box';
+
+.board {
+    &__title {
+        font-family: $font;
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+}
+
+.subboard {
+    @extend .box;
+
+    &__header {
+        display: block;
+        margin-bottom: 1rem;
+    }
+
+    &__content {
+        padding: 0 0.5rem;
+    }
+
+    &__title {
+        font-family: $font;
+        font-size: 1.1rem;
+        font-weight: bold;
+        display: inline-block;
+        margin-right: 0.7rem;
+    }
+
+    &__count {
+        font-size: 1.1rem;
+        padding: 0rem 0.8rem;
+        background: $background;
+        border-radius: 20px;
+    }
+}

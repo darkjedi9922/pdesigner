@@ -16,8 +16,12 @@
 @import 'site/blocks/todo-contextmenu';
 @import 'site/blocks/todo-icon';
 @import 'site/blocks/task-status';
+@import 'site/blocks/dashboard';
+@import 'site/blocks/board';
 @import 'site/blocks/breadcrumb';
 @import 'site/blocks/box';
+@import 'site/blocks/project-logo';
+@import 'site/blocks/project-atb';
 
 html, body {
     height: 100%;
@@ -65,7 +69,7 @@ code {
 }
 
 .menu {
-    background: #494D55;
+    background: $menu-background;
     width: 225px;
     min-width: 225px;
     transition: 1s;

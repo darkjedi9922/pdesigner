@@ -1,0 +1,22 @@
+@import '../../site-variables';
+
+.breadcrumb {
+    font-family: $font;
+    font-size: 1.25rem;
+    font-style: normal;
+    &__section {
+        font-weight: bold;
+        text-decoration: none;
+        color: black;
+        &--link {
+            color: $link-color;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    &__divisor::before {
+        content: '/';
+        color: darkgray;
+    }
+}

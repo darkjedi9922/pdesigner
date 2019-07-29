@@ -16,6 +16,7 @@
 @import 'site/blocks/todo-contextmenu';
 @import 'site/blocks/todo-icon';
 @import 'site/blocks/task-status';
+@import 'site/blocks/breadcrumb';
 
 html, body {
     height: 100%;
@@ -190,27 +191,6 @@ code {
             color: $todo-tab-background;
             background: $todo-tab-color;
         }
-    }
-}
-
-.breadcrumb {
-    font-family: $font;
-    font-size: 1.25rem;
-    font-style: normal;
-    &__section {
-        font-weight: bold;
-        text-decoration: none;
-        color: black;
-        &--link {
-            color: $link-color;
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
-    &__divisor::before {
-        content: '/';
-        color: darkgray;
     }
 }
 

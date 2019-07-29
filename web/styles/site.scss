@@ -17,6 +17,7 @@
 @import 'site/blocks/todo-icon';
 @import 'site/blocks/task-status';
 @import 'site/blocks/breadcrumb';
+@import 'site/blocks/box';
 
 html, body {
     height: 100%;
@@ -60,19 +61,6 @@ code {
         &--main {
             flex-grow: 1;
         }
-    }
-}
-.box {
-    background: $box-background;
-    padding: 15px;
-    &:not(:first-of-type) {
-        margin-top: 15px;
-    }
-    &--page-centered {
-        display: table; // для margin auto и вместо display inline-block (ибо вместе они не работают)
-        margin: auto;
-        margin-top: 10%;
-        padding: 25px;
     }
 }
 

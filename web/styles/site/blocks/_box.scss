@@ -1,0 +1,13 @@
+.box {
+    background: $box-background;
+    padding: 15px;
+    &:not(:first-of-type) {
+        margin-top: 15px;
+    }
+    &--page-centered {
+        display: table; // для margin auto и вместо display inline-block (ибо вместе они не работают)
+        margin: auto;
+        margin-top: 10%;
+        padding: 25px;
+    }
+}

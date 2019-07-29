@@ -8,6 +8,7 @@
     &__items {
         background: $menu-background;
         flex-grow: 1;
+        overflow: hidden;
     }
 
     &__item {
@@ -46,6 +47,11 @@
         background: $menu-background;
         transition: 0.2s;
         margin-top: 1rem;
+        line-height: normal;
+
+        &:hover {
+            cursor: pointer;
+        }
         
         &--toggle {
             @include menu-special-color($color-blue);
@@ -58,6 +64,23 @@
         }
         &--add {
             @include menu-special-color($color-green);
+        }
+
+        @keyframes open-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(180deg); }
+        }
+        @keyframes close-rotate {
+            from { transform: rotate(180deg); }
+            to { transform: rotate(0deg); }
+        }
+        &--open-rotate .icon {
+            animation: open-rotate 0.4s 1 linear;
+            animation-fill-mode: forwards;
+        }
+        &--close-rotate .icon {
+            animation: close-rotate 0.4s 1 linear;
+            animation-fill-mode: forwards;
         }
     }
 }

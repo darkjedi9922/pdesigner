@@ -26,4 +26,12 @@
     &--yellow {
         @include feature-icon-color($color-yellow);
     }
+
+    &--minified {
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 1rem;
+        line-height: normal;
+        border-radius: 100%;
+    }
 }

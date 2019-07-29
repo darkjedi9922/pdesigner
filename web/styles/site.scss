@@ -22,6 +22,7 @@
 @import 'site/blocks/box';
 @import 'site/blocks/project-logo';
 @import 'site/blocks/project-atb';
+@import 'site/blocks/menu';
 
 html, body {
     height: 100%;
@@ -65,64 +66,6 @@ code {
         &--main {
             flex-grow: 1;
         }
-    }
-}
-
-.menu {
-    background: $menu-background;
-    width: 225px;
-    min-width: 225px;
-    transition: 1s;
-}
-.menu-item__header {
-    display: block;
-    cursor: pointer;
-}
-.menu__item:not(.menu-item):hover, .menu-item__header:hover {
-    background: #26282C;
-    color: #d0d2d6;
-}
-.menu__item {
-    color: #9B9DA2;
-    text-decoration: none;
-    font-family: $font;
-    display: block;
-}
-.menu__item--opened .menu-item__header {
-    color: #d0d2d6;
-}
-.menu__item:not(.menu-item), .menu-item__header {
-    padding: 10px 10px;
-}
-.menu__item .menu__item {
-    padding-left: 30px;
-}
-.menu .caret.icon {
-    float: right;
-}
-.menu-item {
-    overflow: hidden;
-}
-.menu__item--opened {
-    background: #31343A;
-}
-.menu__item:not(.menu__item--opened) .caret.up.icon,
-.menu__item--opened .caret.down.icon {
-    display: none;
-}
-
-.menu-header {
-    background: $menu-header-background;
-    text-align: center;
-    padding: 15px;
-    display: block;
-    text-decoration: none;
-    &__title {
-        color: $menu-header-color;
-        text-transform: uppercase;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        font-size: 1.2rem;
     }
 }
 

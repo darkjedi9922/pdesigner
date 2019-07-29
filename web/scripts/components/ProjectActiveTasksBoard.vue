@@ -17,6 +17,7 @@
             <todo-list-item
                 v-for="task in tasks"
                 :key="task.id"
+                :id="task.id"
                 :number="task.number"
                 :title="task.title"
                 :parentId="0"

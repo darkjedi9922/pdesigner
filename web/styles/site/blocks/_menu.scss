@@ -1,0 +1,36 @@
+@import '../../site-variables';
+
+.menu {
+    background: #31343A;
+    width: 225px;
+    min-width: 225px;
+    transition: 1s;
+
+    &__item {
+        color: #9B9DA2;
+        text-decoration: none;
+        font-family: $font;
+        display: block;
+        padding: 10px 10px;
+
+        &:hover {
+            background: #26282C;
+            color: #d0d2d6;
+        }
+    }
+}
+
+.menu-header {
+    background: $menu-header-background;
+    text-align: center;
+    padding: 15px;
+    display: block;
+    text-decoration: none;
+    &__title {
+        color: $menu-header-color;
+        text-transform: uppercase;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+}

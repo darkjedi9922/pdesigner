@@ -2,6 +2,12 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import marked from 'marked';
 
+export function mark(str: string): string {
+    return marked(str, {
+        sanitize: false
+    });
+}
+
 @Component
 export default class MarkMixin extends Vue {
     /**
@@ -10,8 +16,6 @@ export default class MarkMixin extends Vue {
      */
     markdown(selector: string): void {
         var textElement = this.$el.querySelector(selector) as any;
-        if (textElement) textElement.innerHTML = marked(textElement.innerText, { 
-            sanitize: false 
-        });
+        if (textElement) textElement.innerHTML = mark(textElement.innerHTML);
     }
 }

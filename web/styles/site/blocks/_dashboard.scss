@@ -2,11 +2,11 @@
     display: flex;
 
     &__main {
-        flex-grow: 3;
+        flex: 3 3 0;
         margin-right: 15px;
     }
 
     &__second {
-        flex-grow: 1;
+        flex: 1 1 0;
     }
 }

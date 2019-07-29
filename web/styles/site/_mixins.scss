@@ -10,3 +10,10 @@
     background: transparentize($color, 0.75);
     color: $color;
 }
+
+@mixin menu-special-color($color) {
+    color: transparentize($color, 0.5);
+    &:hover {
+        color: $color;
+    }
+}

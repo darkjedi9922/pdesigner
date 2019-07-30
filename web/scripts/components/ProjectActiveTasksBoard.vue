@@ -24,7 +24,10 @@
                         'todo-item__group', 
                         'todo-item__group--color-' + groups[task.groupId].colorId]"
                     >{{ groups[task.groupId].name }}</span>
-                    <a href="" class="todo-item__label"># {{ task.number }} {{ task.title }}</a>
+                    <a 
+                        :href="store.tasks.links.getPage(task.id)" 
+                        class="todo-item__label"
+                    ># {{ task.number }} {{ task.title }}</a>
                 </div>
             </div>
         </div>

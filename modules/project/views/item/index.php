@@ -17,7 +17,7 @@ use yii\helpers\Url;
     <div class="boxes__item boxes__item--main">
         <?php if ($desc): ?>
         <div class="box" id="project-desc-app">
-            <span class="project__desc"><?= str_replace("\n", '<br>', $desc->description) ?></span>
+            <span class="project__desc"><?= $desc->description ?></span>
         </div>
         <?php endif ?>
         <div class="box" id="todo-app">

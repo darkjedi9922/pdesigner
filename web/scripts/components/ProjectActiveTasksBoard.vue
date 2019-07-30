@@ -3,11 +3,11 @@
         <div class="subboard__header project-atb__header">
             <project-logo 
                 class="project-atb__logo"
-                :name="name"
+                :name="project.name"
             ></project-logo>
             <div class="project-atb__intro">
-                <div class="project-atb__title">
-                    <span class="subboard__title">{{ name }}</span>
+                <div class="project-atb__intro-first">
+                    <a class="subboard__title project-atb__title" :href="'/project?id=' + project.id">{{ project.name }}</a>
                     <span class="subboard__count">{{ Object.keys(tasks).length }}</span>
                 </div>
                 <!-- <span class="project-atb__desc">{{ simpleDescription }}</span> -->
@@ -44,7 +44,7 @@ import { decode } from '../htmlspecialchars';
 
 const ProjectActiveTasksBoardProps = Vue.extend({
     props: {
-        name: String,
+        project: Object,
         tasks: Object,
         groups: Object
     }

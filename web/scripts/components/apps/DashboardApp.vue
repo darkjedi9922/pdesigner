@@ -6,7 +6,7 @@
                 <project-active-tasks-board
                     v-for="project in projects"
                     :key="project.id"
-                    :name="project.name"
+                    :project="project"
                     :tasks="filterTasks(project.id)"
                     :groups="groups"
                 ></project-active-tasks-board>

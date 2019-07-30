@@ -8,10 +8,19 @@
         flex-direction: column;
         justify-content: center;
     }
-    &__logo {
-        margin-right: 0.7rem;
-    }
-    // &__title {
+    // &__intro-first {
         // margin-bottom: 0.4rem;
     // }
+    &__logo {
+        margin-right: 0.7rem;
+        text-decoration: none;
+    }
+    &__title {
+        text-decoration: none;
+        color: black;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }

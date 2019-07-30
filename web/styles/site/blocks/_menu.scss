@@ -86,19 +86,20 @@
             animation-fill-mode: forwards;
         }
     }
-}
 
-.menu-header {
-    background: $menu-header-background;
-    text-align: center;
-    padding: 15px;
-    display: block;
-    text-decoration: none;
-    &__title {
-        color: $menu-header-color;
-        text-transform: uppercase;
-        font-family: Arial, Helvetica, sans-serif;
+    &__notice {
+        @include feature-icon-color($color-yellow);
+        padding: 0.3rem 1rem;
+        border-radius: 5px;
+        font-size: 1.1rem;
         font-weight: bold;
-        font-size: 1.2rem;
+        display: block;
+        margin: 1rem;
+        text-align: center;
+        white-space: nowrap;
+    }
+    &__hint {
+        @extend .menu__notice;
+        @include feature-icon-color($color-green);
     }
 }

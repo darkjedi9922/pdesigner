@@ -17,6 +17,9 @@ $projects = Project::find()
                     <span class="menu__label"><?= $project['name'] ?></span>
                 </a>
             <?php endforeach ?>
+            <?php if (count($projects) == 0): ?>
+                <span class="menu__notice">Проектов пока нет</span>
+            <?php endif ?>
         </div>
         <div class="menu__specials">
             <span class="menu__special menu__special--toggle" id="menu-toggle"><i class="icon chevron left"></i></span>

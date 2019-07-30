@@ -1,7 +1,10 @@
 <?php
+$userId = Yii::$app->user->id;
 $tasks = Yii::$app->db->createCommand(
-    "SELECT [[id]], [[project_id]], [[number]], [[group_id]], [[title]]
-    FROM {{issues}} WHERE [[status]] = 2"
+    "SELECT issues.id, issues.project_id, issues.number, 
+        issues.group_id, issues.title
+    FROM issues INNER JOIN projects ON issues.project_id = projects.id
+    WHERE projects.author_id = ${userId} AND status = 2"
 )->queryAll();
 $projects = [];
 $groups = [];

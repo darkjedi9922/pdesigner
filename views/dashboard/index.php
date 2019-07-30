@@ -45,17 +45,12 @@ $groups = [];
             <?php
             $projects[$task['project_id']] = true;
             $project = Yii::$app->db->createCommand(
-                'SELECT projects.name AS name,
-                        LEFT(project_descriptions.description, 50) AS description
-                    FROM projects INNER JOIN project_descriptions 
-                        ON projects.id = project_descriptions.project_id
-                    WHERE projects.id = ' . $task['project_id']
+                'SELECT name FROM projects WHERE id = ' . $task['project_id']
             )->queryOne();
             ?>
             _dashboardAppData.projects[<?= $task['project_id'] ?>] = {
                 id: <?= $task['project_id'] ?>,
                 name: '<?= $project['name'] ?>',
-                description: '<?= str_replace(["\n", "\r"], ['\n', '\r'], $project['description']) ?>'
             }
         <?php endif ?>
     <?php endfor ?>

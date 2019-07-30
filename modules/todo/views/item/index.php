@@ -21,7 +21,7 @@ use yii\helpers\Url;
         token: '<?= Yii::$app->request->csrfToken ?>',
         number: <?= $issue->number ?>,
         title: '<?= $issue->title ?>',
-        text: '<?= str_replace(["\r", "\n"], ['\r', '<br>'], $text) ?>',
+        text: '<?= str_replace(["\r", "\n"], ['\r', '\n'], $text) ?>',
         addItemUrl: '<?= Url::to(['/todo/item/add', 'parent' => $issue->id]) ?>',
         editItemUrl: '<?= Url::to(['/todo/item/edit', 'id' => $issue->id]) ?>',
         deleteItemUrl: '<?= Url::to(['/todo/item/delete', 'id' => $issue->id]) ?>'

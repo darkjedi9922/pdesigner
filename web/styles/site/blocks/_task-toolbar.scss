@@ -6,6 +6,7 @@
         text-align: center;
         border: solid 1px;
         min-width: 200px;
+        font-size: 1rem;
         
         @include light-button-colors($form-button-color);
 

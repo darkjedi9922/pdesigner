@@ -10,6 +10,10 @@
                     :tasks="filterTasks(project.id)"
                     :groups="groups"
                 ></project-active-tasks-board>
+                <span 
+                    class="board__notice"
+                    v-if="Object.keys(projects).length == 0"
+                >Взятых на выполнение активных задач нет.</span>
             </div>
         </div>
         <div class="dashboard__second">

@@ -8,9 +8,9 @@
                             :status="theStatus"
                             :selectable="false">
                         </todo-status-icon>
-                        <span>#{{ number }} {{ title }}</span>
+                        <span>#{{ number }} {{ decode(title) }}</span>
                     </div>
-                    <span class="issue__text" v-if="decodedText">{{ decodedText }}</span>
+                    <span class="issue__text" v-if="text">{{ decode(text) }}</span>
                 </div>
             </div>
         </div>
@@ -69,8 +69,9 @@ const IssueAppProps = Vue.extend({
 })
 export default class IssueApp extends mixins(IssueAppProps, taskMixin, markMixin) {
     theStatus: number = this.status;
-    decodedText: string = decode(this.text);
     IssueStatus = IssueStatus;
+
+    decode = decode;
 
     mounted(): void {
         this.markdown('.issue__text');

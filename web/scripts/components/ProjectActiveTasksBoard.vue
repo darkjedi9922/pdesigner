@@ -27,7 +27,7 @@
                     <a 
                         :href="store.tasks.links.getPage(task.id)" 
                         class="todo-item__label"
-                    ># {{ task.number }} {{ task.title }}</a>
+                    ># {{ task.number }} {{ decode(task.title) }}</a>
                 </div>
             </div>
         </div>
@@ -40,6 +40,7 @@ import Component from 'vue-class-component';
 import TodoListItem from './TodoListItem';
 import ProjectLogo from './ProjectLogo';
 import store from '../stores/main';
+import { decode } from '../htmlspecialchars';
 
 const ProjectActiveTasksBoardProps = Vue.extend({
     props: {
@@ -54,5 +55,6 @@ const ProjectActiveTasksBoardProps = Vue.extend({
 })
 export default class ProjectActiveTasksBoard extends ProjectActiveTasksBoardProps {
     store = store;
+    decode = decode;
 }
 </script>

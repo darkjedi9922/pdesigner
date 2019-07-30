@@ -9,21 +9,6 @@
         line-height: 25px;
         outline: none;
     }
-    /*&__settings {
-        visibility: hidden;
-        font-size: 1rem;
-        cursor: pointer;
-        i.icon {
-            opacity: 0;
-            transition: 0.2s;
-        }
-    }
-    &:hover &__settings {
-        visibility: visible;
-        i.icon {
-            opacity: 1;
-        }
-    }*/
     &__color-table { // class of <table>
         background: $box-background;
         border-spacing: 5px;

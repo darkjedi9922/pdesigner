@@ -1,0 +1,42 @@
+@import '../../site-variables';
+
+.todo-item {
+    $checkbox-size: 21px;
+    $font-size: 18px;
+    overflow: hidden;
+    // Элементы
+    &__container {
+        padding: 4px 0;
+        &:hover {
+            background: $todo-item-hover-background;
+        }
+    }
+    &__label {
+        text-decoration: none;
+        color: black;
+        font-family: $font;
+        font-size: $font-size;
+        &:hover {
+            text-decoration: underline;
+        }
+        &--checked {
+            text-decoration: line-through;
+        }
+    }
+    &__sublist {
+        padding-left: $checkbox-size + 4px;
+    }
+    &__group {
+        font-size: 0.9rem;
+        font-weight: bold;
+        padding: 0.1rem 0.5rem;
+        margin: 0.1rem;
+        color: white;
+        border-radius: 5px;
+
+        &--color-1 { background: $error-color }
+        &--color-2 { background: $input-color }
+        &--color-3 { background: $ok-color }
+        &--color-4 { background: $link-color }
+    }
+}

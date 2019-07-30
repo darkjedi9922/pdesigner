@@ -23,6 +23,7 @@
 @import 'site/blocks/project-logo';
 @import 'site/blocks/project-atb';
 @import 'site/blocks/menu';
+@import 'site/blocks//todo-item';
 
 html, body {
     height: 100%;
@@ -77,34 +78,6 @@ code {
     }
     &__button {
         @extend .form__button;
-    }
-}
-
-.todo-item {
-    $checkbox-size: 21px;
-    $font-size: 18px;
-    overflow: hidden;
-    // Элементы
-    &__container {
-        padding: 4px 0;
-        &:hover {
-            background: $todo-item-hover-background;
-        }
-    }
-    &__label {
-        text-decoration: none;
-        color: black;
-        font-family: $font;
-        font-size: $font-size;
-        &:hover {
-            text-decoration: underline;
-        }
-        &--checked {
-            text-decoration: line-through;
-        }
-    }
-    &__sublist {
-        padding-left: $checkbox-size + 4px;
     }
 }
 

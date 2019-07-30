@@ -8,7 +8,8 @@
                     :key="project.id"
                     :name="project.name"
                     :description="project.description"
-                    :tasks="project.tasks"
+                    :tasks="filterTasks(project.id)"
+                    :groups="groups"
                 ></project-active-tasks-board>
             </div>
         </div>
@@ -29,12 +30,25 @@ import ProjectActiveTasksBoard from '../ProjectActiveTasksBoard';
 const DashboardAppProps = Vue.extend({
     props: {
         username: String,
-        projects: Array
+        projects: Object,
+        groups: Object,
+        tasks: Object
     }
 });
 
 @Component({
     components: { ProjectActiveTasksBoard }
 })
-export default class DashboardApp extends DashboardAppProps {}
+export default class DashboardApp extends DashboardAppProps {
+    filterTasks(projectId: number): object {
+        let result = {};
+        for (const id in this.tasks) {
+            if (this.tasks.hasOwnProperty(id)) {
+                const task = this.tasks[id];
+                if (task.projectId === projectId) result[id] = task;
+            }
+        }
+        return result;
+    }
+}
 </script>

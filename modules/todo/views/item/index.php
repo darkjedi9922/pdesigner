@@ -2,6 +2,7 @@
 
 use yii\helpers\Url;
 use app\modules\todo\models\Issue;
+use app\modules\todo\models\IssueGroup;
 
 /** @var \yii\web\View $this */
 /** @var \app\modules\todo\models\Issue $issue */
@@ -10,12 +11,18 @@ use app\modules\todo\models\Issue;
 /** @var string $text */
 
 $parents = $issue->findParents();
+$group = IssueGroup::findOne($issue->group_id);
 ?>
 
 <div class="breadcrumb">
     <span class="breadcrumb__section">Проекты</span>
     <span class="breadcrumb__divisor"></span>
-    <a href="<?= Url::to(['/project', 'id' => $project->id]) ?>" class="breadcrumb__section breadcrumb__section--link"><?= $project->name ?></a>
+    <a 
+        href="<?= Url::to(['/project', 'id' => $project->id]) ?>" 
+        class="breadcrumb__section breadcrumb__section--link"
+    ><?= $project->name ?></a>
+    <span class="breadcrumb__divisor"></span>
+    <span class="breadcrumb__section"><?= $group->name ?></span>
 </div>
 <script>
     var _issueAppData = {

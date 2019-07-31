@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use app\modules\todo\models\IssueGroup;
 
 /** @var \yii\web\View $this */
 /** @var \app\modules\todo\models\Issue $item */
@@ -8,6 +9,7 @@ use yii\helpers\Url;
 /** @var string $text */
 
 $parents = $item->findParents();
+$group = IssueGroup::findOne($item->group_id);
 ?>
 
 <script>
@@ -33,6 +35,8 @@ $parents = $item->findParents();
     <span class="breadcrumb__section">Проекты</span>
     <span class="breadcrumb__divisor"></span>
     <a href="<?= Url::to(['/project', 'id' => $project->id]) ?>" class="breadcrumb__section breadcrumb__section--link"><?= $project->name ?></a>
+    <span class="breadcrumb__divisor"></span>
+    <span class="breadcrumb__section"><?= $group->name ?></span>
     <span class="breadcrumb__divisor"></span>
     <span class="breadcrumb__section">Редактировать задачу</span>
 </div>

@@ -43,6 +43,8 @@ if ($parent) {
     <span class="breadcrumb__divisor"></span>
     <a href="<?= Url::to(['/project', 'id' => $project->id]) ?>" class="breadcrumb__section breadcrumb__section--link"><?= $project->name ?></a>
     <span class="breadcrumb__divisor"></span>
+    <span class="breadcrumb__section"><?= $group->name ?></span>
+    <span class="breadcrumb__divisor"></span>
     <span class="breadcrumb__section">Добавить задачу</span>
 </div>
 <div id="add-task-form-app"></div>

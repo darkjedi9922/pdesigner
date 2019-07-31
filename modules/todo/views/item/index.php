@@ -8,6 +8,8 @@ use app\modules\todo\models\Issue;
 /** @var \app\modules\todo\models\Issue|null $parent */
 /** @var \app\modules\project\models\Project $project */
 /** @var string $text */
+
+$parents = $issue->findParents();
 ?>
 
 <div class="breadcrumb">
@@ -29,9 +31,7 @@ use app\modules\todo\models\Issue;
         parents: []
     };
 
-    <?php for ($parent = $issue; $parent->parent_issue_id !== null; ): 
-        $parent = Issue::findOne($parent->parent_issue_id) 
-    ?>
+    <?php for ($i = count($parents) - 1; $i >= 0; --$i): $parent = $parents[$i] ?>
         _issueAppData.parents.push({
             id: <?= $parent->id ?>,
             status: <?= $parent->status ?>,
@@ -40,6 +40,5 @@ use app\modules\todo\models\Issue;
             url: '<?= Url::to(['/todo', 'id' => $parent->id]) ?>'
         })    
     <?php endfor ?>
-    _issueAppData.parents = _issueAppData.parents.reverse();
 </script>
 <div id="issue-app"></div>

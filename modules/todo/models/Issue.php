@@ -73,4 +73,18 @@ class Issue extends ActiveRecord
         IssueText::deleteAll('issue_id = ' . $this->id);
         return parent::delete();
     }
+
+    /**
+     * Возвращает массив объектов Issue, - родителей данной задачи в порядке
+     * близости (сначала родитель, потом прародитель...).
+     */
+    public function findParents(): array
+    {
+        $result = [];
+        for ($parent = $this; $parent->parent_issue_id !== null; ) {
+            $parent = Issue::findOne($parent->parent_issue_id);
+            $result[] = $parent;
+        }
+        return $result;
+    }
 }

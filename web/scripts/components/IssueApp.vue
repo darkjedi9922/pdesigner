@@ -1,23 +1,7 @@
 <template>
     <div class="boxes">
         <div class="boxes__item boxes__item--main">
-            <div 
-                v-for="parent in parents"
-                :key="parent.id"
-                class="box"
-            >
-                <div class="issue">
-                    <div class="issue__title">
-                        <todo-status-icon
-                            :status="parent.status"
-                            :selectable="false">
-                        </todo-status-icon>
-                        <a :href="parent.url" class="issue__parent"
-                            >#{{ parent.number }} {{ parent.title }}</a>
-                        <i class="icon angle down issue__parent-arrow"></i>
-                    </div>
-                </div>
-            </div>
+            <issue-parents-boards :parents="parents"></issue-parents-boards>
             <div class="box">
                 <div class="issue">
                     <div class="issue__title">
@@ -64,6 +48,7 @@ import Component, { mixins } from 'vue-class-component';
 import taskMixin from '../mixins/task';
 import markMixin from '../mixins/mark';
 import TodoStatusIcon from './TodoStatusIcon';
+import IssueParentsBoards from './IssueParentsBoards';
 import { IssueStatus } from '../models';
 import { decode } from '../htmlspecialchars';
 
@@ -83,7 +68,7 @@ const IssueAppProps = Vue.extend({
 });
 
 @Component({
-    components: { TodoStatusIcon }
+    components: { TodoStatusIcon, IssueParentsBoards }
 })
 export default class IssueApp extends mixins(IssueAppProps, taskMixin, markMixin) {
     theStatus: number = this.status;

@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use app\modules\todo\models\Issue;
 
 /** @var \yii\web\View $this */
 /** @var \app\modules\todo\models\Issue $issue */
@@ -24,7 +25,21 @@ use yii\helpers\Url;
         text: '<?= str_replace(["\r", "\n"], ['\r', '\n'], $text) ?>',
         addItemUrl: '<?= Url::to(['/todo/item/add', 'parent' => $issue->id]) ?>',
         editItemUrl: '<?= Url::to(['/todo/item/edit', 'id' => $issue->id]) ?>',
-        deleteItemUrl: '<?= Url::to(['/todo/item/delete', 'id' => $issue->id]) ?>'
-    }
+        deleteItemUrl: '<?= Url::to(['/todo/item/delete', 'id' => $issue->id]) ?>',
+        parents: []
+    };
+
+    <?php for ($parent = $issue; $parent->parent_issue_id !== null; ): 
+        $parent = Issue::findOne($parent->parent_issue_id) 
+    ?>
+        _issueAppData.parents.push({
+            id: <?= $parent->id ?>,
+            status: <?= $parent->status ?>,
+            number: <?= $parent->number ?>,
+            title: '<?= $parent->title ?>',
+            url: '<?= Url::to(['/todo', 'id' => $parent->id]) ?>'
+        })    
+    <?php endfor ?>
+    _issueAppData.parents = _issueAppData.parents.reverse();
 </script>
 <div id="issue-app"></div>

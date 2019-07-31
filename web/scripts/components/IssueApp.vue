@@ -1,8 +1,25 @@
 <template>
     <div class="boxes">
         <div class="boxes__item boxes__item--main">
+            <div 
+                v-for="parent in parents"
+                :key="parent.id"
+                class="box"
+            >
+                <div class="issue">
+                    <div class="issue__title">
+                        <todo-status-icon
+                            :status="parent.status"
+                            :selectable="false">
+                        </todo-status-icon>
+                        <a :href="parent.url" class="issue__parent"
+                            >#{{ parent.number }} {{ parent.title }}</a>
+                        <i class="icon angle down issue__parent-arrow"></i>
+                    </div>
+                </div>
+            </div>
             <div class="box">
-                <div class="issue" id="issue-app">
+                <div class="issue">
                     <div class="issue__title">
                         <todo-status-icon
                             :status="theStatus"
@@ -60,7 +77,8 @@ const IssueAppProps = Vue.extend({
         text: String,
         addItemUrl: String,
         editItemUrl: String,
-        deleteItemUrl: String
+        deleteItemUrl: String,
+        parents: Array
     }
 });
 

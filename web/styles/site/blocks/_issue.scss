@@ -2,7 +2,7 @@
     &__title {
         font-weight: bold;
         font-size: 1.25rem;
-        display: block;
+        display: inline-block;
     }
     &__text {
         display: block;
@@ -16,5 +16,19 @@
         padding-top: 20px;
         font-size: 1.2rem;
         display: inline-block;
+    }
+    &__parent {
+        @extend .issue__title;
+        text-decoration: none;
+        color: black;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    &__parent-arrow {
+        @extend .issue__title;
+        line-height: 1;
+        vertical-align: middle;
+        margin: 0!important;
     }
 }

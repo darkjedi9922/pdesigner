@@ -1,8 +1,9 @@
-var htmlspecial = require('./../htmlspecialchars');
-var YiiForm = require('./yii-form');
-var previewMixin = require('./preview');
+import htmlspecial from './../htmlspecialchars';
+import YiiForm from './yii-form';
+import previewMixin from'./preview';
+import IssueParentsBoards from'../components/IssueParentsBoards';
     
-module.exports = {
+export default {
     extends: YiiForm,
     mixins: [previewMixin],
     props: {
@@ -13,8 +14,10 @@ module.exports = {
         text: {
             type: String,
             default: ''
-        }
+        },
+        parents: Array
     },
+    components: { IssueParentsBoards },
     computed: {
         decodedText: function () {
             // Из PHP передаются закодированные html спецсимволы, и чтобы textarea

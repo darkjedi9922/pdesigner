@@ -6,17 +6,27 @@ use yii\helpers\Url;
 /** @var \app\modules\todo\models\Issue $item */
 /** @var \app\modules\project\models\Project $project */
 /** @var string $text */
+
+$parents = $item->findParents();
 ?>
 
 <script>
-
-var _editTaskFormAppOuterData = {
-    csrfToken: '<?= Yii::$app->request->csrfToken ?>',
-    yiiModel: 'EditTaskForm',
-    title: '<?= $item->title ?>',
-    text: '<?= str_replace(["\r", "\n"], ['\r', '\n'], $text) ?>'
-};
-
+    var _editTaskFormAppOuterData = {
+        csrfToken: '<?= Yii::$app->request->csrfToken ?>',
+        yiiModel: 'EditTaskForm',
+        title: '<?= $item->title ?>',
+        text: '<?= str_replace(["\r", "\n"], ['\r', '\n'], $text) ?>',
+        parents: []
+    };
+    <?php for ($i = count($parents) - 1; $i >= 0; --$i) : $parent = $parents[$i] ?>
+        _editTaskFormAppOuterData.parents.push({
+            id: <?= $parent->id ?>,
+            status: <?= $parent->status ?>,
+            number: <?= $parent->number ?>,
+            title: '<?= $parent->title ?>',
+            url: '<?= Url::to(['/todo', 'id' => $parent->id]) ?>'
+        })
+    <?php endfor ?>
 </script>
 
 <div class="breadcrumb">
@@ -26,6 +36,4 @@ var _editTaskFormAppOuterData = {
     <span class="breadcrumb__divisor"></span>
     <span class="breadcrumb__section">Редактировать задачу</span>
 </div>
-<div class="box">
-    <div id="edit-task-form-app"></div>
-</div>
+<div id="edit-task-form-app"></div>

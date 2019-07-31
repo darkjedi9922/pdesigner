@@ -1,5 +1,5 @@
 <template>
-    <div class="issue__parents">
+    <div class="issue__parents" v-if="parents.length !== 0">
         <div 
             v-for="parent in parents"
             :key="parent.id"

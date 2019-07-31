@@ -12,7 +12,7 @@
                         :selectable="false">
                     </todo-status-icon>
                     <a :href="parent.url" class="issue__parent"
-                        >#{{ parent.number }} {{ parent.title }}</a>
+                        >#{{ parent.number }} {{ decode(parent.title) }}</a>
                     <i class="icon angle down issue__parent-arrow"></i>
                 </div>
             </div>
@@ -23,11 +23,18 @@
 <script lang="ts">
 import Vue from 'vue'
 import TodoStatusIcon from './TodoStatusIcon';
+import Component from 'vue-class-component';
+import { decode } from '../htmlspecialchars';
 
-export default Vue.extend({
+const IssueParentsBoardsProps = Vue.extend({
     props: {
         parents: Array
     },
     components: { TodoStatusIcon }
-})
+});
+
+@Component
+export default class IssueParentsBoards extends IssueParentsBoardsProps {
+    decode = decode;
+}
 </script>

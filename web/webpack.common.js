@@ -3,7 +3,6 @@ const glob = require('glob');
 const onceImporter = require('node-sass-once-importer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader').VueLoaderPlugin;
-const process = require('process');
 
 function globs(entries) {
     let result = [];
@@ -14,13 +13,8 @@ function globs(entries) {
     return result;
 }
 
-const mode = process.env.NODE_DEV === 'true' ? 'development' : 'production';
-console.log('Webpack build in ' + mode + ' mode.');
-
 module.exports = {
     context: __dirname,
-    mode: mode,
-    devtool: "source-map",
     entry: {
         'landing.css': ['./styles/landing.scss'],
         'site.css': ['./styles/site.scss'],
@@ -63,7 +57,7 @@ module.exports = {
             {
                 test: /\.(ts|tsx)$/,
                 use: [
-                    'babel-loader', 
+                    'babel-loader',
                     {
                         loader: 'ts-loader',
                         options: {

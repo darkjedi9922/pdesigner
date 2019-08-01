@@ -13,7 +13,6 @@
     "@types/jquery": "^3.3.30",
     "acorn": "^6.1.1",
     "babel-loader": "^8.0.6",
-    "cross-env": "^5.2.0",
     "css-loader": "^3.0.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "jquery": "^3.4.1",
@@ -31,11 +30,13 @@
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "2.6.6",
     "webpack": "^4.35.2",
-    "webpack-cli": "^3.3.5"
+    "webpack-cli": "^3.3.5",
+    "webpack-merge": "^4.2.1"
   },
   "scripts": {
-    "webpack": "cross-env NODE_DEV=true webpack --progress=true",
-    "webpack-watch": "cross-env NODE_DEV=true webpack --watch --progress=true",
+    "webpack": "webpack --config webpack.dev.js --progress=true",
+    "webpack-watch": "webpack --config webpack.dev.js --watch --progress=true",
+    "build": "webpack --config webpack.prod.js --progress=true",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jed Dark",

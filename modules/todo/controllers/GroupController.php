@@ -64,7 +64,7 @@ class GroupController extends Controller
         $group->color_id = 4;
         $group->project_id = $project;
         $group->insert();
-        echo json_encode([
+        return json_encode([
             'id' => $group->id,
             'name' => $group->name,
             'color_id' => $group->color_id

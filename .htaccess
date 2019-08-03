@@ -1,7 +1,11 @@
 RewriteEngine on
+RewriteBase /
 
-# Если запрашиваемая в URL директория или файл существуют обращаемся к ним напрямую
-#RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_FILENAME} !-d
-# Если нет - перенаправляем запрос на web/index.php
-#RewriteRule . index.php
+# Don't loop.
+RewriteCond %{ENV:REDIRECT_STATUS} !^$
+RewriteRule .* - [L]
+
+RewriteCond %{DOCUMENT_ROOT}/web/%{REQUEST_URI} -f
+RewriteRule !(^web) web%{REQUEST_URI} [L]
+
+RewriteRule ^(.*)$ web/index.php [L]

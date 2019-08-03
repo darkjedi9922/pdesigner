@@ -39,7 +39,7 @@ class AddProjectForm extends Model
             if ($this->description) {
                 $desc = new ProjectDescription();
                 $desc->project_id = $project->id;
-                $desc->description = $this->description;
+                $desc->description = Html::encode($this->description);
                 $desc->insert();
             }
             

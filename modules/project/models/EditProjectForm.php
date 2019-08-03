@@ -46,7 +46,7 @@ class EditProjectForm extends Model
                     } else {
                         $desc = new ProjectDescription();
                         $desc->project_id = $this->id;
-                        $desc->description = $this->description;
+                        $desc->description = Html::encode($this->description);
                         $desc->insert();
                     }
                 }

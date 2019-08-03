@@ -45,7 +45,7 @@ class EditTaskForm extends Model
                     } else {
                         $text = new IssueText();
                         $text->issue_id = $this->id;
-                        $text->text = $this->text;
+                        $text->text = Html::encode($this->text);
                         $text->insert();
                     }
                 }

@@ -6,7 +6,7 @@
                 <div class="form__field">
                     <span class="form__label">Название:</span>
                     <div class="form__input-container">
-                        <input type="text" class="form__input" :name="yiiModel + '[name]'" spellcheck="false" :value="name">
+                        <input type="text" class="form__input" :name="yiiModel + '[name]'" spellcheck="false" :value="decodedName">
                     </div>
                 </div>
                 <div class="form__field">

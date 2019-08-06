@@ -28,6 +28,9 @@ export default {
             // О безопасности не стоит волноваться, marked потом обрабатывает это все
             // и все "небезопасные" скрипты будут вставлены динамически, а так
             // они не выполняются.
+        },
+        decodedTitle: function () {
+            return htmlspecial.decode(this.title);
         }
     },
     mounted() {

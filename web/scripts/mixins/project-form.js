@@ -25,6 +25,9 @@ module.exports = {
             // О безопасности не стоит волноваться, marked потом обрабатывает это все
             // и все "небезопасные" скрипты будут вставлены динамически, а так
             // они не выполняются.
+        },
+        decodedName: function() {
+            return htmlspecial.decode(this.name);
         }
     },
     mounted() {

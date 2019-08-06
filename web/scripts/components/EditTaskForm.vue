@@ -9,7 +9,7 @@
                         <div class="form__field">
                             <span class="form__label">Название:</span>
                             <div class="form__input-container">
-                                <input class="form__input" type="text" :name="yiiModel + '[title]'" :value='title' spellcheck="false">
+                                <input class="form__input" type="text" :name="yiiModel + '[title]'" :value='decodedTitle' spellcheck="false">
                             </div>
                         </div>
                         <div class="form__field">

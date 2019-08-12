@@ -8,6 +8,27 @@ use yii\helpers\Url;
 /** @var array $groups */
 ?>
 
+<script>
+    var _todoAppData = {
+        projectId: <?= $project->id ?>,
+        list: [<?php foreach ($issues as $issue): ?>{
+            id: <?= $issue->id ?>,
+            number: <?= $issue->number ?>,
+            title: '<?= $issue->title ?>',
+            parentId: <?= $issue->parent_issue_id ?? 0 ?>,
+            groupId: <?= $issue->group_id ?>,
+            status: <?= $issue->status ?>
+        },<?php endforeach ?>],
+        groups: {<?php foreach ($groups as $group): ?><?= $group->id ?>: {
+            id: <?= $group->id ?>,
+            name: '<?= $group->name ?>',
+            colorId: <?= $group->color_id ?>
+        },<?php endforeach ?>},
+        token: '<?= Yii::$app->request->csrfToken ?>',
+        mode: 'undone'
+    }
+</script>
+
 <div class="breadcrumb">
     <span class="breadcrumb__section">Проекты</span>
     <span class="breadcrumb__divisor"></span>
@@ -21,25 +42,6 @@ use yii\helpers\Url;
         </div>
         <?php endif ?>
         <div class="box" id="todo-app">
-            <vue-app-init @before-mount="
-                projectId = <?= $project->id ?>;
-                list = [<?php foreach ($issues as $issue) : ?>{
-                    id: <?= $issue->id ?>,
-                    number: <?= $issue->number ?>,
-                    title: '<?= str_replace('&#039;', '\&#039;', $issue->title) ?>', 
-                    parentId: <?= $issue->parent_issue_id ? $issue->parent_issue_id : 0 ?>,
-                    groupId: <?= $issue->group_id ?>, 
-                    status: <?= $issue->status ?>
-                },<?php endforeach ?>]; 
-                groups = {<?php foreach ($groups as $group) : ?>
-                <?= $group->id ?>: {
-                    id: <?= $group->id ?>,
-                    name: '<?= str_replace('&#039;', '\&#039;', $group->name) ?>',
-                    colorId: <?= $group->color_id ?>
-                },<?php endforeach ?>};
-                token = '<?= Yii::$app->request->csrfToken ?>'; 
-                mode = 'undone';
-            "></vue-app-init>
             <div class="todo-list-tabs">
                 <button class="todo-list-tabs__item" @click="mode = 'all'" :class="{ 'todo-list-tabs__item--active': mode == 'all' }">Все</button>
                 <button class="todo-list-tabs__item" @click="mode = 'undone'" :class="{ 'todo-list-tabs__item--active': mode == 'undone' }">Активные</button>

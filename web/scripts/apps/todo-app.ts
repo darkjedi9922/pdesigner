@@ -1,15 +1,15 @@
 import Vue from 'vue';
 import taskMixin from '../mixins/task';
 import mainStore from '../stores/main';
-import VueAppInit from '../components/vue-app-init';
 import VueTodo from  '../components/vue-todo';
 import $ from 'jquery';
+
+declare var _todoAppData: any;
 
 new Vue({ 
     el: "#todo-app",
     mixins: [taskMixin],
     components: {
-        VueAppInit,
         VueTodo
     },
     data: {
@@ -37,6 +37,12 @@ new Vue({
         }
     },
     mounted: function() {
+        this.projectId = _todoAppData.projectId;
+        this.list = _todoAppData.list;
+        this.groups = _todoAppData.groups;
+        this.mode = _todoAppData.mode;
+        this.token = _todoAppData.token;
+
         this.treeList = this.getTreeList(this.list, 0);
     },
     methods: {

@@ -41,3 +41,5 @@ web/semantic.json
 web/build
 web/css
 web/js
+
+config/db.php

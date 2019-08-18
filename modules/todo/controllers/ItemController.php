@@ -9,36 +9,24 @@ use app\modules\todo\models\EditTaskForm;
 use app\modules\todo\models\IssueText;
 use app\modules\project\models\Project;
 use app\modules\todo\models\IssueGroup;
-use app\modules\todo\models\IssueRights;
 use yii\web\NotFoundHttpException;
 
 class ItemController extends \yii\web\Controller
 {
     public $layout = '@app/views/layouts/dashboard';
 
-    /** @var IssueRights */
-    public $rights;
-
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-        parent::init();
-        $this->rights = new IssueRights(Yii::$app->user->identity);
-    }
-
     public function actionToggle()
     {
         $post = Yii::$app->request->post();
-        if (isset($post['id']) && isset($post['status'])) {
-            $issue = Issue::findOne($post['id']);
-            if (!$issue || !$this->rights->canToggle($issue))
-                throw new NotFoundHttpException;
+        if (!isset($post['id']) || !isset($post['status'])) 
+            throw new NotFoundHttpException;
+        
+        $issue = Issue::findOne($post['id']);
+        if (!Yii::$app->user->can('toggleIssue', ['issue' => $issue]))
+            throw new NotFoundHttpException;
 
-            $issue->status = $post['status'];
-            $issue->save();
-        }
+        $issue->status = $post['status'];
+        $issue->save();
     }
 
     /**
@@ -47,7 +35,7 @@ class ItemController extends \yii\web\Controller
     public function actionDelete($id)
     {
         $issue = Issue::findOne($id);
-        if (!$issue || !$this->rights->canDelete($issue)) 
+        if (!Yii::$app->user->can('deleteIssue', ['issue' => $issue])) 
             throw new NotFoundHttpException;
 
         $issue->delete();
@@ -60,7 +48,7 @@ class ItemController extends \yii\web\Controller
     /**
      * Нужно передать либо parent, либо gid
      * 
-     * @param int $parent id родительской задачи=
+     * @param int $parent id родительской задачи
      * @param int $group id группы задач
      * @return Response|string
      */
@@ -74,7 +62,8 @@ class ItemController extends \yii\web\Controller
             $group = IssueGroup::findOne($group);
         }
 
-        if (!$group || !$this->rights->canAdd($group))
+        $project = Project::findOne($group->project_id);
+        if (!Yii::$app->user->can('addIssue', ['project' => $project]))
             throw new NotFoundHttpException;
 
         $model = new AddTaskForm();
@@ -82,7 +71,6 @@ class ItemController extends \yii\web\Controller
             return $this->redirect(['/todo', 'id' => $model->getAddedIssue()->id]);
         }
 
-        $project = Project::findOne($group->project_id);
         return $this->render('add', [
             'parent' => $parent,
             'group' => $group,
@@ -97,7 +85,7 @@ class ItemController extends \yii\web\Controller
     public function actionEdit($id)
     {
         $item = Issue::findOne($id);
-        if (!$item || !$this->rights->canEdit($item))
+        if (!Yii::$app->user->can('editIssue', ['issue' => $item]))
             throw new NotFoundHttpException;
 
         $text = IssueText::find()->where(['issue_id' => $id])->one();
@@ -127,7 +115,7 @@ class ItemController extends \yii\web\Controller
     {
         // Загружаем саму задачу
         $issue = Issue::findOne($id);
-        if (!$issue || !$this->rights->canSee($issue))
+        if (!Yii::$app->user->can('viewIssue', ['issue' => $issue]))
             throw new NotFoundHttpException;
 
         // Находим ее родителя

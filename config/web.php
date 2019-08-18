@@ -62,6 +62,9 @@ $config = [
                     // 'fileMap' => ['app' => 'app.php'],
                 ]
             ]
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager'
         ]
     ],
     'name' => 'PDesigner',

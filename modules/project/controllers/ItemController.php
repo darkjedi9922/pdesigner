@@ -9,20 +9,29 @@ use app\modules\todo\models\Issue;
 use app\modules\project\models\AddProjectForm;
 use app\modules\project\models\EditProjectForm;
 use app\modules\todo\models\IssueGroup;
-use app\modules\project\models\ProjectRights;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 
 class ItemController extends Controller
 {
     public $layout = '@app/views/layouts/dashboard';
 
-    /** @var ProjectRights $rights */
-    public $rights;
-
-    public function init()
+    /** {@inheritdoc} */
+    public function behaviors()
     {
-        parent::init();
-        $this->rights = new ProjectRights(Yii::$app->user->identity);
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['add'],
+                'rules' => [
+                    [
+                        'actions' => ['add'],
+                        'allow' => true,
+                        'roles' => ['@']
+                    ]
+                ]
+            ]
+        ];
     }
 
     /**
@@ -32,7 +41,7 @@ class ItemController extends Controller
     public function actionIndex($id)
     {
         $project = Project::findOne($id);
-        if (!$project || !$this->rights->canSee($project)) 
+        if (!Yii::$app->user->can('viewProject', ['project' => $project]))
             throw new NotFoundHttpException;
 
         $issues = Issue::find()->where(['project_id' => $id])->orderBy('id ASC')->all();
@@ -51,8 +60,6 @@ class ItemController extends Controller
      */
     public function actionAdd()
     {
-        if (!$this->rights->canAdd()) throw new NotFoundHttpException;
-
         $model = new AddProjectForm();
         if ($model->load(Yii::$app->request->post()) && $project = $model->add()) {
             return $this->redirect(['/project', 'id' => $project->id]);
@@ -68,7 +75,7 @@ class ItemController extends Controller
     public function actionEdit($id)
     {
         $project = Project::findOne($id);
-        if (!$project || !$this->rights->canEdit($project)) 
+        if (!Yii::$app->user->can('viewProject', ['project' => $project]))
             throw new NotFoundHttpException;
 
         if (Yii::$app->request->isPost) {
@@ -92,7 +99,7 @@ class ItemController extends Controller
     public function actionDelete($id)
     {
         $project = Project::findOne($id);
-        if (!$project || !$this->rights->canDelete($project))
+        if (!Yii::$app->user->can('viewProject', ['project' => $project]))
             throw new NotFoundHttpException;
 
         $project->delete();

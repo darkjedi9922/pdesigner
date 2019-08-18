@@ -20,14 +20,22 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['login', 'logout', 'signup'],
                 'rules' => [
+                    [
+                        'actions' => ['login', 'signup'],
+                        'allow' => true,
+                        'roles' => ['?']
+                    ],
                     [
                         'actions' => ['logout'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['@']
                     ],
                 ],
+                'denyCallback' => function ($rule, $action) {
+                    return $this->goHome();
+                }
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -71,10 +79,6 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->redirect(['/dashboard']);
@@ -94,7 +98,6 @@ class SiteController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
 
@@ -103,8 +106,6 @@ class SiteController extends Controller
      */
     public function actionSignup($signedUp = false)
     {
-        if (!Yii::$app->user->isGuest) return $this->goHome();
-
         $signupForm = new SignupForm;
         $post = Yii::$app->request->post();
         if ($signupForm->load($post) && $signupForm->signup()) {

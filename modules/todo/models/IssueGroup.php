@@ -1,6 +1,7 @@
 <?php namespace app\modules\todo\models;
 
 use yii\db\ActiveRecord;
+use app\modules\project\models\Project;
 
 class IssueGroup extends ActiveRecord
 {
@@ -22,5 +23,10 @@ class IssueGroup extends ActiveRecord
         $tasks = Issue::find()->where(['group_id' => $id])->all();
         for ($i = 0, $c = count($tasks); $i < $c; ++$i) $tasks[$i]->delete();
         static::deleteAll('id = '. $id);
+    }
+
+    public function findProject(): Project
+    {
+        return Project::findOne($this->project_id);
     }
 }

@@ -2,6 +2,7 @@
 
 use Yii;
 use yii\db\ActiveRecord;
+use app\modules\project\models\Project;
 
 class Issue extends ActiveRecord
 {
@@ -72,6 +73,16 @@ class Issue extends ActiveRecord
         if (!$this->doesMeOwn()) return false;
         IssueText::deleteAll('issue_id = ' . $this->id);
         return parent::delete();
+    }
+
+    public function findGroup(): IssueGroup
+    {
+        return IssueGroup::findOne($this->group_id);
+    }
+
+    public function findProject(): Project
+    {
+        return $this->findGroup()->findProject();
     }
 
     /**

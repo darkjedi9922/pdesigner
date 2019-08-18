@@ -27,7 +27,7 @@ class ItemController extends Controller
                     [
                         'actions' => ['add'],
                         'allow' => true,
-                        'roles' => ['@']
+                        'roles' => ['addProject']
                     ]
                 ]
             ]
@@ -75,7 +75,7 @@ class ItemController extends Controller
     public function actionEdit($id)
     {
         $project = Project::findOne($id);
-        if (!Yii::$app->user->can('viewProject', ['project' => $project]))
+        if (!Yii::$app->user->can('editProject', ['project' => $project]))
             throw new NotFoundHttpException;
 
         if (Yii::$app->request->isPost) {
@@ -99,7 +99,7 @@ class ItemController extends Controller
     public function actionDelete($id)
     {
         $project = Project::findOne($id);
-        if (!Yii::$app->user->can('viewProject', ['project' => $project]))
+        if (!Yii::$app->user->can('deleteProject', ['project' => $project]))
             throw new NotFoundHttpException;
 
         $project->delete();

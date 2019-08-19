@@ -1,6 +1,5 @@
 const path = require('path');
 const glob = require('glob');
-const onceImporter = require('node-sass-once-importer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader').VueLoaderPlugin;
 
@@ -41,7 +40,6 @@ module.exports = {
                         {
                             loader: 'sass-loader',
                             options: {
-                                importer: onceImporter(),
                                 sourceMap: true, // required by resolve-url-loader
                                 sourceMapContents: false
                             }

@@ -33,7 +33,6 @@ module.exports = {
                 test: /\.scss$/,
                 include: path.resolve(__dirname, 'styles'),
                 use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
                     use: [
                         'css-loader',
                         'resolve-url-loader',

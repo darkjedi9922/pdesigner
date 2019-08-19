@@ -2,6 +2,7 @@
 
 use yii\db\ActiveRecord;
 use app\modules\project\models\Project;
+use yii\behaviors\TimestampBehavior;
 
 class IssueGroup extends ActiveRecord
 {
@@ -11,6 +12,16 @@ class IssueGroup extends ActiveRecord
     public static function tableName()
     {
         return 'issue_groups';
+    }
+
+    /** {@inheritdoc} */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class
+            ]
+        ];
     }
 
     /**

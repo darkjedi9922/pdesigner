@@ -4,6 +4,7 @@ namespace app\models;
 
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use yii\behaviors\TimestampBehavior;
 
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -69,6 +70,16 @@ class User extends ActiveRecord implements IdentityInterface
     public static function generateAccessToken($username, $password)
     {
         return md5(($username . $password) | md5('accessToken_t712923849586970'));
+    }
+
+    /** {@inheritdoc} */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class
+            ]
+        ];
     }
 
     /**

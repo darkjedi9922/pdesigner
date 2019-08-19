@@ -29,9 +29,14 @@ class EditTaskForm extends Model
     {
         if ($this->validate()) {
             // Обновляем основную часть
-            Issue::updateAll([
-              'title' => Html::encode($this->title)
-            ], 'id = '.$this->id);
+            $issue = Issue::findOne($this->id);
+            $issue->title = Html::encode($this->title);
+            $issue->save();
+
+            // Если данные о самой задаче не обновляем, метка времени не обновится,
+            // но все равно нужно обновить, поэтому делаем это вручную.
+            $issue->touch('updated_at');
+
             // Обновляем текст или добавляем, если его не было
             if ($this->text !== null) {
                 if (!$this->text) IssueText::deleteAll(['issue_id' => $this->id]);

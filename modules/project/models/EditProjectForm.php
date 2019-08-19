@@ -28,10 +28,19 @@ class EditProjectForm extends Model
     public function edit()
     {
         if ($this->validate()) {
-            // Обновляем основную часть
-            Project::updateAll([
-                'name' => Html::encode($this->name)
-            ], 'id = ' . $this->id);
+            // Обновляем основную часть.
+            // Можно было бы через updateAll(), чтобы не грузить весь проект, но
+            // чтобы сработало поведение TimestampBehaviour нужен объект
+            // определенного объекта, который нужно сохранить через save().
+            $project = Project::findOne($this->id);
+            $project->name = Html::encode($this->name);
+            $project->save();
+
+            // updated_at обновляется, если данные о проекте действительно меняются.
+            // Но если мы не меняем данные о самом проекте, а меняем его описание,
+            // все равно нужно обновить метку. Поэтому делаем это насильно вручную.
+            $project->touch('updated_at');
+
             // Обновляем описание или добавляем, если его не было
             // Или удаляем если его стерли
             if ($this->description !== null) {

@@ -1,6 +1,7 @@
 <?php namespace app\modules\project\models;
 
 use yii\db\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
 
 class Project extends ActiveRecord
 {
@@ -10,6 +11,21 @@ class Project extends ActiveRecord
     public static function tableName()
     {
         return 'projects';
+    }
+
+    /** {@inheritdoc} */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    // EVENT_BEFORE_UPDATE делаем вручную.
+                    // Подробнее см. в EditProjectForm.
+                ],
+            ]
+        ];
     }
 
     /**

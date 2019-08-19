@@ -37,7 +37,13 @@ class SignupForm extends Model
             $this->username, 
             $this->password
         );
-        return $user->insert();
+
+        if (!$user->insert()) return false;
+
+        $auth = \Yii::$app->authManager;
+        $auth->assign($auth->getRole('user'), $user->id);
+
+        return true;
     }
 
     /**

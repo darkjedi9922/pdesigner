@@ -23,6 +23,7 @@ class RbacController extends Controller
         $this->initRules($auth);
         $this->initProjectPermissions($auth);
         $this->initIssuePermissions($auth);
+        $this->initIssueGroupPermissions($auth);
         $this->initRoles($auth);
     }
 
@@ -123,6 +124,29 @@ class RbacController extends Controller
         $deleteOwnIssue->ruleName = $this->issueOwnerRule->name;
         $auth->add($deleteOwnIssue);
         $auth->addChild($deleteOwnIssue, $deleteIssue);
+    }
+
+    private function initIssueGroupPermissions(ManagerInterface $auth)
+    {
+        // Разрешения issue group используют право editProject, поэтому эти права
+        // не нужно напрямую устанавливать роли - они будет идти через editProject.
+        $editProject = $auth->getPermission('editProject');
+
+        $addIssueGroup = $auth->createPermission('addIssueGroup');
+        $auth->add($addIssueGroup);
+        $auth->addChild($editProject, $addIssueGroup);
+
+        $setIssueGroupColor = $auth->createPermission('setIssueGroupColor');
+        $auth->add($setIssueGroupColor);
+        $auth->addChild($editProject, $setIssueGroupColor);
+
+        $setIssueGroupName = $auth->createPermission('setIssueGroupName');
+        $auth->add($setIssueGroupName);
+        $auth->addChild($editProject, $setIssueGroupName);
+
+        $deleteIssueGroup = $auth->createPermission('deleteIssueGroup');
+        $auth->add($deleteIssueGroup);
+        $auth->addChild($editProject, $deleteIssueGroup);
     }
 
     private function initRoles(ManagerInterface $auth)

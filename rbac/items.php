@@ -19,6 +19,12 @@ return [
     'editProject' => [
         'type' => 2,
         'description' => 'Edit a project',
+        'children' => [
+            'addIssueGroup',
+            'setIssueGroupColor',
+            'setIssueGroupName',
+            'deleteIssueGroup',
+        ],
     ],
     'editOwnProject' => [
         'type' => 2,
@@ -59,6 +65,7 @@ return [
     'viewOwnIssue' => [
         'type' => 2,
         'description' => 'View own issue',
+        'ruleName' => 'isIssueOwner',
         'children' => [
             'viewIssue',
         ],
@@ -98,6 +105,18 @@ return [
         'children' => [
             'deleteIssue',
         ],
+    ],
+    'addIssueGroup' => [
+        'type' => 2,
+    ],
+    'setIssueGroupColor' => [
+        'type' => 2,
+    ],
+    'setIssueGroupName' => [
+        'type' => 2,
+    ],
+    'deleteIssueGroup' => [
+        'type' => 2,
     ],
     'user' => [
         'type' => 1,

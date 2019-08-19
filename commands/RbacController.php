@@ -4,20 +4,39 @@ use Yii;
 use yii\console\Controller;
 use app\rbac\ProjectOwnerRule;
 use app\rbac\IssueOwnerRule;
+use yii\rbac\ManagerInterface;
+use yii\rbac\Rule;
 
 class RbacController extends Controller
 {
+    /** @var Rule */
+    private $projectOwnerRule;
+
+    /** @var Rule */
+    private $issueOwnerRule;
+
     public function actionInit()
     {
         $auth = Yii::$app->authManager;
         $auth->removeAll();
 
-        $projectOwnerRule = new ProjectOwnerRule;
-        $auth->add($projectOwnerRule);
+        $this->initRules($auth);
+        $this->initProjectPermissions($auth);
+        $this->initIssuePermissions($auth);
+        $this->initRoles($auth);
+    }
 
-        $issueOwnerRule = new IssueOwnerRule;
-        $auth->add($issueOwnerRule);
+    private function initRules(ManagerInterface $auth)
+    {
+        $this->projectOwnerRule = new ProjectOwnerRule;
+        $auth->add($this->projectOwnerRule);
 
+        $this->issueOwnerRule = new IssueOwnerRule;
+        $auth->add($this->issueOwnerRule);
+    }
+
+    private function initProjectPermissions(ManagerInterface $auth)
+    {
         $addProject = $auth->createPermission('addProject');
         $addProject->description = 'Add a project';
         $auth->add($addProject);
@@ -28,7 +47,7 @@ class RbacController extends Controller
 
         $viewOwnProject = $auth->createPermission('viewOwnProject');
         $viewOwnProject->description = 'View own project';
-        $viewOwnProject->ruleName = $projectOwnerRule->name;
+        $viewOwnProject->ruleName = $this->projectOwnerRule->name;
         $auth->add($viewOwnProject);
         $auth->addChild($viewOwnProject, $viewProject);
 
@@ -38,7 +57,7 @@ class RbacController extends Controller
 
         $editOwnProject = $auth->createPermission('editOwnProject');
         $editOwnProject->description = 'Edit own project';
-        $editOwnProject->ruleName = $projectOwnerRule->name;
+        $editOwnProject->ruleName = $this->projectOwnerRule->name;
         $auth->add($editOwnProject);
         $auth->addChild($editOwnProject, $editProject);
 
@@ -48,17 +67,20 @@ class RbacController extends Controller
 
         $deleteOwnProject = $auth->createPermission('deleteOwnProject');
         $deleteOwnProject->description = 'Delete own project';
-        $deleteOwnProject->ruleName = $projectOwnerRule->name;
+        $deleteOwnProject->ruleName = $this->projectOwnerRule->name;
         $auth->add($deleteOwnProject);
         $auth->addChild($deleteOwnProject, $deleteProject);
+    }
 
+    private function initIssuePermissions(ManagerInterface $auth)
+    {
         $addIssue = $auth->createPermission('addIssue');
         $addIssue->description = 'Add an issue';
         $auth->add($addIssue);
 
         $addIssueToOwnProject = $auth->createPermission('addIssueToOwnProject');
         $addIssueToOwnProject->description = 'Add an issue to own project';
-        $addIssueToOwnProject->ruleName = $projectOwnerRule->name;
+        $addIssueToOwnProject->ruleName = $this->projectOwnerRule->name;
         $auth->add($addIssueToOwnProject);
         $auth->addChild($addIssueToOwnProject, $addIssue);
 
@@ -68,7 +90,7 @@ class RbacController extends Controller
 
         $viewOwnIssue = $auth->createPermission('viewOwnIssue');
         $viewOwnIssue->description = 'View own issue';
-        $viewOwnIssue->ruleName = $issueOwnerRule->name;
+        $viewOwnIssue->ruleName = $this->issueOwnerRule->name;
         $auth->add($viewOwnIssue);
         $auth->addChild($viewOwnIssue, $viewIssue);
 
@@ -78,7 +100,7 @@ class RbacController extends Controller
 
         $toggleOwnIssue = $auth->createPermission('toggleOwnIssue');
         $toggleOwnIssue->description = 'Toggle own issue';
-        $toggleOwnIssue->ruleName = $issueOwnerRule->name;
+        $toggleOwnIssue->ruleName = $this->issueOwnerRule->name;
         $auth->add($toggleOwnIssue);
         $auth->addChild($toggleOwnIssue, $toggleIssue);
 
@@ -88,7 +110,7 @@ class RbacController extends Controller
 
         $editOwnIssue = $auth->createPermission('editOwnIssue');
         $editOwnIssue->description = 'Edit own issue';
-        $editOwnIssue->ruleName = $issueOwnerRule->name;
+        $editOwnIssue->ruleName = $this->issueOwnerRule->name;
         $auth->add($editOwnIssue);
         $auth->addChild($editOwnIssue, $editIssue);
 
@@ -98,21 +120,24 @@ class RbacController extends Controller
 
         $deleteOwnIssue = $auth->createPermission('deleteOwnIssue');
         $deleteOwnIssue->description = 'Delete own issue';
-        $deleteOwnIssue->ruleName = $issueOwnerRule->name;
+        $deleteOwnIssue->ruleName = $this->issueOwnerRule->name;
         $auth->add($deleteOwnIssue);
         $auth->addChild($deleteOwnIssue, $deleteIssue);
+    }
 
+    private function initRoles(ManagerInterface $auth)
+    {
         $user = $auth->createRole('user');
         $auth->add($user);
-        $auth->addChild($user, $addProject);
-        $auth->addChild($user, $viewOwnProject);
-        $auth->addChild($user, $editOwnProject);
-        $auth->addChild($user, $deleteOwnProject);
-        $auth->addChild($user, $addIssueToOwnProject);
-        $auth->addChild($user, $viewOwnIssue);
-        $auth->addChild($user, $toggleOwnIssue);
-        $auth->addChild($user, $editOwnIssue);
-        $auth->addChild($user, $deleteOwnIssue);
+        $auth->addChild($user, $auth->getPermission('addProject'));
+        $auth->addChild($user, $auth->getPermission('viewOwnProject'));
+        $auth->addChild($user, $auth->getPermission('editOwnProject'));
+        $auth->addChild($user, $auth->getPermission('deleteOwnProject'));
+        $auth->addChild($user, $auth->getPermission('addIssueToOwnProject'));
+        $auth->addChild($user, $auth->getPermission('viewOwnIssue'));
+        $auth->addChild($user, $auth->getPermission('toggleOwnIssue'));
+        $auth->addChild($user, $auth->getPermission('editOwnIssue'));
+        $auth->addChild($user, $auth->getPermission('deleteOwnIssue'));
 
         $auth->assign($user, 1);
     }

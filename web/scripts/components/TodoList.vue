@@ -7,6 +7,7 @@
                 v-bind="item"
                 :key="item.id"
                 @status-changed="applyItemStatus(item.id, $event.status)"
+                @removed="removeItem(item.id)"
                 :data-item-id="item.id"
             >
                 <todo-list
@@ -15,7 +16,9 @@
                     v-if="item.filteredChildren.length !== 0"
                     :list="item.filteredChildren"
                     :parentItemId="item.id"
-                    :mode="mode">
+                    :mode="mode"
+                    @status-applied="throwStatusAppliedEvent"
+                    @item-removed="throwItemRemovedEvent">
                 </todo-list>
             </todo-list-item>
         </div>
@@ -50,9 +53,6 @@ export default {
             default: 'all'
         }
     },
-    mounted: function() {
-        this.$emit('load');
-    },
     computed: {
         filteredList: function() {
             if (this.mode == 'done') return this.getFilteredSublist(this.list, true);
@@ -81,7 +81,7 @@ export default {
             }
 
             // отправлям событие
-            this.$root.setItemStatus(itemId, status);
+            this.$emit('status-applied', { itemId, status });
 
             // Если скрывать не нужно, выходим
             var statusDetails = IssueStatus[findStatusById(status)];
@@ -127,6 +127,15 @@ export default {
             var parent = this.itemHasParent(element, checked);
             if (parent && !this.itemHasChildren(parent, !checked)) return this.closestFilledItem(parent, checked);
             else return element;
+        },
+        throwStatusAppliedEvent: function(event) {
+            this.$emit('status-applied', event);
+        },
+        removeItem: function(id: number): void {
+            this.$emit('item-removed', { id });
+        },
+        throwItemRemovedEvent: function(event) {
+            this.$emit('item-removed', event);
         }
     }
 }

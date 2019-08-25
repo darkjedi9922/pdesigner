@@ -29,12 +29,14 @@
 <script lang="ts">
 import Vue from 'vue'
 import mainStore from '../stores/main';
+import Contextmenu from './contextmenu';
 import $ from 'jquery';
 
 export default {
     props: {
         data: Object
     },
+    components: { Contextmenu },
     data: function() {
         return {
             store: mainStore,
@@ -52,7 +54,7 @@ export default {
     },
     mounted: function() {
         this.colorId = this.data.colorId; // свойства Vue.props изменять "нельзя", поэтому используем Vue.data
-        if (this.data.isNew) // Устанавливается в $root при добавлении новой группы
+        if (this.data.isNew) // Устанавливается при добавлении новой группы
             this.startEditingTitle();
     },
     methods: {
@@ -92,7 +94,7 @@ export default {
             elem.focus();
         },
         deleteGroup() {
-            this.$root.deleteGroup(this.data.id);
+            this.$emit('removed');
         }
     }
 }

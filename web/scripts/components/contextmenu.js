@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import $ from 'jquery';
 
 /**
@@ -6,7 +5,7 @@ import $ from 'jquery';
  * Замечание: если вкладывать контекстные меню друг в друга, дочерние работать не будут.
  * Для этого нужно делать их полностью независимыми и связывать их через параметр for.
  */
-Vue.component('contextmenu', {
+export default {
     props: {
         /**
          * Id элемента к которому привязан компонент.
@@ -78,4 +77,4 @@ Vue.component('contextmenu', {
             visibility: (checked ? \'visible\' : \'hidden\'),\
             position: \'absolute\' }">\
         <slot></slot></div>'
-});
+};

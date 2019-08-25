@@ -10,7 +10,7 @@
                 <a :href="store.tasks.links.getEdit(id)" class="todo-contextmenu__item">
                     <i class="icon edit"></i>Редактировать
                 </a>
-                <a @click="$root.deleteItem(id)" class="todo-contextmenu__item"><i class="icon trash"></i>Удалить</a>
+                <a @click="remove" class="todo-contextmenu__item"><i class="icon trash"></i>Удалить</a>
             </contextmenu>
             <todo-status-icon 
                 :status="theStatus"
@@ -40,6 +40,7 @@ import Vue from 'vue';
 import mainStore from '../stores/main';
 import TodoStatusIcon from './TodoStatusIcon';
 import Component from 'vue-class-component';
+import Contextmenu from './contextmenu';
 import { IssueStatus, findStatusById } from '../models';
 
 const TodoListProps = Vue.extend({
@@ -54,7 +55,7 @@ const TodoListProps = Vue.extend({
 })
 
 @Component({
-    components: { TodoStatusIcon },
+    components: { TodoStatusIcon, Contextmenu },
     computed: {
         statusChecked: function() {
             return IssueStatus[findStatusById(this.theStatus)].checked;
@@ -65,7 +66,6 @@ export default class TodoListItem extends TodoListProps {
     store = mainStore;
     theStatus: number = this.status;
     
-    $root: any;
     IssueStatus = IssueStatus;
 
     setStatus(status: number): void {
@@ -75,6 +75,10 @@ export default class TodoListItem extends TodoListProps {
                 status: status
             });
         });
+    }
+
+    remove(): void {
+        this.$emit('removed');
     }
 };
 </script>

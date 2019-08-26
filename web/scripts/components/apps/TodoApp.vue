@@ -38,27 +38,29 @@ export default {
     data: function() {
         return {
             store: mainStore,
-            treeList: []
+            treeList: [],
+            theGroups: {}
         }
     },
     computed: {
         listedGroups: function() {
             // Подготавливаем объекты групп
-            for (var id in this.groups) this.$set(this.groups[id], 'list', []);
+            for (var id in this.theGroups) this.$set(this.theGroups[id], 'list', []);
 
             // Добавляем итемы первого поколения в группы
             for (var i = 0; i < this.treeList.length; ++i) {
                 var parentItem = this.treeList[i];
-                this.groups[parentItem.groupId].list.push(parentItem);
+                this.theGroups[parentItem.groupId].list.push(parentItem);
             }
 
-            // Возвращать все время this.groups нельзя - Vue будет видеть что это
+            // Возвращать все время this.theGroups нельзя - Vue будет видеть что это
             // всегда один и тот же объект и зависящие от listedGroups части не
-            // будут обновляться. Поэтому будем всегда возвращать копию this.groups. 
-            return {...this.groups};
+            // будут обновляться. Поэтому будем всегда возвращать копию this.theGroups. 
+            return {...this.theGroups};
         }
     },
     mounted: function() {
+        this.theGroups = this.groups;
         this.treeList = this.getTreeList(this.list, 0);
     },
     methods: {
@@ -119,7 +121,7 @@ export default {
                         colorId: data.color_id,
                         isNew: true
                     };
-                    this.groups = {...this.groups, ...newGroups };
+                    this.theGroups = {...this.theGroups, ...newGroups };
                 }
             });
         },
@@ -129,8 +131,8 @@ export default {
 
             // Удаляем из JS
             var groups = {};
-            for (var id in this.groups) if (id != groupId) groups[id] = this.groups[id];
-            this.groups = groups;
+            for (var id in this.theGroups) if (id != groupId) groups[id] = this.theGroups[id];
+            this.theGroups = groups;
         }
     }
 };

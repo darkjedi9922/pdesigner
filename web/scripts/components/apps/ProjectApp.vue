@@ -38,11 +38,6 @@ export default {
         mode: String,
         token: String
     },
-    data: function() {
-        return {
-            theMode: this.mode
-        }
-    },
     components: { TodoApp },
     methods: {
         decode

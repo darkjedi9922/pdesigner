@@ -11,7 +11,7 @@ use yii\helpers\Url;
 <script>
     var _projectAppData = {
         projectId: <?= $project->id ?>,
-        description: '<?= str_replace(["\r", "\n"], ['\r', '\n'], $desc->description) ?>',
+        description: '<?= $desc ? str_replace(["\r", "\n"], ['\r', '\n'], $desc->description) : '' ?>',
         list: [<?php foreach ($issues as $issue): ?>{
             id: <?= $issue->id ?>,
             number: <?= $issue->number ?>,

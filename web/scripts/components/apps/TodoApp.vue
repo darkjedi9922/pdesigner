@@ -21,6 +21,7 @@ import Vue from 'vue';
 import taskMixin from '../../mixins/task';
 import mainStore from '../../stores/main';
 import VueTodo from  '../VueTodo';
+import { AddGroupPayload } from '../../store';
 import $ from 'jquery';
 
 export default {
@@ -110,10 +111,9 @@ export default {
             return itemIds;
         },
         addGroup: function() {
-            $.ajax({
-                url: this.store.groups.links.getAdd(this.projectId),
-                success: (data) => {
-                    data = JSON.parse(data);
+            this.$store.dispatch('addGroup', <AddGroupPayload>{
+                projectId: this.projectId,
+                successCallback: (data) => {
                     let newGroups = {};
                     newGroups[data.id] = {
                         id: data.id,
@@ -123,17 +123,18 @@ export default {
                     };
                     this.theGroups = {...this.theGroups, ...newGroups };
                 }
-            });
+            })
         },
         deleteGroup: function(groupId) {
             // Удаляем из БД
-            $.ajax({ url: this.store.groups.links.getDelete(groupId) });
+            this.$store.dispatch('deleteGroup', groupId);
 
             // Удаляем из JS
             var groups = {};
-            for (var id in this.theGroups) if (id != groupId) groups[id] = this.theGroups[id];
+            for (var id in this.theGroups) 
+                if (id != groupId) groups[id] = this.theGroups[id];
             this.theGroups = groups;
         }
     }
-};
+}
 </script>

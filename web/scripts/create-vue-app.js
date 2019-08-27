@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import store from './store';
 
 Vue.config.productionTip = false;
 
@@ -10,7 +11,8 @@ export default function(vueComponent, selector, props) {
     var elements = document.querySelectorAll(selector);
     elements.forEach((el) => {
         new Vue({
-            el: el,
+            el,
+            store,
             render: function (createElement) {
                 return createElement(vueComponent, {
                     props: props

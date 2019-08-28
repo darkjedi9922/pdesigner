@@ -16,7 +16,29 @@
             <div class="box">
                 <div class="task-toolbar task-toolbar--vertical">
                     <a :href="urlEditProject" class="task-toolbar__button">Редактировать проект</a>
-                    <a :href="urlDeleteProject" class="task-toolbar__button task-toolbar__button--bad">Удалить проект</a>
+                    <a @click="showDeleteProjectConfirm" class="task-toolbar__button task-toolbar__button--bad">Удалить проект</a>
+                </div>
+            </div>
+        </div>
+        <div class="ui basic mini modal" ref="projectDeleteConfirmationModal">
+            <h2 class="ui icon header">
+                <i class="trash icon"></i>
+                <div class="content">Удалить проект</div>
+            </h2>
+            <div class="content">
+                <p>
+                    Все содержимое проекта будет удалено.
+                    Вы уверены что хотите удалить проект без возможности восстановления?
+                </p>
+            </div>
+            <div class="actions">
+                <div class="ui basic cancel inverted button">
+                    <i class="cancel icon"></i>
+                    Отмена
+                </div>
+                <div class="ui red approve inverted button">
+                    <i class="trash icon"></i>
+                    Удалить
                 </div>
             </div>
         </div>
@@ -26,6 +48,7 @@
 <script lang="ts">
 import TodoApp from './TodoApp'; 
 import { decode } from '../../htmlspecialchars';
+import $ from 'jquery';
 
 export default {
     props: {
@@ -40,7 +63,14 @@ export default {
     },
     components: { TodoApp },
     methods: {
-        decode
+        decode,
+        showDeleteProjectConfirm() {
+            ($(this.$refs.projectDeleteConfirmationModal) as any)
+                .modal({
+                    onApprove: () => document.location.href = this.urlDeleteProject
+                })
+                .modal('show');
+        }
     }
 }
 </script>

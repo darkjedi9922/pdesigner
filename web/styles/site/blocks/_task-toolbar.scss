@@ -7,6 +7,10 @@
         border: solid 1px;
         min-width: 200px;
         
+        &:hover {
+            cursor: pointer;
+        }
+
         @include light-button-colors($form-button-color);
 
         &--good {

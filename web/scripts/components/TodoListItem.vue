@@ -10,7 +10,7 @@
                 <a :href="store.tasks.links.getEdit(id)" class="todo-contextmenu__item">
                     <i class="icon edit"></i>Редактировать
                 </a>
-                <a @click="remove" class="todo-contextmenu__item"><i class="icon trash"></i>Удалить</a>
+                <a @click="$refs.deleteConfirm.show()" class="todo-contextmenu__item"><i class="icon trash"></i>Удалить</a>
             </contextmenu>
             <todo-status-icon 
                 :status="theStatus"
@@ -32,6 +32,13 @@
             >#{{ number }} {{ title }}</a>
         </div>
         <slot name="sublist"></slot>
+        <delete-confirm-modal
+            ref="deleteConfirm"
+            title="Удалить задачу"
+            desc="Все подзадачи также будут удалены. Вы уверены, что хотите удалить
+                задачу без возможности восстановления?"
+            @approved="remove"
+        ></delete-confirm-modal>
     </div>
 </template>
 
@@ -42,6 +49,7 @@ import TodoStatusIcon from './TodoStatusIcon';
 import Component from 'vue-class-component';
 import Contextmenu from './contextmenu';
 import { IssueStatus, findStatusById } from '../models';
+import DeleteConfirmModal from './DeleteConfirmModal';
 
 const TodoListProps = Vue.extend({
     props: {
@@ -55,7 +63,7 @@ const TodoListProps = Vue.extend({
 })
 
 @Component({
-    components: { TodoStatusIcon, Contextmenu },
+    components: { TodoStatusIcon, Contextmenu, DeleteConfirmModal },
     computed: {
         statusChecked: function() {
             return IssueStatus[findStatusById(this.theStatus)].checked;

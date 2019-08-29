@@ -20,7 +20,7 @@
                 <div class="task-toolbar task-toolbar--vertical">
                     <a :href="addItemUrl" class="task-toolbar__button task-toolbar__button--good">Добавить подзадачу</a>
                     <a :href="editItemUrl" class="task-toolbar__button">Редактировать</a>
-                    <a :href="deleteItemUrl" class="task-toolbar__button task-toolbar__button--bad">Удалить</a>
+                    <a @click="$refs.deleteConfirm.show()" class="task-toolbar__button task-toolbar__button--bad">Удалить</a>
                 </div>
             </div>
             <div class="box">
@@ -39,6 +39,13 @@
                 </div>
             </div>
         </div>
+        <delete-confirm-modal
+            ref="deleteConfirm"
+            title="Удалить задачу"
+            desc="Все подзадачи также будут удалены. Вы уверены, что хотите удалить
+                задачу без возможности восстановления?"
+            @approved="remove"
+        ></delete-confirm-modal>
     </div>
 </template>
 
@@ -49,6 +56,7 @@ import taskMixin from '../../mixins/task';
 import markMixin from '../../mixins/mark';
 import TodoStatusIcon from '../TodoStatusIcon';
 import IssueParentsBoards from '../IssueParentsBoards';
+import DeleteConfirmModal from '../DeleteConfirmModal';
 import { IssueStatus } from '../../models';
 import { decode } from '../../htmlspecialchars';
 
@@ -68,7 +76,7 @@ const IssueAppProps = Vue.extend({
 });
 
 @Component({
-    components: { TodoStatusIcon, IssueParentsBoards }
+    components: { TodoStatusIcon, IssueParentsBoards, DeleteConfirmModal }
 })
 export default class IssueApp extends mixins(IssueAppProps, taskMixin, markMixin) {
     theStatus: number = this.status;
@@ -78,6 +86,10 @@ export default class IssueApp extends mixins(IssueAppProps, taskMixin, markMixin
 
     mounted(): void {
         this.markdown('.issue__text');
+    }
+
+    remove(): void {
+        document.location.href = this.deleteItemUrl;
     }
 } 
 </script>

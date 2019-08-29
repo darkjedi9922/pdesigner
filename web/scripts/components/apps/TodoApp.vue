@@ -134,6 +134,15 @@ export default {
             for (var id in this.theGroups) 
                 if (id != groupId) groups[id] = this.theGroups[id];
             this.theGroups = groups;
+
+            // Задачи этой группы тоже нужно удалить вместе с ней
+            var list = [];
+            this.list.forEach(item => {
+                if (item.groupId != groupId) list.push(item);
+            });
+            this.list = list;
+            // Так как treeList это data, само оно не обновится...
+            this.treeList = this.getTreeList(this.list, 0);
         }
     }
 }

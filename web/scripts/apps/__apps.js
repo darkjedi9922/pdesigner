@@ -3,7 +3,7 @@ import EditTaskForm from './../components/EditTaskForm';
 import AddTaskForm from './../components/AddTaskForm';
 import EditProjectForm from './../components/EditProjectForm';
 import AddProjectForm from './../components/AddProjectForm';
-import IssueApp from './../components/IssueApp';
+import IssueApp from './../components/apps/IssueApp';
 import DashboardApp from '../components/apps/DashboardApp';
 import ProjectApp from '../components/apps/ProjectApp';
 

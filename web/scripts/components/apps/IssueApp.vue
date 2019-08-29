@@ -45,12 +45,12 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component, { mixins } from 'vue-class-component';
-import taskMixin from '../mixins/task';
-import markMixin from '../mixins/mark';
-import TodoStatusIcon from './TodoStatusIcon';
-import IssueParentsBoards from './IssueParentsBoards';
-import { IssueStatus } from '../models';
-import { decode } from '../htmlspecialchars';
+import taskMixin from '../../mixins/task';
+import markMixin from '../../mixins/mark';
+import TodoStatusIcon from '../TodoStatusIcon';
+import IssueParentsBoards from '../IssueParentsBoards';
+import { IssueStatus } from '../../models';
+import { decode } from '../../htmlspecialchars';
 
 const IssueAppProps = Vue.extend({
     props: {

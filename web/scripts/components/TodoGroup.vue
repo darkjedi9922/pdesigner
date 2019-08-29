@@ -20,9 +20,16 @@
                     </span>
                     <span class="todo-contextmenu__item" @click="startEditingTitle"><i class="icon pencil alternate"></i>Изменить название</span>
                     <a :href="store.groups.links.getAddTask(data.id)" class="todo-contextmenu__item"><i class="icon add"></i>Добавить задачу</a>
-                    <span class="todo-contextmenu__item" @click="deleteGroup"><i class="icon trash"></i>Удалить группу</span>
+                    <span class="todo-contextmenu__item" @click="$refs.deleteGroupConfirm.show()"><i class="icon trash"></i>Удалить группу</span>
                 </contextmenu>
             </span>
+            <delete-confirm-modal
+                ref="deleteGroupConfirm"
+                title="Удалить группу задач"
+                desc="Все содержимое группы будет удалено. Вы уверены, что хотите
+                    удалить группу?"
+                @approved="deleteGroup"
+            ></delete-confirm-modal>
         </div>
 </template>
 
@@ -30,13 +37,14 @@
 import Vue from 'vue'
 import mainStore from '../stores/main';
 import Contextmenu from './contextmenu';
+import DeleteConfirmModal from './DeleteConfirmModal';
 import $ from 'jquery';
 
 export default {
     props: {
         data: Object
     },
-    components: { Contextmenu },
+    components: { Contextmenu, DeleteConfirmModal },
     data: function() {
         return {
             store: mainStore,

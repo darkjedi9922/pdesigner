@@ -40,4 +40,9 @@ class IssueGroup extends ActiveRecord
     {
         return Project::findOne($this->project_id);
     }
+
+    public function delete()
+    {
+        static::remove($this->id);
+    }
 }

@@ -20,33 +20,20 @@
                 </div>
             </div>
         </div>
-        <div class="ui basic mini modal" ref="projectDeleteConfirmationModal">
-            <h2 class="ui icon header">
-                <i class="trash icon"></i>
-                <div class="content">Удалить проект</div>
-            </h2>
-            <div class="content">
-                <p>
-                    Все содержимое проекта будет удалено.
-                    Вы уверены, что хотите удалить проект без возможности восстановления?
-                </p>
-            </div>
-            <div class="actions">
-                <div class="ui basic cancel inverted button">
-                    <i class="cancel icon"></i>
-                    Отмена
-                </div>
-                <div class="ui red approve inverted button">
-                    <i class="trash icon"></i>
-                    Удалить
-                </div>
-            </div>
+        <delete-confirm-modal
+            ref="projectDeleteConfirmationModal"
+            title="Удалить проект"
+            desc="Все содержимое проекта будет удалено. Вы уверены, что хотите 
+                удалить проект без возможности восстановления?"
+            @approved="deleteProject"
+        ></delete-confirm-modal>
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import TodoApp from './TodoApp'; 
+import DeleteConfirmModal from '../DeleteConfirmModal';
 import { decode } from '../../htmlspecialchars';
 import $ from 'jquery';
 
@@ -61,15 +48,14 @@ export default {
         mode: String,
         token: String
     },
-    components: { TodoApp },
+    components: { TodoApp, DeleteConfirmModal },
     methods: {
         decode,
         showDeleteProjectConfirm() {
-            ($(this.$refs.projectDeleteConfirmationModal) as any)
-                .modal({
-                    onApprove: () => document.location.href = this.urlDeleteProject
-                })
-                .modal('show');
+            this.$refs.projectDeleteConfirmationModal.show();
+        },
+        deleteProject() {
+            document.location.href = this.urlDeleteProject;
         }
     }
 }

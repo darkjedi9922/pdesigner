@@ -130,10 +130,7 @@ export default {
             this.$store.dispatch('deleteGroup', groupId);
 
             // Удаляем из JS
-            var groups = {};
-            for (var id in this.theGroups) 
-                if (id != groupId) groups[id] = this.theGroups[id];
-            this.theGroups = groups;
+            delete this.theGroups[groupId];
 
             // Задачи этой группы тоже нужно удалить вместе с ней
             var list = [];

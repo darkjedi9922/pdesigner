@@ -22,7 +22,8 @@
 @import 'site/blocks/project-logo';
 @import 'site/blocks/project-atb';
 @import 'site/blocks/menu';
-@import 'site/blocks//todo-item';
+@import 'site/blocks/todo-item';
+@import 'site/blocks/boxes';
 
 html, body {
     height: 100%;
@@ -51,22 +52,6 @@ code {
     flex-grow: 1;
     height: 100%;
     box-sizing: border-box;
-}
-.boxes {
-    display: flex;
-    align-items: flex-start;
-
-    &:not(:first-of-type) {
-        margin-top: 15px;
-    }
-    &__item {
-        &:not(:first-of-type) {
-            margin-left: 15px;
-        }
-        &--main {
-            flex-grow: 1;
-        }
-    }
 }
 
 .todo-list {

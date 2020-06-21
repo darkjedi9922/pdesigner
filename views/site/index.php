@@ -61,6 +61,6 @@ $isLogged = !Yii::$app->user->isGuest;
     <div class="footer landing__footer">
         <span class="footer__powered">Powered with Yii 2 Framework</span>
         <span class="footer__created">Created by Jed Sidious Alex Everdeen Dark</span>
-        <span class="footer__time">2018 - 2019</span>
+        <span class="footer__time">2018 - 2020</span>
     </div>
 </div>

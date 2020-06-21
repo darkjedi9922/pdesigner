@@ -1,6 +1,6 @@
 <template>
     <div class="ui basic mini modal" ref="projectDeleteConfirmationModal">
-        <h2 class="ui icon header">
+        <h2 class="ui icon header center aligned">
             <i class="trash icon"></i>
             <div class="content">{{ title }}</div>
         </h2>

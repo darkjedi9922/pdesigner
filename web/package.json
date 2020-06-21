@@ -9,6 +9,7 @@
     "@types/jquery": "^3.3.30",
     "acorn": "^6.1.1",
     "babel-loader": "^8.0.6",
+    "classnames": "^2.2.6",
     "css-loader": "^3.0.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "jquery": "^3.4.1",

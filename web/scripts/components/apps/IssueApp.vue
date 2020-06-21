@@ -14,6 +14,13 @@
                     <span class="issue__text" v-if="text">{{ decode(text) }}</span>
                 </div>
             </div>
+            <breadcrumbs v-if="hasChildren" :items="[{ name: 'Подзадачи'}]"></breadcrumbs>
+            <div v-if="hasChildren" class="box">
+                <todo-list 
+                    :list="children"
+                    :parentItemId="id"
+                ></todo-list>
+            </div>
         </div>
         <div class="boxes__item">
             <div class="box">
@@ -59,6 +66,9 @@ import IssueParentsBoards from '../IssueParentsBoards';
 import DeleteConfirmModal from '../DeleteConfirmModal';
 import { IssueStatus } from '../../models';
 import { decode } from '../../htmlspecialchars';
+import TodoList from '../TodoList';
+import Breadcrumbs from '../Breadcrumbs';
+import $ from 'jquery';
 
 const IssueAppProps = Vue.extend({
     props: {
@@ -76,16 +86,33 @@ const IssueAppProps = Vue.extend({
 });
 
 @Component({
-    components: { TodoStatusIcon, IssueParentsBoards, DeleteConfirmModal }
+    components: {
+        TodoStatusIcon,
+        IssueParentsBoards,
+        DeleteConfirmModal,
+        TodoList,
+        Breadcrumbs
+    }
 })
 export default class IssueApp extends mixins(IssueAppProps, taskMixin, markMixin) {
     theStatus: number = this.status;
+    children = [];
     IssueStatus = IssueStatus;
-
     decode = decode;
+
+    get hasChildren(): boolean {
+        return this.children.length !== 0; 
+    }
 
     mounted(): void {
         this.markdown('.issue__text');
+        $.ajax({
+            url: '/todo/children',
+            method: 'get',
+            data: { id: this.id },
+            dataType: 'json',
+            success: (result) => this.children = result
+        })
     }
 
     remove(): void {

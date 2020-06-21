@@ -4,6 +4,7 @@
     font-family: $font;
     font-size: 1.25rem;
     font-style: normal;
+
     &__section {
         font-weight: bold;
         text-decoration: none;
@@ -18,5 +19,9 @@
     &__divisor::before {
         content: '/';
         color: darkgray;
+    }
+
+    &:not(:first-child) {
+        margin-top: 15px;
     }
 }

@@ -114,4 +114,12 @@ class Issue extends ActiveRecord
         }
         return $result;
     }
+
+    /**
+     * @return Issue[]
+     */
+    public function loadChildren(): array
+    {
+        return Issue::findAll(['parent_issue_id' => $this->id]);
+    }
 }
